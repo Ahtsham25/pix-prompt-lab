@@ -16,6 +16,14 @@
       "prompt_text": "Create a high-contrast close-up portrait of the referenced man. The image should depict only the left half of his face, partially submerge in water, with fire and ice droplets and bubbles visible on his skin and hair. Illuminate the left side of the face dramatically, casting the rest into deep shadow. dark background. detail in skin texture beard stubble, and eye focus to evoke a moody cinematic atmosphere. 3:4 orientation. Make it warm color, use my face details from uploaded photo.",
       "image_url": "https://archive.org/download/1786460590554/1786460590554.png",
       "tags": ["portrait", "cinematic", "fire and ice", "water", "moody"]
+    },
+    {
+      "id": "p003",
+      "category": "Portrait",
+      "title": "14th August Independence Day Poster",
+      "prompt_text": "A vertical Pakistan Independence Day poster design, 14th August theme. A young man with wavy black hair, light beard, wearing a white kurta with a green and white striped scarf/stole draped around his neck, standing confidently, looking at camera with a slight smile. Background shows Minar-e-Pakistan & Qayed Azam mazar monument on the left, a large waving Pakistani flag (dark green with white crescent moon and star, white vertical stripe) on the right side, golden fireworks bursting in the sky, green confetti/paper pieces falling across the frame, warm golden-green cinematic lighting, soft bokeh effect. Bold text art is best to me on my phone I can find out my account and your mom a top left \"14th AUGUST — INDEPENDENCE DAY\" in white/gold. Bottom section has decorative Urdu calligraphy line, below it bold text \"PROUD TO BE PAKISTANI\" in white and green gradient. Portrait/poster style, high detail, professional photo-manipulation, patriotic aesthetic, 9:16 aspect ratio.",
+      "image_url": "https://archive.org/download/file_00000000ec0081fa940d04e39238a9f0/file_00000000ec0081fa940d04e39238a9f0.png",
+      "tags": ["portrait", "patriotic", "14th august", "independence day", "pakistan"]
     }
   ]
 }
