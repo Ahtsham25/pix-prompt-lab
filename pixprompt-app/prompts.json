@@ -1,1 +1,21 @@
-
+{
+  "categories": ["Trending", "Portrait", "Cinematic", "Fantasy", "Product", "Nature"],
+  "prompts": [
+    {
+      "id": "p001",
+      "category": "Portrait",
+      "title": "Golden Hour Portrait",
+      "prompt_text": "A cinematic close-up portrait of a young woman during golden hour, warm sunlight rim-lighting her hair, soft bokeh background, shot on 85mm lens, ultra realistic, film grain, 8k detail.",
+      "image_url": "https://archive.org/download/YOUR_ITEM_ID/your-image-1.png",
+      "tags": ["portrait", "golden hour", "cinematic"]
+    },
+    {
+      "id": "p002",
+      "category": "Cinematic",
+      "title": "Rainy Neon City",
+      "prompt_text": "A moody cinematic wide shot of a rain-soaked city street at night, neon signs reflecting on wet pavement, cyberpunk atmosphere, volumetric fog, dramatic lighting, 8k, hyper detailed.",
+      "image_url": "https://archive.org/download/YOUR_ITEM_ID/your-image-2.png",
+      "tags": ["cinematic", "city", "neon", "night"]
+    }
+  ]
+}
