@@ -3,19 +3,19 @@
   "prompts": [
     {
       "id": "p001",
-      "category": "Portrait",
-      "title": "Golden Hour Portrait",
-      "prompt_text": "A cinematic close-up portrait of a young woman during golden hour, warm sunlight rim-lighting her hair, soft bokeh background, shot on 85mm lens, ultra realistic, film grain, 8k detail.",
-      "image_url": "https://archive.org/download/YOUR_ITEM_ID/your-image-1.png",
-      "tags": ["portrait", "golden hour", "cinematic"]
+      "category": "Cinematic",
+      "title": "Fiery Power Stance",
+      "prompt_text": "Dramatic scene of a man standing proudly surrounded by strong flames, his arms emitting flames in gradient colors of red, blue and red, dynamic energy with oversized white t-shirt, camouflage shorts, and black converse shoes, dark background to enhance the contrast of fire and movement, cultural performance feel, high detail, cinematic lighting, and fast shutter photography style",
+      "image_url": "https://archive.org/download/1786460046439/1786460046439.png",
+      "tags": ["cinematic", "fire", "action", "flames", "portrait"]
     },
     {
       "id": "p002",
-      "category": "Cinematic",
-      "title": "Rainy Neon City",
-      "prompt_text": "A moody cinematic wide shot of a rain-soaked city street at night, neon signs reflecting on wet pavement, cyberpunk atmosphere, volumetric fog, dramatic lighting, 8k, hyper detailed.",
-      "image_url": "https://archive.org/download/YOUR_ITEM_ID/your-image-2.png",
-      "tags": ["cinematic", "city", "neon", "night"]
+      "category": "Portrait",
+      "title": "Fire and Ice Submerged Portrait",
+      "prompt_text": "Create a high-contrast close-up portrait of the referenced man. The image should depict only the left half of his face, partially submerge in water, with fire and ice droplets and bubbles visible on his skin and hair. Illuminate the left side of the face dramatically, casting the rest into deep shadow. dark background. detail in skin texture beard stubble, and eye focus to evoke a moody cinematic atmosphere. 3:4 orientation. Make it warm color, use my face details from uploaded photo.",
+      "image_url": "https://archive.org/download/1786460590554/1786460590554.png",
+      "tags": ["portrait", "cinematic", "fire and ice", "water", "moody"]
     }
   ]
 }
