@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/bottomNavBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="72dp"
         android:background="@drawable/bottom_nav_bg"
         android:orientation="horizontal"
         android:paddingTop="10dp"
-        android:elevation="12dp">
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/tabExplore"
