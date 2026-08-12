@@ -25,7 +25,5 @@ object Constants {
     // your own server, etc.) — the app fetches this at runtime via
     // Retrofit, so updating this file updates the app instantly for
     // everyone, with no new APK/reinstall needed.
-    const val PROMPTS_JSON_URL =
-        "const val PROMPTS_JSON_URL =
-    "https://raw.githubusercontent.com/Ahtsham25/pix-prompt-lab/main/pixprompt-app/prompts.json"
+    const val PROMPTS_JSON_URL = "https://raw.githubusercontent.com/Ahtsham25/pix-prompt-lab/main/pixprompt-app/prompts.json"
 }
