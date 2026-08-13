@@ -77,7 +77,7 @@
             <FrameLayout
                 android:id="@+id/detailImageCard"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -87,9 +87,12 @@
                 <ImageView
                     android:id="@+id/detailImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="340dp"
+                    android:minHeight="180dp"
                     android:background="@drawable/image_placeholder"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="fitCenter" />
 
                 <ImageButton
                     android:id="@+id/detailBookmarkButton"
@@ -201,6 +204,16 @@
                     android:padding="9dp"
                     android:src="@drawable/ic_copy_small" />
             </LinearLayout>
+
+            <!-- Inline banner ad: shown between the copied prompt and Try Gemini/ChatGPT -->
+            <FrameLayout
+                android:id="@+id/detailInlineAdContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone" />
 
             <!-- Try Gemini / Try ChatGPT -->
             <LinearLayout
