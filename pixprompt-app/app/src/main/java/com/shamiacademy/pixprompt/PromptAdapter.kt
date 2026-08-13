@@ -12,7 +12,7 @@ class PromptAdapter(
     private val onBookmarkClick: (Prompt, PromptViewHolder) -> Unit
 ) : RecyclerView.Adapter<PromptAdapter.PromptViewHolder>() {
 
-    inner class PromptViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+    class PromptViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val image: android.widget.ImageView = itemView.findViewById(R.id.promptImage)
         val title: android.widget.TextView = itemView.findViewById(R.id.promptTitle)
         val category: android.widget.TextView = itemView.findViewById(R.id.promptCategory)

@@ -41,7 +41,7 @@ class PromptDetailActivity : AppCompatActivity() {
             .load(imageUrl)
             .placeholder(R.drawable.image_placeholder)
             .error(R.drawable.image_placeholder)
-            .centerCrop()
+            .fitCenter()
             .into(binding.detailImage)
 
         updateBookmarkIcon()
@@ -57,6 +57,7 @@ class PromptDetailActivity : AppCompatActivity() {
 
         binding.copyIconButton.setOnClickListener {
             copyToClipboard(promptText)
+            AdsManager.maybeShowInterstitial(this)
         }
 
         binding.tryGeminiButton.setOnClickListener {
@@ -85,14 +86,16 @@ class PromptDetailActivity : AppCompatActivity() {
     /** Fake "AI processing" delay before revealing the (already-known) prompt text. */
     private fun runGenerateFlow() {
         binding.resultBox.visibility = View.GONE
+        binding.detailInlineAdContainer.visibility = View.GONE
         binding.tryAiRow.visibility = View.GONE
         binding.processingBar.visibility = View.VISIBLE
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.processingBar.visibility = View.GONE
             binding.resultBox.visibility = View.VISIBLE
+            binding.detailInlineAdContainer.visibility = View.VISIBLE
+            AdsManager.loadBanner(this, binding.detailInlineAdContainer)
             binding.tryAiRow.visibility = View.VISIBLE
-            AdsManager.maybeShowInterstitial(this)
         }, 1500L)
     }
 

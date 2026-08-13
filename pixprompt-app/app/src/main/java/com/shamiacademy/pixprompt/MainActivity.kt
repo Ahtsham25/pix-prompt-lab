@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var promptAdapter: PromptAdapter
+    private lateinit var promptAdapter: ExploreGridAdapter
 
     private var allPrompts: List<Prompt> = emptyList()
     private var categories: List<String> = listOf("All")
@@ -44,13 +44,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecycler() {
-        promptAdapter = PromptAdapter(
-            items = emptyList(),
+        promptAdapter = ExploreGridAdapter(
+            activity = this,
+            prompts = emptyList(),
             isFavorite = { id -> PrefsHelper.isFavorite(this, id) },
             onClick = { prompt -> openDetail(prompt) },
             onBookmarkClick = { prompt, holder ->
                 val nowFavorite = PrefsHelper.toggleFavorite(this, prompt.id)
-                promptAdapter.updateBookmarkIcon(holder, nowFavorite)
+                holder.bookmark.setImageResource(
+                    if (nowFavorite) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border
+                )
                 Toast.makeText(
                     this,
                     if (nowFavorite) getString(R.string.bookmarked) else getString(R.string.unbookmarked),
@@ -58,7 +61,13 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         )
-        binding.promptRecycler.layoutManager = GridLayoutManager(this, 2)
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (promptAdapter.getItemViewType(position) == ExploreGridAdapter.TYPE_AD) 2 else 1
+            }
+        }
+        binding.promptRecycler.layoutManager = gridLayoutManager
         binding.promptRecycler.adapter = promptAdapter
     }
 
@@ -108,7 +117,15 @@ class MainActivity : AppCompatActivity() {
     private fun applyFilters() {
         var filtered = allPrompts
 
-        if (selectedCategory != "All") {
+        if (selectedCategory.equals("Trending", ignoreCase = true)) {
+            // "Trending" is special: show any prompt whose tags include
+            // "Trending", regardless of its main category — this lets one
+            // image appear both under its normal category AND under Trending.
+            filtered = filtered.filter { prompt ->
+                prompt.tags.any { it.equals("Trending", ignoreCase = true) } ||
+                    prompt.category.equals("Trending", ignoreCase = true)
+            }
+        } else if (selectedCategory != "All") {
             filtered = filtered.filter { it.category.equals(selectedCategory, ignoreCase = true) }
         }
 
