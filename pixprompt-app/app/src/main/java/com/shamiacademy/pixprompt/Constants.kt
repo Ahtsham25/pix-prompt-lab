@@ -11,7 +11,7 @@ object Constants {
 
     // TODO: replace with your real Google Drive privacy policy link
     // (Drive file must be shared as "Anyone with the link can view")
-    const val PRIVACY_POLICY_LINK = "https://drive.google.com/file/d/REPLACE_WITH_YOUR_FILE_ID/view"
+    const val PRIVACY_POLICY_LINK = "https://ahtsham25.github.io/pix-prompt-lab/pixprompt-app/"
 
     const val PLAY_STORE_PACKAGE = "com.shamiacademy.pixprompt"
 
