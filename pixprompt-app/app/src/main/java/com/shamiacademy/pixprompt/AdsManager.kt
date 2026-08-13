@@ -27,10 +27,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 object AdsManager {
 
     // TODO: replace with your real banner ad unit ID
-    private const val BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741"
+    private const val BANNER_AD_UNIT_ID = "ca-app-pub-9508264963334654/1103896314"
 
     // TODO: replace with your real interstitial ad unit ID
-    private const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
+    private const val INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-9508264963334654/4851569630"
 
     private var interstitialAd: InterstitialAd? = null
     private var actionsSinceLastInterstitial = 0
