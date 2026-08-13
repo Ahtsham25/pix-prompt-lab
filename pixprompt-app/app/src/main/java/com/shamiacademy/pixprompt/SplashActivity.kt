@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         ConsentManager.requestConsentInfoUpdate(this)
+        ImageLoaderConfig.setup(this)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
