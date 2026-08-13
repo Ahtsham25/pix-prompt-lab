@@ -17,9 +17,7 @@ android {
 
     signingConfigs {
         release {
-            // These come from environment variables set by GitHub Actions
-            // secrets (see .github/workflows/build-release-aab.yml). They
-            // are never hardcoded or committed to the repo.
+            // Secrets handled by GitHub Actions environment variables
             def ksPath = System.getenv("KEYSTORE_PATH")
             if (ksPath != null) {
                 storeFile file(ksPath)
@@ -53,7 +51,17 @@ android {
 }
 
 dependencies {
+    // AndroidX & Core Libraries
     implementation 'androidx.core:core-ktx:1.12.0'
-    
-    // آپ کی بقیہ لائبریریز (Retrofit, Glide وغیرہ) یہاں آئیں گی
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
+    // Image Loading (Glide)
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    // Networking (Retrofit & Gson)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
