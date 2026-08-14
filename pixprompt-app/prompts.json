@@ -10,6 +10,19 @@
       "tags": ["Trending", "Cinematic", "Patriotic"]
     },
     {
+  "categories": ["Trending", "Portrait", "Cinematic", "Fantasy", "Product", "Nature"],
+  "prompts": [
+    {
+      "id": "prompt_008",
+      "category": "Portrait",
+      "title": "Dramatic Overhead Streetwear Portrait",
+      "prompt_text": "Subject and Attire: A male model in a confident, neutral pose wearing an oversized, red fleece hoodie. The hoodie features a specific design: white, curved seam lines. Setting and Perspective: A dark, minimalist studio setting. The image should be captured from a dramatic, top-down (overhead) perspective. Lighting: A powerful circular spotlight should be positioned directly overhead. This will create deep, defined shadows and a distinct, elongated silhouette of the model on the floor. Composition and Style: The composition should adhere to the rule-of-thirds, with the subject offset. The overall feel must be a moody, editorial, cinematic fashion campaign look. Technical Details: High-contrast lighting with deep blacks and vibrant red highlights. Emphasize realistic skin texture and detailed fabric fibers in the fleece. Use a medium-wide angle lens (e.g., 35mm) with a shallow depth of field (e.g., f/2.8) and low light sensitivity (e.g., ISO 200), simulating a high-end cinema camera look.",
+      "image_url": "Https://archive.org/download/img-20260814-214026/IMG_20260814_214026.png",
+      "tags": ["portrait", "streetwear", "cinematic", "top-down", "spotlight", "red hoodie"]
+    }
+  ]
+    },
+    {
       "id": "prompt_002",
       "category": "Fantasy",
       "title": "Fire and Ice Submerged Portrait",
