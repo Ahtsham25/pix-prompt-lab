@@ -34,12 +34,28 @@
       "tags": ["Trending", "Cinematic", "Golden Hour", "Bokeh"]
     },
     {
-  "id": "prompt_005",
-  "category": "Portrait",
-  "title": "Moody B&W Dodge Charger Street Style",
-  "prompt_text": "Black and white photography, photorealistic, ultra detailed, 4k- a young man in his mid-20s with hairstyle and a beard, wearing black sunglasses, oversized graphic t-shirt with large white gothic \"84\" print, dark baggy cargo jeans, white Nike sneakers, sitting on the trunk lip/ rear spoiler of a white Dodge Charger R/T Scat Pack, rear 3/4 angle view, left leg bent on trunk, right leg hanging down, right hand adjusting sunglasses, left hand resting on knee, looking to the side with a cool attitude, white car with black alloy wheels, black rear spoiler, tinted windows, Dodge Charger badge on trunk, LED taillights, license plate \"01 RAJPUT\", dual exhaust, parked in an empty asphalt parking lot, background blurred- trees, houses, light pole, soccer goal, cloudy bright sky, daytime natural overcast lighting, soft shadows, shallow depth of field, bokeh background, low angle shot, sharp focus on subject and car, vertical portrait composition, Instagram street style, moody, high contrast black and white filter, slight film grain, 100% my face same, zoom in 3:4",
-  "image_url": "https://archive.org/download/1786585896288_202608/1786585896288.jpg",
-  "tags": ["Trending", "Portrait", "Cinematic", "Black and White", "Street Style"]
-}
+      "id": "prompt_005",
+      "category": "Portrait",
+      "title": "Moody B&W Dodge Charger Street Style",
+      "prompt_text": "Black and white photography, photorealistic, ultra detailed, 4k- a young man in his mid-20s with hairstyle and a beard, wearing black sunglasses, oversized graphic t-shirt with large white gothic \"84\" print, dark baggy cargo jeans, white Nike sneakers, sitting on the trunk lip/ rear spoiler of a white Dodge Charger R/T Scat Pack, rear 3/4 angle view, left leg bent on trunk, right leg hanging down, right hand adjusting sunglasses, left hand resting on knee, looking to the side with a cool attitude, white car with black alloy wheels, black rear spoiler, tinted windows, Dodge Charger badge on trunk, LED taillights, license plate \"01 RAJPUT\", dual exhaust, parked in an empty asphalt parking lot, background blurred- trees, houses, light pole, soccer goal, cloudy bright sky, daytime natural overcast lighting, soft shadows, shallow depth of field, bokeh background, low angle shot, sharp focus on subject and car, vertical portrait composition, Instagram street style, moody, high contrast black and white filter, slight film grain, 100% my face same, zoom in 3:4",
+      "image_url": "https://archive.org/download/1786585896288_202608/1786585896288.jpg",
+      "tags": ["Trending", "Portrait", "Cinematic", "Black and White", "Street Style"]
+    },
+    {
+      "id": "prompt_006",
+      "category": "Portrait",
+      "title": "Fireworks at Minar-e-Pakistan",
+      "prompt_text": "A cinematic, high-resolution night photograph capturing a person [Reference Image of Person's Face] standing with a joyful expression near the historic Minar-e-Pakistan in Lahore. The monument is beautifully illuminated with green and white lights. The person is looking upwards at a spectacular display of green and white fireworks bursting across the dark night sky. They are wearing a stylish, contemporary dark green kurta. The atmosphere is electric, filled with celebratory lights from the crowd. Natural film grain, shallow depth of field, sharp focus on the person and the fireworks.",
+      "image_url": "https://archive.org/download/1786684072677/1786684072677.png",
+      "tags": ["Trending", "Portrait", "Patriotic", "Night", "Fireworks"]
+    },
+    {
+      "id": "prompt_007",
+      "category": "Portrait",
+      "title": "Proud with the Flag",
+      "prompt_text": "A powerful, low-angle portrait of a person [Reference Image of Person's Face] standing proudly in a large, sunlit public square, holding a large, waving national flag of Pakistan (dark green with a white crescent and star) on a long wooden pole. The person is dressed in a crisp, white Shalwar Kameez, looking off-camera with a proud, patriotic expression. The background is a gently blurred, enthusiastic Independence Day crowd under a bright blue sky with scattered clouds. Soft, natural daylight, warm tones, and high detail in the flag's texture.",
+      "image_url": "https://archive.org/download/1786684401784/1786684401784.png",
+      "tags": ["Trending", "Portrait", "Patriotic", "Flag", "Daylight"]
+    }
   ]
 }
