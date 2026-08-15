@@ -39,4 +39,9 @@
         <item name="android:layout_height">20dp</item>
         <item name="android:src">@drawable/ic_chevron_right</item>
     </style>
+
+    <style name="RoundedCardImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">14dp</item>
+    </style>
 </resources>
