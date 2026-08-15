@@ -2,6 +2,14 @@
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
     {
+      "id": "prompt_010",
+      "category": "Fantasy",
+      "title": "Surreal Pine Forest Double-Exposure",
+      "prompt_text": "Create an original surreal fine-art double-exposure portrait of a young woman shown in left-facing side profile. Her gaze is directed downward, with one hand raised gently toward her forehead. Give her an elegant, short pixie hairstyle and preserve realistic natural skin detail. Merge her profile organically with a dense evergreen pine woodland. Tall conifer trees should appear to emerge naturally from and around the upper silhouette of her head, accompanied by delicate leafless branches. A group of dark birds should pass through the woman's silhouette and continue outward into the surrounding space, conveying themes of freedom, memories, and emotional release. Use a predominantly monochrome black-and-white photographic treatment, while introducing a restrained warm amber-gold sunrise glow filtering between the trees. The warm light should remain subtle and atmospheric rather than overpowering the monochrome aesthetic. Create a minimalist pale/white surrounding background with soft mist and atmospheric haze. The overall mood should feel mysterious, emotional, dreamlike, elegant, and quietly haunting. Use strong but refined tonal contrast, cinematic illumination, realistic skin texture, fine photographic detail, natural depth, delicate fog diffusion, and seamless double-exposure blending. Keep the composition balanced and visually clean, with the woman's profile remaining clearly recognizable while the forest integrates naturally into her silhouette. Original fine-art photographic interpretation, surreal editorial aesthetic, sophisticated tonal grading, highly detailed textures, crisp primary subject, controlled soft background, cinematic depth, high-resolution photographic realism, vertical portrait composition.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt10.jpg",
+      "tags": ["Fantasy", "Portrait", "Double Exposure", "Surreal", "Nature", "Monochrome"]
+    },
+    {
       "id": "prompt_009",
       "category": "Cinematic",
       "title": "Orange Halo Cyberpunk Fashion Portrait",
