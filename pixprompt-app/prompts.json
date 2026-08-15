@@ -2,12 +2,12 @@
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
     {
-      "id": "prompt_001",
+      "id": "prompt_009",
       "category": "Cinematic",
-      "title": "Fiery Power Stance",
-      "prompt_text": "Dramatic scene of a man standing proudly surrounded by strong flames, his arms emitting flames in gradient colors of red, blue and red, dynamic energy with oversized white t-shirt, camouflage shorts, and black converse shoes, dark background to enhance the contrast of fire and movement, cultural performance feel, high detail, cinematic lighting, and fast shutter photography style",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt1.jpg",
-      "tags": ["Trending", "Cinematic", "Patriotic"]
+      "title": "Orange Halo Cyberpunk Fashion Portrait",
+      "prompt_text": "Create an original, ultra-photorealistic cinematic fashion portrait using the uploaded reference image strictly for facial identity. Preserve exact facial proportions, face shape, eyes, eyebrows, nose, lips, jawline, skin tone, natural skin texture, hairstyle, beard, and overall recognizable appearance. The subject wears a black hoodie beneath a black overcoat and round black sunglasses, with one hand naturally adjusting the sunglasses using two fingers. Head is slightly lowered and turned 35 degrees to the left. Bright glowing orange circular neon light directly behind the head forming a clean halo in a deep black studio environment with subtle atmospheric smoke and floating dust particles. Warm orange rim illumination with soft frontal key light on face, 85mm portrait perspective, f/1.8 shallow depth of field, sharp focus on face, luxury fashion editorial cyberpunk aesthetic, 3:4 vertical composition.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt9.jpg",
+      "tags": ["Cinematic", "Portrait", "Cyberpunk", "Neon", "Fashion", "Studio"]
     },
     {
       "id": "prompt_008",
@@ -18,36 +18,12 @@
       "tags": ["portrait", "streetwear", "cinematic", "top-down", "spotlight", "red hoodie"]
     },
     {
-      "id": "prompt_002",
-      "category": "Fantasy",
-      "title": "Fire and Ice Submerged Portrait",
-      "prompt_text": "Create a high-contrast close-up portrait of the referenced man. The image should depict only the left half of his face, partially submerge in water, with fire and ice droplets and bubbles visible on his skin and hair. Illuminate the left side of the face dramatically, casting the rest into deep shadow. dark background. detail in skin texture beard stubble, and eye focus to evoke a moody cinematic atmosphere. 3:4 orientation. Make it warm color, use my face details from uploaded photo.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt2.jpg",
-      "tags": ["Trending", "Fantasy", "Concept Art"]
-    },
-    {
-      "id": "prompt_003",
+      "id": "prompt_007",
       "category": "Portrait",
-      "title": "14th August Independence Day Poster",
-      "prompt_text": "A vertical Pakistan Independence Day poster design, 14th August theme. A young man with wavy black hair, light beard, wearing a white kurta with a green and white striped scarf/stole draped around his neck, standing confidently, looking at camera with a slight smile. Background shows Minar-e-Pakistan & Qayed Azam mazar monument on the left, a large waving Pakistani flag (dark green with white crescent moon and star, white vertical stripe) on the right side, golden fireworks bursting in the sky, green confetti/paper pieces falling across the frame, warm golden-green cinematic lighting, soft bokeh effect. Top left \"14th AUGUST — INDEPENDENCE DAY\" in white/gold. Bottom section has decorative Urdu calligraphy line, below it bold text \"PROUD TO BE PAKISTANI\" in white and green gradient. Portrait/poster style, high detail, professional photo-manipulation, patriotic aesthetic, 9:16 aspect ratio.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt3.jpg",
-      "tags": ["Trending", "Portrait", "Studio"]
-    },
-    {
-      "id": "prompt_004",
-      "category": "Cinematic",
-      "title": "Cinematic Golden Light Portrait",
-      "prompt_text": "Cinematic close-up portrait of a young man in a white shirt, framed from mid-chest up, occupying most of the frame. His chest and shoulders are angled slightly toward the left side of the frame, while his face is turned toward the right side, looking slightly upward/right, with a calm, thoughtful expression. Messy textured dark hair. Behind him are hanging translucent crinkled cellophane/iridescent metallic foil sheets, creating a shimmering glass-like curtain with vertical folds, reflections and colorful prism highlights. Strong warm golden sunlight passes through the reflective sheets from the right, casting sharp broken leaf-like streaks of golden light and shadow across his face, neck and white shirt, while cool blue light fills the left side. Blue, cyan, purple and amber bokeh in the background, dreamy reflective atmosphere, shallow depth of field, highly detailed cinematic photography, natural skin texture, 4:5 portrait.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt4.jpg",
-      "tags": ["Trending", "Cinematic", "Golden Hour", "Bokeh"]
-    },
-    {
-      "id": "prompt_005",
-      "category": "Portrait",
-      "title": "Moody B&W Dodge Charger Street Style",
-      "prompt_text": "Black and white photography, photorealistic, ultra detailed, 4k- a young man in his mid-20s with hairstyle and a beard, wearing black sunglasses, oversized graphic t-shirt with large white gothic \"84\" print, dark baggy cargo jeans, white Nike sneakers, sitting on the trunk lip/ rear spoiler of a white Dodge Charger R/T Scat Pack, rear 3/4 angle view, left leg bent on trunk, right leg hanging down, right hand adjusting sunglasses, left hand resting on knee, looking to the side with a cool attitude, white car with black alloy wheels, black rear spoiler, tinted windows, Dodge Charger badge on trunk, LED taillights, license plate \"01 RAJPUT\", dual exhaust, parked in an empty asphalt parking lot, background blurred- trees, houses, light pole, soccer goal, cloudy bright sky, daytime natural overcast lighting, soft shadows, shallow depth of field, bokeh background, low angle shot, sharp focus on subject and car, vertical portrait composition, Instagram street style, moody, high contrast black and white filter, slight film grain, 100% my face same, zoom in 3:4",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt5.jpg",
-      "tags": ["Trending", "Portrait", "Cinematic", "Black and White", "Street Style"]
+      "title": "Proud with the Flag",
+      "prompt_text": "A powerful, low-angle portrait of a person [Reference Image of Person's Face] standing proudly in a large, sunlit public square, holding a large, waving national flag of Pakistan (dark green with a white crescent and star) on a long wooden pole. The person is dressed in a crisp, white Shalwar Kameez, looking off-camera with a proud, patriotic expression. The background is a gently blurred, enthusiastic Independence Day crowd under a bright blue sky with scattered clouds. Soft, natural daylight, warm tones, and high detail in the flag's texture.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt7.jpg",
+      "tags": ["Trending", "Portrait", "Patriotic", "Flag", "Daylight"]
     },
     {
       "id": "prompt_006",
@@ -58,12 +34,44 @@
       "tags": ["Trending", "Portrait", "Patriotic", "Night", "Fireworks"]
     },
     {
-      "id": "prompt_007",
+      "id": "prompt_005",
       "category": "Portrait",
-      "title": "Proud with the Flag",
-      "prompt_text": "A powerful, low-angle portrait of a person [Reference Image of Person's Face] standing proudly in a large, sunlit public square, holding a large, waving national flag of Pakistan (dark green with a white crescent and star) on a long wooden pole. The person is dressed in a crisp, white Shalwar Kameez, looking off-camera with a proud, patriotic expression. The background is a gently blurred, enthusiastic Independence Day crowd under a bright blue sky with scattered clouds. Soft, natural daylight, warm tones, and high detail in the flag's texture.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt7.jpg",
-      "tags": ["Trending", "Portrait", "Patriotic", "Flag", "Daylight"]
+      "title": "Moody B&W Dodge Charger Street Style",
+      "prompt_text": "Black and white photography, photorealistic, ultra detailed, 4k- a young man in his mid-20s with hairstyle and a beard, wearing black sunglasses, oversized graphic t-shirt with large white gothic \"84\" print, dark baggy cargo jeans, white Nike sneakers, sitting on the trunk lip/ rear spoiler of a white Dodge Charger R/T Scat Pack, rear 3/4 angle view, left leg bent on trunk, right leg hanging down, right hand adjusting sunglasses, left hand resting on knee, looking to the side with a cool attitude, white car with black alloy wheels, black rear spoiler, tinted windows, Dodge Charger badge on trunk, LED taillights, license plate \"01 RAJPUT\", dual exhaust, parked in an empty asphalt parking lot, background blurred- trees, houses, light pole, soccer goal, cloudy bright sky, daytime natural overcast lighting, soft shadows, shallow depth of field, bokeh background, low angle shot, sharp focus on subject and car, vertical portrait composition, Instagram street style, moody, high contrast black and white filter, slight film grain, 100% my face same, zoom in 3:4",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt5.jpg",
+      "tags": ["Trending", "Portrait", "Cinematic", "Black and White", "Street Style"]
+    },
+    {
+      "id": "prompt_004",
+      "category": "Cinematic",
+      "title": "Cinematic Golden Light Portrait",
+      "prompt_text": "Cinematic close-up portrait of a young man in a white shirt, framed from mid-chest up, occupying most of the frame. His chest and shoulders are angled slightly toward the left side of the frame, while his face is turned toward the right side, looking slightly upward/right, with a calm, thoughtful expression. Messy textured dark hair. Behind him are hanging translucent crinkled cellophane/iridescent metallic foil sheets, creating a shimmering glass-like curtain with vertical folds, reflections and colorful prism highlights. Strong warm golden sunlight passes through the reflective sheets from the right, casting sharp broken leaf-like streaks of golden light and shadow across his face, neck and white shirt, while cool blue light fills the left side. Blue, cyan, purple and amber bokeh in the background, dreamy reflective atmosphere, shallow depth of field, highly detailed cinematic photography, natural skin texture, 4:5 portrait.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt4.jpg",
+      "tags": ["Trending", "Cinematic", "Golden Hour", "Bokeh"]
+    },
+    {
+      "id": "prompt_003",
+      "category": "Portrait",
+      "title": "14th August Independence Day Poster",
+      "prompt_text": "A vertical Pakistan Independence Day poster design, 14th August theme. A young man with wavy black hair, light beard, wearing a white kurta with a green and white striped scarf/stole draped around his neck, standing confidently, looking at camera with a slight smile. Background shows Minar-e-Pakistan & Qayed Azam mazar monument on the left, a large waving Pakistani flag (dark green with white crescent moon and star, white vertical stripe) on the right side, golden fireworks bursting in the sky, green confetti/paper pieces falling across the frame, warm golden-green cinematic lighting, soft bokeh effect. Top left \"14th AUGUST — INDEPENDENCE DAY\" in white/gold. Bottom section has decorative Urdu calligraphy line, below it bold text \"PROUD TO BE PAKISTANI\" in white and green gradient. Portrait/poster style, high detail, professional photo-manipulation, patriotic aesthetic, 9:16 aspect ratio.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt3.jpg",
+      "tags": ["Trending", "Portrait", "Studio"]
+    },
+    {
+      "id": "prompt_002",
+      "category": "Fantasy",
+      "title": "Fire and Ice Submerged Portrait",
+      "prompt_text": "Create a high-contrast close-up portrait of the referenced man. The image should depict only the left half of his face, partially submerge in water, with fire and ice droplets and bubbles visible on his skin and hair. Illuminate the left side of the face dramatically, casting the rest into deep shadow. dark background. detail in skin texture beard stubble, and eye focus to evoke a moody cinematic atmosphere. 3:4 orientation. Make it warm color, use my face details from uploaded photo.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt2.jpg",
+      "tags": ["Trending", "Fantasy", "Concept Art"]
+    },
+    {
+      "id": "prompt_001",
+      "category": "Cinematic",
+      "title": "Fiery Power Stance",
+      "prompt_text": "Dramatic scene of a man standing proudly surrounded by strong flames, his arms emitting flames in gradient colors of red, blue and red, dynamic energy with oversized white t-shirt, camouflage shorts, and black converse shoes, dark background to enhance the contrast of fire and movement, cultural performance feel, high detail, cinematic lighting, and fast shutter photography style",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt1.jpg",
+      "tags": ["Trending", "Cinematic", "Patriotic"]
     }
   ]
 }
