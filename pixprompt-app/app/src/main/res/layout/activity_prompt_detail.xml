@@ -84,7 +84,7 @@
                 android:background="@drawable/card_gradient_border"
                 android:padding="2dp">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/detailImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +92,8 @@
                     android:maxHeight="340dp"
                     android:minHeight="180dp"
                     android:background="@drawable/image_placeholder"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    app:shapeAppearanceOverlay="@style/RoundedCardImage" />
 
                 <ImageButton
                     android:id="@+id/detailBookmarkButton"
