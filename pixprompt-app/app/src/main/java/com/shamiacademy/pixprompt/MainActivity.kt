@@ -4,14 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shamiacademy.pixprompt.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var categories: List<String> = listOf("All")
     private var selectedCategory: String = "All"
     private var searchQuery: String = ""
+    private lateinit var swipeGestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupRecycler()
+        setupCategorySwipeGesture()
         setupSearch()
         loadData()
 
@@ -112,6 +118,52 @@ class MainActivity : AppCompatActivity() {
             selectedCategory = category
             applyFilters()
         }
+    }
+
+    /** Lets the user swipe left/right over the grid to move between category tabs, like WhatsApp. */
+    private fun setupCategorySwipeGesture() {
+        swipeGestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if (e1 == null) return false
+                val deltaX = e2.x - e1.x
+                val deltaY = e2.y - e1.y
+                if (abs(deltaX) > abs(deltaY) && abs(deltaX) > 100 && abs(velocityX) > 250) {
+                    if (deltaX < 0) {
+                        switchCategory(1)  // swiped left → next category
+                    } else {
+                        switchCategory(-1) // swiped right → previous category
+                    }
+                    return true
+                }
+                return false
+            }
+        })
+
+        binding.promptRecycler.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                swipeGestureDetector.onTouchEvent(e)
+                return false // never block normal scrolling/taps
+            }
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        })
+    }
+
+    private fun switchCategory(direction: Int) {
+        if (categories.isEmpty()) return
+        val currentIndex = categories.indexOf(selectedCategory).coerceAtLeast(0)
+        val newIndex = (currentIndex + direction).coerceIn(0, categories.size - 1)
+        if (newIndex == currentIndex) return
+
+        selectedCategory = categories[newIndex]
+        setupCategoryRecycler()
+        binding.categoryRecycler.scrollToPosition(newIndex)
+        applyFilters()
     }
 
     private fun applyFilters() {

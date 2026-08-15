@@ -8,17 +8,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.shamiacademy.pixprompt.databinding.ActivityPromptDetailBinding
+import kotlin.math.abs
 
 class PromptDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPromptDetailBinding
     private lateinit var promptId: String
     private lateinit var promptText: String
+    private lateinit var swipeBackDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class PromptDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         BottomNavHelper.setup(this, NavTab.EXPLORE)
+        setupSwipeToGoBack()
 
         promptId = intent.getStringExtra("id") ?: ""
         val title = intent.getStringExtra("title") ?: ""
@@ -80,6 +85,33 @@ class PromptDetailActivity : AppCompatActivity() {
             startActivity(launchIntent)
         } else {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(webUrl)))
+        }
+    }
+
+    /** Swipe left-to-right anywhere on the screen to go back, instead of tapping the back arrow. */
+    private fun setupSwipeToGoBack() {
+        swipeBackDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                if (e1 == null) return false
+                val deltaX = e2.x - e1.x
+                val deltaY = e2.y - e1.y
+                if (deltaX > 120 && abs(deltaX) > abs(deltaY) && velocityX > 250) {
+                    finish()
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    return true
+                }
+                return false
+            }
+        })
+
+        binding.root.setOnTouchListener { _, event ->
+            swipeBackDetector.onTouchEvent(event)
+            false // never block normal button taps/scrolling
         }
     }
 
