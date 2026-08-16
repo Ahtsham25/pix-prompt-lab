@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var promptAdapter: ExploreGridAdapter
 
     private var allPrompts: List<Prompt> = emptyList()
+    private var filteredPrompts: List<Prompt> = emptyList()
+    private var visibleCount: Int = ExploreGridAdapter.PAGE_SIZE
     private var categories: List<String> = listOf("All")
     private var selectedCategory: String = "All"
     private var searchQuery: String = ""
@@ -52,7 +54,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecycler() {
         promptAdapter = ExploreGridAdapter(
             activity = this,
-            prompts = emptyList(),
+            visiblePrompts = emptyList(),
+            hasMore = false,
             isFavorite = { id -> PrefsHelper.isFavorite(this, id) },
             onClick = { prompt -> openDetail(prompt) },
             onBookmarkClick = { prompt, holder ->
@@ -65,16 +68,36 @@ class MainActivity : AppCompatActivity() {
                     if (nowFavorite) getString(R.string.bookmarked) else getString(R.string.unbookmarked),
                     Toast.LENGTH_SHORT
                 ).show()
-            }
+            },
+            onLoadMoreClick = { handleLoadMoreClick() }
         )
         val gridLayoutManager = GridLayoutManager(this, 2)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (promptAdapter.getItemViewType(position) == ExploreGridAdapter.TYPE_AD) 2 else 1
+                val type = promptAdapter.getItemViewType(position)
+                return if (type == ExploreGridAdapter.TYPE_AD || type == ExploreGridAdapter.TYPE_LOAD_MORE) 2 else 1
             }
         }
         binding.promptRecycler.layoutManager = gridLayoutManager
         binding.promptRecycler.adapter = promptAdapter
+    }
+
+    /** Tapping "Load More" requires watching a rewarded ad before the next page unlocks. */
+    private fun handleLoadMoreClick() {
+        AdsManager.showRewardedAd(
+            this,
+            onReward = {
+                visibleCount += ExploreGridAdapter.PAGE_SIZE
+                renderVisibleList()
+            },
+            onUnavailable = {
+                Toast.makeText(
+                    this,
+                    "Ad isn't ready yet — please try again in a moment",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
     }
 
     private fun setupSearch() {
@@ -103,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 setupCategoryRecycler()
                 applyFilters()
             }.onFailure {
-                promptAdapter.updateItems(emptyList())
+                promptAdapter.updateItems(emptyList(), false)
                 binding.emptyText.text = getString(R.string.load_failed)
                 binding.emptyText.visibility = View.VISIBLE
                 Toast.makeText(this@MainActivity, R.string.load_failed, Toast.LENGTH_SHORT).show()
@@ -166,6 +189,7 @@ class MainActivity : AppCompatActivity() {
         applyFilters()
     }
 
+    /** Recomputes filteredPrompts from category/search, resets to page 1, then renders. */
     private fun applyFilters() {
         var filtered = allPrompts
 
@@ -189,19 +213,30 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        promptAdapter.updateItems(filtered)
+        filteredPrompts = filtered
+        visibleCount = ExploreGridAdapter.PAGE_SIZE // reset paging whenever category/search changes
+        renderVisibleList()
+    }
+
+    /** Slices filteredPrompts down to visibleCount and pushes it to the adapter. */
+    private fun renderVisibleList() {
+        val visible = filteredPrompts.take(visibleCount)
+        val hasMore = filteredPrompts.size > visibleCount
+        promptAdapter.updateItems(visible, hasMore)
         binding.emptyText.text = getString(R.string.no_results)
-        binding.emptyText.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
+        binding.emptyText.visibility = if (filteredPrompts.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun openDetail(prompt: Prompt) {
-        val intent = Intent(this, PromptDetailActivity::class.java)
-        intent.putExtra("id", prompt.id)
-        intent.putExtra("title", prompt.title)
-        intent.putExtra("category", prompt.category)
-        intent.putExtra("prompt_text", prompt.prompt_text)
-        intent.putExtra("image_url", prompt.image_url)
-        startActivity(intent)
+        AdsManager.showInterstitialAlways(this) {
+            val intent = Intent(this, PromptDetailActivity::class.java)
+            intent.putExtra("id", prompt.id)
+            intent.putExtra("title", prompt.title)
+            intent.putExtra("category", prompt.category)
+            intent.putExtra("prompt_text", prompt.prompt_text)
+            intent.putExtra("image_url", prompt.image_url)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

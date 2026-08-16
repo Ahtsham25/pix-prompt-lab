@@ -63,12 +63,14 @@ class FavoritesActivity : AppCompatActivity() {
     }
 
     private fun openDetail(prompt: Prompt) {
-        val intent = Intent(this, PromptDetailActivity::class.java)
-        intent.putExtra("id", prompt.id)
-        intent.putExtra("title", prompt.title)
-        intent.putExtra("category", prompt.category)
-        intent.putExtra("prompt_text", prompt.prompt_text)
-        intent.putExtra("image_url", prompt.image_url)
-        startActivity(intent)
+        AdsManager.showInterstitialAlways(this) {
+            val intent = Intent(this, PromptDetailActivity::class.java)
+            intent.putExtra("id", prompt.id)
+            intent.putExtra("title", prompt.title)
+            intent.putExtra("category", prompt.category)
+            intent.putExtra("prompt_text", prompt.prompt_text)
+            intent.putExtra("image_url", prompt.image_url)
+            startActivity(intent)
+        }
     }
 }

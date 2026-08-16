@@ -51,7 +51,7 @@ class PromptDetailActivity : AppCompatActivity() {
 
         updateBookmarkIcon()
 
-        binding.backButton.setOnClickListener { finish() }
+        binding.backButton.setOnClickListener { goBack() }
 
         binding.detailBookmarkButton.setOnClickListener {
             PrefsHelper.toggleFavorite(this, promptId)
@@ -62,7 +62,7 @@ class PromptDetailActivity : AppCompatActivity() {
 
         binding.copyIconButton.setOnClickListener {
             copyToClipboard(promptText)
-            AdsManager.maybeShowInterstitial(this)
+            AdsManager.maybeShowInterstitialForCopy(this)
         }
 
         binding.tryGeminiButton.setOnClickListener {
@@ -101,8 +101,7 @@ class PromptDetailActivity : AppCompatActivity() {
                 val deltaX = e2.x - e1.x
                 val deltaY = e2.y - e1.y
                 if (deltaX > 120 && abs(deltaX) > abs(deltaY) && velocityX > 250) {
-                    finish()
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    goBack()
                     return true
                 }
                 return false
@@ -112,6 +111,14 @@ class PromptDetailActivity : AppCompatActivity() {
         binding.root.setOnTouchListener { _, event ->
             swipeBackDetector.onTouchEvent(event)
             false // never block normal button taps/scrolling
+        }
+    }
+
+    /** Goes back to Explore — shows an interstitial every time, then navigates back once it's dismissed. */
+    private fun goBack() {
+        AdsManager.showInterstitialAlways(this) {
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
