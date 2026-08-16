@@ -17,10 +17,11 @@ private sealed class GridItem {
 /**
  * Grid adapter for the Explore screen with paginated "Load More" behavior:
  *  - Shows only [visiblePrompts] (a slice of the full filtered list).
- *  - After every PAGE_SIZE prompts, inserts a full-width banner ad.
+ *  - Inserts a full-width banner ad every AD_INTERVAL prompts.
  *  - If [hasMore] is true, a "Load More" row is appended at the end.
  *    Tapping it triggers a rewarded ad via [onLoadMoreClick]; only on
- *    successful reward does the caller extend visiblePrompts and re-submit.
+ *    successful reward does the caller extend visiblePrompts (by PAGE_SIZE)
+ *    and re-submit.
  */
 class ExploreGridAdapter(
     private val activity: Activity,
@@ -36,7 +37,8 @@ class ExploreGridAdapter(
         const val TYPE_PROMPT = 0
         const val TYPE_AD = 1
         const val TYPE_LOAD_MORE = 2
-        const val PAGE_SIZE = 8
+        const val PAGE_SIZE = 8       // how many more prompts unlock per "Load More" reward
+        const val AD_INTERVAL = 4     // insert a banner ad every N prompts
     }
 
     private var items: List<GridItem> = buildItems(visiblePrompts, hasMore)
@@ -45,7 +47,7 @@ class ExploreGridAdapter(
         val result = mutableListOf<GridItem>()
         prompts.forEachIndexed { index, prompt ->
             result.add(GridItem.PromptItem(prompt))
-            if ((index + 1) % PAGE_SIZE == 0) {
+            if ((index + 1) % AD_INTERVAL == 0) {
                 result.add(GridItem.AdItem)
             }
         }
