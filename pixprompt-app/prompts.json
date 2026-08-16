@@ -1,6 +1,14 @@
 {
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
+{
+  "id": "prompt_013",
+  "category": "Fantasy",
+  "title": "Golden Smoke Spirit",
+  "prompt_text": "Use the reference photo only as an identity and appearance reference. Preserve the subject’s facial identity, natural facial features, hairstyle, body proportions, skin tone, and authentic appearance without beautification or alteration. Create an original photorealistic cinematic portrait of the subject standing in an elegant three-quarter pose, with the body slightly turned. One hand rests naturally near the chest while the eyes are gently closed. The subject wears a premium, clean white shirt. Warm golden luminous smoke emerges organically from the chest area and flows upward behind the subject, gradually forming an ethereal feminine spirit. The spirit should remain mysterious and non-identifiable, with no clearly defined facial features, appearing only as a translucent silhouette formed entirely from swirling smoke. Use a dark atmospheric background with warm amber illumination from behind, subtle glowing particles, volumetric haze, dramatic rim lighting, realistic layered smoke, natural shadows, strong yet refined contrast, realistic skin and fabric texture, cinematic depth, and physically believable lighting. The final result should be an original cinematic fantasy photograph rather than a recreation of any existing artwork. Preserve the intended pose, emotional atmosphere, golden-smoke concept, and overall visual composition. Ultra-photorealistic, highly detailed, cinematic HDR photography, realistic smoke physics, dramatic lighting, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
+  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt13.jpg",
+  "tags": ["Fantasy", "Portrait", "Mystical", "Golden Smoke", "Spirit"]
+},
     {
   "id": "prompt_012",
   "category": "Fantasy",
