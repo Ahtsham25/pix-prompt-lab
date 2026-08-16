@@ -2,13 +2,21 @@
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
     {
+  "id": "prompt_012",
+  "category": "Fantasy",
+  "title": "Ethereal Blue Spirit",
+  "prompt_text": "A high-resolution, ultra-realistic cinematic portrait featuring the man from the reference image suspended horizontally in a dark, atmospheric void. His facial features, hairstyle, skin tone, glasses, and exact outfit (light purple kurta and denim jacket) remain fully preserved. He floats peacefully with eyes closed and arms relaxed by his side. Emanating from his chest is a vibrant, glowing ethereal blue mist that swirls upward, forming a gentle, semi-transparent female spirit hovering above him and gazing downward with care. Deep midnight blue and icy cyan lighting, soft moonlight highlights, volumetric smoke, glowing dust particles, dramatic contrast, photorealistic quality, 3:4 aspect ratio.",
+  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt12.jpg",
+  "tags": ["Fantasy", "Portrait", "Surreal", "Ethereal", "Spirit"]
+},
+    {
   "id": "prompt_011",
   "category": "Fantasy",
   "title": "Emerald Smoke Spirit",
   "prompt_text": "Use the reference photo only as the identity and appearance reference. Preserve the subject’s exact facial identity, natural facial features, hairstyle, skin texture, and overall authentic appearance without beautification or alteration. Create a photorealistic cinematic scene of the subject seated on a dark surface in an elegant, emotionally powerful pose, leaning slightly backward. One hand rests gently over the heart while the eyes remain closed. The subject wears a premium, perfectly fitted black shirt. From around the subject’s body, rich emerald-green luminous smoke rises naturally and gradually takes the form of a translucent feminine spirit floating beside the subject. The spirit must remain completely mysterious: her face should have no recognizable features, no defined identity, and should appear entirely concealed within the flowing smoke. Maintain a dark mystical environment with deep shadows, subtle green-and-golden rim lighting, atmospheric volumetric haze, tiny glowing particles, realistic layered smoke movement, cinematic depth, dramatic lighting, natural skin detail, realistic fabric texture, and physically believable illumination. The final image should feel like an original cinematic fantasy photograph, not a recreation of any existing artwork. Preserve the same visual concept, subject positioning, emotional expression, color atmosphere, and overall composition described above. Ultra-photorealistic, extremely detailed, cinematic photography, natural proportions, realistic smoke physics, high dynamic range, dramatic shadows, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
   "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt11.jpg",
   "tags": ["Fantasy", "Portrait", "Surreal", "Mystical", "Emerald Smoke"]
-    }
+    },
     {
       "id": "prompt_010",
       "category": "Fantasy",
