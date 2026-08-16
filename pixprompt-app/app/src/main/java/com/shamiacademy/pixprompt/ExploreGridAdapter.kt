@@ -18,8 +18,8 @@ private sealed class GridItem {
  * Grid adapter for the Explore screen with paginated "Load More" behavior:
  *  - Shows only [visiblePrompts] (a slice of the full filtered list).
  *  - After every PAGE_SIZE prompts, inserts a full-width banner ad.
- *  - If [hasMore] is true, a "Watch Ad to Load More" row is appended at the
- *    end. Tapping it triggers a rewarded ad via [onLoadMoreClick]; only on
+ *  - If [hasMore] is true, a "Load More" row is appended at the end.
+ *    Tapping it triggers a rewarded ad via [onLoadMoreClick]; only on
  *    successful reward does the caller extend visiblePrompts and re-submit.
  */
 class ExploreGridAdapter(
