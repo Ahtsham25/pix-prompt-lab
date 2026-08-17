@@ -1,6 +1,21 @@
 {
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
+    {
+  "id": "prompt_015",
+  "category": "Cinematic",
+  "title": "Midnight Rider and Spirit Horse",
+  "prompt_text": "Create an original cinematic editorial photograph of a young man with naturally curly hair and a neatly trimmed beard, wearing black sunglasses, an oversized black sweater, relaxed wide-leg black trousers, and classic black Vans-style sneakers. He stands confidently beside a classic black Royal Enfield motorcycle, leaning casually against it with one hand resting naturally on the fuel tank and the other placed inside his pocket. His body language is relaxed and self-assured while his gaze is directed slightly away from the camera. Set the scene during golden sunrise or sunset, using intense warm backlighting to create a dramatic atmospheric silhouette of a powerful horse appearing in the background as if formed from illuminated dust, haze, and drifting particles. The horse should remain slightly translucent and dreamlike, with its flowing mane appearing to move naturally in the wind, symbolizing freedom, strength, movement, and mystery. Keep the surroundings minimal with a smooth open ground surface, subtle mist, atmospheric depth, and a clean cinematic environment. Capture the scene from a slightly low camera position to create a strong heroic perspective. Use the visual characteristics of a 50mm photographic lens with shallow depth of field, keeping the man and motorcycle sharply detailed while allowing the ethereal horse and distant atmosphere to remain softer and more mysterious. Employ rich golden rim lighting around the subject and motorcycle, emphasizing fabric, skin, metal, and mechanical textures while maintaining deep dramatic shadows. Use a sophisticated cinematic tonal balance with warm highlights, rich dark tones, controlled contrast, and natural atmospheric gradients. Arrange the composition using a balanced rule-of-thirds approach, positioning the man and motorcycle prominently while allowing the luminous horse to occupy the background as an important storytelling element. The final result should feel bold, adventurous, timeless, mysterious, and emotionally powerful, combining realistic professional photography with a subtle surreal fantasy element. Ultra-detailed photorealism, premium editorial photography, realistic textures, cinematic depth, high dynamic range, natural proportions, dramatic atmosphere, ultra-HD quality, vertical 3:4 composition.",
+  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt15.jpg",
+  "tags": [
+    "Cinematic",
+    "Portrait",
+    "Motorcycle",
+    "Horse",
+    "Surreal",
+    "Editorial"
+  ]
+},
 {
   "id": "prompt_014",
   "category": "Fantasy",
