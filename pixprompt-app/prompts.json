@@ -2,6 +2,21 @@
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
   "prompts": [
 {
+  "id": "prompt_014",
+  "category": "Fantasy",
+  "title": "Mystical Forest Soul",
+  "prompt_text": "Create an original high-fidelity professional DSLR-style cinematic photograph set within a lush, atmospheric green forest. Use the reference image solely for the subject’s identity and facial appearance, preserving the face naturally and consistently. A young woman lies peacefully on her back across a dense layer of dry autumn leaves covering the forest floor, with her eyes gently closed and her body completely relaxed. Directly above her, a luminous semi-transparent manifestation of her own spirit hovers horizontally in mid-air, clearly connected to her physical presence below. The ethereal spirit has an elegant upward-arched posture, with the back gently curving toward the sky, creating a striking visual representation of an out-of-body experience. Surround the scene with rich green woodland, subtle atmospheric mist, soft natural forest light, delicate floating particles, realistic leaf textures, dimensional depth, and carefully controlled cinematic illumination. The physical subject and elevated spirit should remain visually coherent and naturally integrated into the same environment, producing a mysterious, emotional, dreamlike yet photorealistic result. Preserve the subject’s recognizable facial identity from the reference without unnecessary alteration. Professional photography, realistic skin and fabric detail, natural proportions, refined shadows, atmospheric depth, cinematic composition, high dynamic range, ultra-detailed photographic realism, 32K ultra-HD enhancement, vertical 3:4 composition.",
+  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt14.jpg",
+  "tags": [
+    "Fantasy",
+    "Portrait",
+    "Surreal",
+    "Spirit",
+    "Forest",
+    "Out-of-Body"
+  ]
+},
+{
   "id": "prompt_013",
   "category": "Fantasy",
   "title": "Golden Smoke Spirit",
