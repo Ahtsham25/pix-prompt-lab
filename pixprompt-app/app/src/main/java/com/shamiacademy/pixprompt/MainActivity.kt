@@ -82,7 +82,11 @@ class MainActivity : AppCompatActivity() {
         binding.promptRecycler.adapter = promptAdapter
     }
 
-    /** Tapping "Load More" requires watching a rewarded ad before the next page unlocks. */
+    /**
+     * Tapping "Load More": if a rewarded ad is ready, the user must watch it
+     * to unlock the next page. If no ad is available right now, the next
+     * page unlocks immediately instead of leaving the user stuck.
+     */
     private fun handleLoadMoreClick() {
         AdsManager.showRewardedAd(
             this,
@@ -91,11 +95,9 @@ class MainActivity : AppCompatActivity() {
                 renderVisibleList()
             },
             onUnavailable = {
-                Toast.makeText(
-                    this,
-                    "Ad isn't ready yet — please try again in a moment",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // No ad ready — don't block the user, just unlock the next page.
+                visibleCount += ExploreGridAdapter.PAGE_SIZE
+                renderVisibleList()
             }
         )
     }
