@@ -1,6 +1,20 @@
 {
   "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
-  "prompts": [
+  "prompts": [{
+  "id": "prompt_016",
+  "category": "Cinematic",
+  "title": "Romantic Rose Film Portrait",
+  "prompt_text": "Create a cinematic, photorealistic romantic portrait collage composed of multiple frames, using the supplied reference photograph as the sole and strict guide for the man's facial identity. The same man must appear consistently throughout every frame with strong visual identity continuity. Retain his original facial anatomy and natural appearance exactly, including face proportions, facial contours, eyes, eyebrows, nose, lips, chin, jaw, complexion, hairstyle, hairline, facial hair, and overall proportions. Do not redesign, beautify, feminize, reshape, smooth, or otherwise modify his face. Avoid identity drift or facial reinterpretation so he remains unmistakably recognizable as the same person from the reference image. Show the man naturally carrying a fresh bouquet of roses, creating an intimate, genuine, and romantic atmosphere. In the lower frame, present a close portrait of the same man wearing a crisp white shirt. His head is gently leaned backward, his eyes are peacefully closed, and he holds the bouquet softly against his chest with a tender, emotional, and serene expression. Let natural strands of his hair fall loosely across portions of his forehead and face in an effortless manner, without using the hair to conceal or modify his facial identity. Use a restrained elegant color palette featuring soft ivory, white, dusty pink, muted rose, subdued natural greens, warm beige, and gentle pastel tones. Illuminate the scene with soft natural daylight, producing delicate highlights, believable shadows, and realistic dimensionality. Give the complete collage the character of authentic analog film photography, including subtle organic grain, delicate photographic texture, gently softened highlights, slightly faded tones, natural exposure variation, restrained color reproduction, subtle lens character, and realistic optical imperfections. The roses should remain visually coherent between frames, with natural petals, believable structure, realistic stems and leaves, authentic surface texture, and consistent coloring. Prioritize highly realistic skin pores, fine facial texture, individual hair strands, natural hands and fingers, realistic shirt fibers and folds, detailed rose petals, physically plausible illumination, natural shadow transitions, shallow depth of field, realistic lens behavior, and cinematic framing. The final image should feel spontaneous, intimate, premium, emotional, and genuinely photographed with a physical film camera in soft natural sunlight rather than digitally generated. Avoid facial identity changes, face replacement, identity drift, altered facial anatomy, feminized features, artificial beautification, plastic skin, synthetic facial details, CGI appearance, cartoon styling, illustration effects, malformed hands, extra fingers, duplicated flowers, unnatural bouquets, unrealistic hair, excessive blur, excessive film grain, extreme saturation, harsh artificial lighting, watermarks, logos, captions, text, or interface elements.",
+  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt16.jpg",
+  "tags": [
+    "Cinematic",
+    "Portrait",
+    "Romantic",
+    "Roses",
+    "Film Photography",
+    "Editorial"
+  ]
+},
     {
   "id": "prompt_015",
   "category": "Cinematic",
