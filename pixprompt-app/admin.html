@@ -1,3 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixPrompt Lab — Admin Panel</title>
+<style>
+  :root {
+    --bg: #0A0A12;
+    --surface: #15151F;
+    --surface-light: #1C1C28;
+    --accent: #A855F7;
+    --accent2: #EC4899;
+    --text: #F5F5F7;
+    --text2: #9CA3AF;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  .header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .logo {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(45deg, #6366F1, #D946EF, #F97316);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  h1 { font-size: 20px; margin: 0; }
+  .sub { color: var(--text2); font-size: 12px; margin-top: 2px; }
+
+  .card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card h2 { font-size: 14px; margin: 0 0 12px; color: var(--accent2); }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    margin: 14px 0 6px;
+  }
+  label:first-of-type { margin-top: 0; }
+
+  input[type=text], input[type=password], textarea, select {
+    width: 100%;
+    background: var(--surface-light);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+  }
+  textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+  input::placeholder, textarea::placeholder { color: #6B7280; }
+
+  input[type=file] {
+    width: 100%;
+    background: var(--surface-light);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--text2);
+    font-size: 13px;
+  }
+
+  .preview {
+    margin-top: 10px;
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 12px;
+    display: none;
+  }
+
+  .row { display: flex; gap: 10px; }
+  .row > div { flex: 1; }
+
+  button {
+    width: 100%;
+    margin-top: 18px;
+    height: 50px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #D946EF, #EC4899);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.5; }
+
+  .status {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    display: none;
+  }
+  .status.show { display: block; }
+  .status.ok { background: rgba(34,197,94,0.15); color: #4ADE80; }
+  .status.err { background: rgba(239,68,68,0.15); color: #F87171; }
+  .status.loading { background: var(--surface-light); color: var(--text2); }
+
+  .hint { font-size: 11px; color: #6B7280; margin-top: 6px; line-height: 1.5; }
+  a { color: var(--accent); }
+
+  .toggle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text2); margin-top: 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="logo">✨</div>
+    <div>
+      <h1>PixPrompt Lab — Admin</h1>
+      <div class="sub">Add a new prompt directly to your repo</div>
+    </div>
+  </div>
+
+  <!-- GitHub connection settings -->
+  <div class="card">
+    <h2>GitHub Connection (one-time setup)</h2>
+
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    <div class="hint">
+      Create one at <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">github.com/settings/tokens</a> →
+      "Fine-grained token" → give it access to only the <b>pix-prompt-lab</b> repo, with
+      <b>Contents: Read and write</b> permission. Stored only in this browser (localStorage), never sent anywhere except GitHub.
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Repo owner</label>
+        <input type="text" id="owner" value="Ahtsham25">
+      </div>
+      <div>
+        <label>Repo name</label>
+        <input type="text" id="repo" value="pix-prompt-lab">
+      </div>
+    </div>
+
+    <label>Folder path inside repo</label>
+    <input type="text" id="folderPath" value="pixprompt-app">
+    <div class="hint">Where prompts.json and the images/ folder live.</div>
+  </div>
+
+  <!-- New prompt form -->
+  <div class="card">
+    <h2>New Prompt</h2>
+
+    <label>Image</label>
+    <input type="file" id="imageFile" accept="image/*">
+    <img id="preview" class="preview">
+
+    <label>Title</label>
+    <input type="text" id="title" placeholder="e.g. Golden Hour Portrait">
+
+    <label>Category</label>
+    <input type="text" id="category" list="categoryList" placeholder="e.g. Portrait">
+    <datalist id="categoryList"></datalist>
+
+    <label>Prompt text</label>
+    <textarea id="promptText" placeholder="Paste the full prompt here..."></textarea>
+
+    <label>Tags (comma separated)</label>
+    <input type="text" id="tags" placeholder="Trending, Portrait, Cinematic">
+
+    <div class="toggle">
+      <input type="checkbox" id="rememberToken">
+      <span>Remember my token on this device</span>
+    </div>
+
+    <button id="saveBtn">Save to prompts.json</button>
+    <div id="status" class="status"></div>
+  </div>
+
 </div>
 
 <script>
@@ -33,3 +223,199 @@ function showStatus(msg, type) {
   els.status.className = 'status show ' + type;
 }
 
+function apiBase() {
+  return `https://api.github.com/repos/${els.owner.value.trim()}/${els.repo.value.trim()}/contents`;
+}
+
+function authHeaders() {
+  return {
+    'Authorization': `Bearer ${els.token.value.trim()}`,
+    'Accept': 'application/vnd.github+json'
+  };
+}
+
+function jsonPath() {
+  const folder = els.folderPath.value.trim().replace(/\/$/, '');
+  return folder ? `${folder}/prompts.json` : 'prompts.json';
+}
+
+function imagesFolder() {
+  const folder = els.folderPath.value.trim().replace(/\/$/, '');
+  return folder ? `${folder}/images` : 'images';
+}
+
+// Preview selected image
+els.imageFile.addEventListener('change', () => {
+  const file = els.imageFile.files[0];
+  if (!file) { els.preview.style.display = 'none'; return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    els.preview.src = e.target.result;
+    els.preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+// Load existing categories for the datalist (best-effort, ignore failure)
+async function loadCategories() {
+  try {
+    const res = await fetch(`${apiBase()}/${jsonPath()}`, { headers: authHeaders() });
+    if (!res.ok) return;
+    const data = await res.json();
+    const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+    const json = JSON.parse(content);
+    els.categoryList.innerHTML = '';
+    (json.categories || []).forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      els.categoryList.appendChild(opt);
+    });
+  } catch (e) { /* ignore — token may not be filled yet */ }
+}
+els.token.addEventListener('change', loadCategories);
+loadCategories();
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function utf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function base64ToUtf8(b64) {
+  return decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
+}
+
+function slugify(text) {
+  return text.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+    .slice(0, 40);
+}
+
+async function uploadImage(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const filename = `prompt_${Date.now()}.${ext}`;
+  const path = `${imagesFolder()}/${filename}`;
+  const base64Content = await fileToBase64(file);
+
+  const res = await fetch(`${apiBase()}/${path}`, {
+    method: 'PUT',
+    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: `Add image ${filename} via Admin Panel`,
+      content: base64Content
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(`Image upload failed: ${err.message || res.status}`);
+  }
+
+  const owner = els.owner.value.trim();
+  const repo = els.repo.value.trim();
+  return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/${path}`;
+}
+
+async function saveEntry() {
+  const title = els.title.value.trim();
+  const category = els.category.value.trim();
+  const promptText = els.promptText.value.trim();
+  const tagsRaw = els.tags.value.trim();
+  const file = els.imageFile.files[0];
+  const token = els.token.value.trim();
+
+  if (!token) return showStatus('Please paste your GitHub token first.', 'err');
+  if (!title || !category || !promptText) return showStatus('Title, Category, and Prompt text are required.', 'err');
+  if (!file) return showStatus('Please choose an image.', 'err');
+
+  els.saveBtn.disabled = true;
+
+  try {
+    // Remember settings if checked
+    if (els.rememberToken.checked) {
+      localStorage.setItem('pixprompt_admin_token', token);
+    } else {
+      localStorage.removeItem('pixprompt_admin_token');
+    }
+    localStorage.setItem('pixprompt_admin_owner', els.owner.value.trim());
+    localStorage.setItem('pixprompt_admin_repo', els.repo.value.trim());
+    localStorage.setItem('pixprompt_admin_path', els.folderPath.value.trim());
+
+    showStatus('Uploading image…', 'loading');
+    const imageUrl = await uploadImage(file);
+
+    showStatus('Fetching current prompts.json…', 'loading');
+    const getRes = await fetch(`${apiBase()}/${jsonPath()}`, { headers: authHeaders() });
+    if (!getRes.ok) throw new Error(`Could not read prompts.json (${getRes.status})`);
+    const getData = await getRes.json();
+    const sha = getData.sha;
+    const json = JSON.parse(base64ToUtf8(getData.content));
+
+    // Build new entry
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const newId = `prompt_${slugify(title) || Date.now()}_${Date.now().toString().slice(-5)}`;
+
+    const newEntry = {
+      id: newId,
+      category: category,
+      title: title,
+      prompt_text: promptText,
+      image_url: imageUrl,
+      tags: tags
+    };
+
+    json.prompts = json.prompts || [];
+    json.prompts.push(newEntry);
+
+    json.categories = json.categories || [];
+    if (!json.categories.some(c => c.toLowerCase() === category.toLowerCase())) {
+      json.categories.push(category);
+    }
+
+    showStatus('Saving prompts.json…', 'loading');
+    const newContent = utf8ToBase64(JSON.stringify(json, null, 2));
+
+    const putRes = await fetch(`${apiBase()}/${jsonPath()}`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Add prompt "${title}" via Admin Panel`,
+        content: newContent,
+        sha: sha
+      })
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      throw new Error(`Could not save prompts.json: ${err.message || putRes.status}`);
+    }
+
+    showStatus(`✅ Saved! "${title}" added to prompts.json. It'll appear in the app shortly (jsDelivr may take a minute to cache the new image).`, 'ok');
+
+    // Clear form for next entry (keep connection settings)
+    els.title.value = '';
+    els.promptText.value = '';
+    els.tags.value = '';
+    els.imageFile.value = '';
+    els.preview.style.display = 'none';
+    loadCategories();
+
+  } catch (e) {
+    showStatus('❌ ' + e.message, 'err');
+  } finally {
+    els.saveBtn.disabled = false;
+  }
+}
+
+els.saveBtn.addEventListener('click', saveEntry);
+</script>
+</body>
+</html>
