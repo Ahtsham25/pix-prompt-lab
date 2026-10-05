@@ -1,73 +1,99 @@
 {
-  "categories": ["Trending", "Cinematic", "Fantasy", "Portrait", "Product", "Nature"],
-  "prompts": [{
-  "id": "prompt_016",
-  "category": "Cinematic",
-  "title": "Romantic Rose Film Portrait",
-  "prompt_text": "Create a cinematic, photorealistic romantic portrait collage composed of multiple frames, using the supplied reference photograph as the sole and strict guide for the man's facial identity. The same man must appear consistently throughout every frame with strong visual identity continuity. Retain his original facial anatomy and natural appearance exactly, including face proportions, facial contours, eyes, eyebrows, nose, lips, chin, jaw, complexion, hairstyle, hairline, facial hair, and overall proportions. Do not redesign, beautify, feminize, reshape, smooth, or otherwise modify his face. Avoid identity drift or facial reinterpretation so he remains unmistakably recognizable as the same person from the reference image. Show the man naturally carrying a fresh bouquet of roses, creating an intimate, genuine, and romantic atmosphere. In the lower frame, present a close portrait of the same man wearing a crisp white shirt. His head is gently leaned backward, his eyes are peacefully closed, and he holds the bouquet softly against his chest with a tender, emotional, and serene expression. Let natural strands of his hair fall loosely across portions of his forehead and face in an effortless manner, without using the hair to conceal or modify his facial identity. Use a restrained elegant color palette featuring soft ivory, white, dusty pink, muted rose, subdued natural greens, warm beige, and gentle pastel tones. Illuminate the scene with soft natural daylight, producing delicate highlights, believable shadows, and realistic dimensionality. Give the complete collage the character of authentic analog film photography, including subtle organic grain, delicate photographic texture, gently softened highlights, slightly faded tones, natural exposure variation, restrained color reproduction, subtle lens character, and realistic optical imperfections. The roses should remain visually coherent between frames, with natural petals, believable structure, realistic stems and leaves, authentic surface texture, and consistent coloring. Prioritize highly realistic skin pores, fine facial texture, individual hair strands, natural hands and fingers, realistic shirt fibers and folds, detailed rose petals, physically plausible illumination, natural shadow transitions, shallow depth of field, realistic lens behavior, and cinematic framing. The final image should feel spontaneous, intimate, premium, emotional, and genuinely photographed with a physical film camera in soft natural sunlight rather than digitally generated. Avoid facial identity changes, face replacement, identity drift, altered facial anatomy, feminized features, artificial beautification, plastic skin, synthetic facial details, CGI appearance, cartoon styling, illustration effects, malformed hands, extra fingers, duplicated flowers, unnatural bouquets, unrealistic hair, excessive blur, excessive film grain, extreme saturation, harsh artificial lighting, watermarks, logos, captions, text, or interface elements.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt16.jpg",
-  "tags": [
+  "categories": [
+    "Trending",
     "Cinematic",
-    "Portrait",
-    "Romantic",
-    "Roses",
-    "Film Photography",
-    "Editorial"
-  ]
-},
-    {
-  "id": "prompt_015",
-  "category": "Cinematic",
-  "title": "Midnight Rider and Spirit Horse",
-  "prompt_text": "Create an original cinematic editorial photograph of a young man with naturally curly hair and a neatly trimmed beard, wearing black sunglasses, an oversized black sweater, relaxed wide-leg black trousers, and classic black Vans-style sneakers. He stands confidently beside a classic black Royal Enfield motorcycle, leaning casually against it with one hand resting naturally on the fuel tank and the other placed inside his pocket. His body language is relaxed and self-assured while his gaze is directed slightly away from the camera. Set the scene during golden sunrise or sunset, using intense warm backlighting to create a dramatic atmospheric silhouette of a powerful horse appearing in the background as if formed from illuminated dust, haze, and drifting particles. The horse should remain slightly translucent and dreamlike, with its flowing mane appearing to move naturally in the wind, symbolizing freedom, strength, movement, and mystery. Keep the surroundings minimal with a smooth open ground surface, subtle mist, atmospheric depth, and a clean cinematic environment. Capture the scene from a slightly low camera position to create a strong heroic perspective. Use the visual characteristics of a 50mm photographic lens with shallow depth of field, keeping the man and motorcycle sharply detailed while allowing the ethereal horse and distant atmosphere to remain softer and more mysterious. Employ rich golden rim lighting around the subject and motorcycle, emphasizing fabric, skin, metal, and mechanical textures while maintaining deep dramatic shadows. Use a sophisticated cinematic tonal balance with warm highlights, rich dark tones, controlled contrast, and natural atmospheric gradients. Arrange the composition using a balanced rule-of-thirds approach, positioning the man and motorcycle prominently while allowing the luminous horse to occupy the background as an important storytelling element. The final result should feel bold, adventurous, timeless, mysterious, and emotionally powerful, combining realistic professional photography with a subtle surreal fantasy element. Ultra-detailed photorealism, premium editorial photography, realistic textures, cinematic depth, high dynamic range, natural proportions, dramatic atmosphere, ultra-HD quality, vertical 3:4 composition.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt15.jpg",
-  "tags": [
-    "Cinematic",
-    "Portrait",
-    "Motorcycle",
-    "Horse",
-    "Surreal",
-    "Editorial"
-  ]
-},
-{
-  "id": "prompt_014",
-  "category": "Fantasy",
-  "title": "Mystical Forest Soul",
-  "prompt_text": "Create an original high-fidelity professional DSLR-style cinematic photograph set within a lush, atmospheric green forest. Use the reference image solely for the subject’s identity and facial appearance, preserving the face naturally and consistently. A young woman lies peacefully on her back across a dense layer of dry autumn leaves covering the forest floor, with her eyes gently closed and her body completely relaxed. Directly above her, a luminous semi-transparent manifestation of her own spirit hovers horizontally in mid-air, clearly connected to her physical presence below. The ethereal spirit has an elegant upward-arched posture, with the back gently curving toward the sky, creating a striking visual representation of an out-of-body experience. Surround the scene with rich green woodland, subtle atmospheric mist, soft natural forest light, delicate floating particles, realistic leaf textures, dimensional depth, and carefully controlled cinematic illumination. The physical subject and elevated spirit should remain visually coherent and naturally integrated into the same environment, producing a mysterious, emotional, dreamlike yet photorealistic result. Preserve the subject’s recognizable facial identity from the reference without unnecessary alteration. Professional photography, realistic skin and fabric detail, natural proportions, refined shadows, atmospheric depth, cinematic composition, high dynamic range, ultra-detailed photographic realism, 32K ultra-HD enhancement, vertical 3:4 composition.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt14.jpg",
-  "tags": [
     "Fantasy",
     "Portrait",
-    "Surreal",
-    "Spirit",
-    "Forest",
-    "Out-of-Body"
-  ]
-},
-{
-  "id": "prompt_013",
-  "category": "Fantasy",
-  "title": "Golden Smoke Spirit",
-  "prompt_text": "Use the reference photo only as an identity and appearance reference. Preserve the subject’s facial identity, natural facial features, hairstyle, body proportions, skin tone, and authentic appearance without beautification or alteration. Create an original photorealistic cinematic portrait of the subject standing in an elegant three-quarter pose, with the body slightly turned. One hand rests naturally near the chest while the eyes are gently closed. The subject wears a premium, clean white shirt. Warm golden luminous smoke emerges organically from the chest area and flows upward behind the subject, gradually forming an ethereal feminine spirit. The spirit should remain mysterious and non-identifiable, with no clearly defined facial features, appearing only as a translucent silhouette formed entirely from swirling smoke. Use a dark atmospheric background with warm amber illumination from behind, subtle glowing particles, volumetric haze, dramatic rim lighting, realistic layered smoke, natural shadows, strong yet refined contrast, realistic skin and fabric texture, cinematic depth, and physically believable lighting. The final result should be an original cinematic fantasy photograph rather than a recreation of any existing artwork. Preserve the intended pose, emotional atmosphere, golden-smoke concept, and overall visual composition. Ultra-photorealistic, highly detailed, cinematic HDR photography, realistic smoke physics, dramatic lighting, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt13.jpg",
-  "tags": ["Fantasy", "Portrait", "Mystical", "Golden Smoke", "Spirit"]
-},
+    "Product",
+    "Nature"
+  ],
+  "prompts": [
     {
-  "id": "prompt_012",
-  "category": "Fantasy",
-  "title": "Ethereal Blue Spirit",
-  "prompt_text": "A high-resolution, ultra-realistic cinematic portrait featuring the man from the reference image suspended horizontally in a dark, atmospheric void. His facial features, hairstyle, skin tone, glasses, and exact outfit (light purple kurta and denim jacket) remain fully preserved. He floats peacefully with eyes closed and arms relaxed by his side. Emanating from his chest is a vibrant, glowing ethereal blue mist that swirls upward, forming a gentle, semi-transparent female spirit hovering above him and gazing downward with care. Deep midnight blue and icy cyan lighting, soft moonlight highlights, volumetric smoke, glowing dust particles, dramatic contrast, photorealistic quality, 3:4 aspect ratio.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt12.jpg",
-  "tags": ["Fantasy", "Portrait", "Surreal", "Ethereal", "Spirit"]
-},
+      "id": "prompt_016",
+      "category": "Cinematic",
+      "title": "Romantic Rose Film Portrait",
+      "prompt_text": "Create a cinematic, photorealistic romantic portrait collage composed of multiple frames, using the supplied reference photograph as the sole and strict guide for the man's facial identity. The same man must appear consistently throughout every frame with strong visual identity continuity. Retain his original facial anatomy and natural appearance exactly, including face proportions, facial contours, eyes, eyebrows, nose, lips, chin, jaw, complexion, hairstyle, hairline, facial hair, and overall proportions. Do not redesign, beautify, feminize, reshape, smooth, or otherwise modify his face. Avoid identity drift or facial reinterpretation so he remains unmistakably recognizable as the same person from the reference image. Show the man naturally carrying a fresh bouquet of roses, creating an intimate, genuine, and romantic atmosphere. In the lower frame, present a close portrait of the same man wearing a crisp white shirt. His head is gently leaned backward, his eyes are peacefully closed, and he holds the bouquet softly against his chest with a tender, emotional, and serene expression. Let natural strands of his hair fall loosely across portions of his forehead and face in an effortless manner, without using the hair to conceal or modify his facial identity. Use a restrained elegant color palette featuring soft ivory, white, dusty pink, muted rose, subdued natural greens, warm beige, and gentle pastel tones. Illuminate the scene with soft natural daylight, producing delicate highlights, believable shadows, and realistic dimensionality. Give the complete collage the character of authentic analog film photography, including subtle organic grain, delicate photographic texture, gently softened highlights, slightly faded tones, natural exposure variation, restrained color reproduction, subtle lens character, and realistic optical imperfections. The roses should remain visually coherent between frames, with natural petals, believable structure, realistic stems and leaves, authentic surface texture, and consistent coloring. Prioritize highly realistic skin pores, fine facial texture, individual hair strands, natural hands and fingers, realistic shirt fibers and folds, detailed rose petals, physically plausible illumination, natural shadow transitions, shallow depth of field, realistic lens behavior, and cinematic framing. The final image should feel spontaneous, intimate, premium, emotional, and genuinely photographed with a physical film camera in soft natural sunlight rather than digitally generated. Avoid facial identity changes, face replacement, identity drift, altered facial anatomy, feminized features, artificial beautification, plastic skin, synthetic facial details, CGI appearance, cartoon styling, illustration effects, malformed hands, extra fingers, duplicated flowers, unnatural bouquets, unrealistic hair, excessive blur, excessive film grain, extreme saturation, harsh artificial lighting, watermarks, logos, captions, text, or interface elements.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt16.jpg",
+      "tags": [
+        "Cinematic",
+        "Portrait",
+        "Romantic",
+        "Roses",
+        "Film Photography",
+        "Editorial"
+      ]
+    },
     {
-  "id": "prompt_011",
-  "category": "Fantasy",
-  "title": "Emerald Smoke Spirit",
-  "prompt_text": "Use the reference photo only as the identity and appearance reference. Preserve the subject’s exact facial identity, natural facial features, hairstyle, skin texture, and overall authentic appearance without beautification or alteration. Create a photorealistic cinematic scene of the subject seated on a dark surface in an elegant, emotionally powerful pose, leaning slightly backward. One hand rests gently over the heart while the eyes remain closed. The subject wears a premium, perfectly fitted black shirt. From around the subject’s body, rich emerald-green luminous smoke rises naturally and gradually takes the form of a translucent feminine spirit floating beside the subject. The spirit must remain completely mysterious: her face should have no recognizable features, no defined identity, and should appear entirely concealed within the flowing smoke. Maintain a dark mystical environment with deep shadows, subtle green-and-golden rim lighting, atmospheric volumetric haze, tiny glowing particles, realistic layered smoke movement, cinematic depth, dramatic lighting, natural skin detail, realistic fabric texture, and physically believable illumination. The final image should feel like an original cinematic fantasy photograph, not a recreation of any existing artwork. Preserve the same visual concept, subject positioning, emotional expression, color atmosphere, and overall composition described above. Ultra-photorealistic, extremely detailed, cinematic photography, natural proportions, realistic smoke physics, high dynamic range, dramatic shadows, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
-  "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt11.jpg",
-  "tags": ["Fantasy", "Portrait", "Surreal", "Mystical", "Emerald Smoke"]
+      "id": "prompt_015",
+      "category": "Cinematic",
+      "title": "Midnight Rider and Spirit Horse",
+      "prompt_text": "Create an original cinematic editorial photograph of a young man with naturally curly hair and a neatly trimmed beard, wearing black sunglasses, an oversized black sweater, relaxed wide-leg black trousers, and classic black Vans-style sneakers. He stands confidently beside a classic black Royal Enfield motorcycle, leaning casually against it with one hand resting naturally on the fuel tank and the other placed inside his pocket. His body language is relaxed and self-assured while his gaze is directed slightly away from the camera. Set the scene during golden sunrise or sunset, using intense warm backlighting to create a dramatic atmospheric silhouette of a powerful horse appearing in the background as if formed from illuminated dust, haze, and drifting particles. The horse should remain slightly translucent and dreamlike, with its flowing mane appearing to move naturally in the wind, symbolizing freedom, strength, movement, and mystery. Keep the surroundings minimal with a smooth open ground surface, subtle mist, atmospheric depth, and a clean cinematic environment. Capture the scene from a slightly low camera position to create a strong heroic perspective. Use the visual characteristics of a 50mm photographic lens with shallow depth of field, keeping the man and motorcycle sharply detailed while allowing the ethereal horse and distant atmosphere to remain softer and more mysterious. Employ rich golden rim lighting around the subject and motorcycle, emphasizing fabric, skin, metal, and mechanical textures while maintaining deep dramatic shadows. Use a sophisticated cinematic tonal balance with warm highlights, rich dark tones, controlled contrast, and natural atmospheric gradients. Arrange the composition using a balanced rule-of-thirds approach, positioning the man and motorcycle prominently while allowing the luminous horse to occupy the background as an important storytelling element. The final result should feel bold, adventurous, timeless, mysterious, and emotionally powerful, combining realistic professional photography with a subtle surreal fantasy element. Ultra-detailed photorealism, premium editorial photography, realistic textures, cinematic depth, high dynamic range, natural proportions, dramatic atmosphere, ultra-HD quality, vertical 3:4 composition.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt15.jpg",
+      "tags": [
+        "Cinematic",
+        "Portrait",
+        "Motorcycle",
+        "Horse",
+        "Surreal",
+        "Editorial"
+      ]
+    },
+    {
+      "id": "prompt_014",
+      "category": "Fantasy",
+      "title": "Mystical Forest Soul",
+      "prompt_text": "Create an original high-fidelity professional DSLR-style cinematic photograph set within a lush, atmospheric green forest. Use the reference image solely for the subject’s identity and facial appearance, preserving the face naturally and consistently. A young woman lies peacefully on her back across a dense layer of dry autumn leaves covering the forest floor, with her eyes gently closed and her body completely relaxed. Directly above her, a luminous semi-transparent manifestation of her own spirit hovers horizontally in mid-air, clearly connected to her physical presence below. The ethereal spirit has an elegant upward-arched posture, with the back gently curving toward the sky, creating a striking visual representation of an out-of-body experience. Surround the scene with rich green woodland, subtle atmospheric mist, soft natural forest light, delicate floating particles, realistic leaf textures, dimensional depth, and carefully controlled cinematic illumination. The physical subject and elevated spirit should remain visually coherent and naturally integrated into the same environment, producing a mysterious, emotional, dreamlike yet photorealistic result. Preserve the subject’s recognizable facial identity from the reference without unnecessary alteration. Professional photography, realistic skin and fabric detail, natural proportions, refined shadows, atmospheric depth, cinematic composition, high dynamic range, ultra-detailed photographic realism, 32K ultra-HD enhancement, vertical 3:4 composition.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt14.jpg",
+      "tags": [
+        "Fantasy",
+        "Portrait",
+        "Surreal",
+        "Spirit",
+        "Forest",
+        "Out-of-Body"
+      ]
+    },
+    {
+      "id": "prompt_013",
+      "category": "Fantasy",
+      "title": "Golden Smoke Spirit",
+      "prompt_text": "Use the reference photo only as an identity and appearance reference. Preserve the subject’s facial identity, natural facial features, hairstyle, body proportions, skin tone, and authentic appearance without beautification or alteration. Create an original photorealistic cinematic portrait of the subject standing in an elegant three-quarter pose, with the body slightly turned. One hand rests naturally near the chest while the eyes are gently closed. The subject wears a premium, clean white shirt. Warm golden luminous smoke emerges organically from the chest area and flows upward behind the subject, gradually forming an ethereal feminine spirit. The spirit should remain mysterious and non-identifiable, with no clearly defined facial features, appearing only as a translucent silhouette formed entirely from swirling smoke. Use a dark atmospheric background with warm amber illumination from behind, subtle glowing particles, volumetric haze, dramatic rim lighting, realistic layered smoke, natural shadows, strong yet refined contrast, realistic skin and fabric texture, cinematic depth, and physically believable lighting. The final result should be an original cinematic fantasy photograph rather than a recreation of any existing artwork. Preserve the intended pose, emotional atmosphere, golden-smoke concept, and overall visual composition. Ultra-photorealistic, highly detailed, cinematic HDR photography, realistic smoke physics, dramatic lighting, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt13.jpg",
+      "tags": [
+        "Fantasy",
+        "Portrait",
+        "Mystical",
+        "Golden Smoke",
+        "Spirit"
+      ]
+    },
+    {
+      "id": "prompt_012",
+      "category": "Fantasy",
+      "title": "Ethereal Blue Spirit",
+      "prompt_text": "A high-resolution, ultra-realistic cinematic portrait featuring the man from the reference image suspended horizontally in a dark, atmospheric void. His facial features, hairstyle, skin tone, glasses, and exact outfit (light purple kurta and denim jacket) remain fully preserved. He floats peacefully with eyes closed and arms relaxed by his side. Emanating from his chest is a vibrant, glowing ethereal blue mist that swirls upward, forming a gentle, semi-transparent female spirit hovering above him and gazing downward with care. Deep midnight blue and icy cyan lighting, soft moonlight highlights, volumetric smoke, glowing dust particles, dramatic contrast, photorealistic quality, 3:4 aspect ratio.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt12.jpg",
+      "tags": [
+        "Fantasy",
+        "Portrait",
+        "Surreal",
+        "Ethereal",
+        "Spirit"
+      ]
+    },
+    {
+      "id": "prompt_011",
+      "category": "Fantasy",
+      "title": "Emerald Smoke Spirit",
+      "prompt_text": "Use the reference photo only as the identity and appearance reference. Preserve the subject’s exact facial identity, natural facial features, hairstyle, skin texture, and overall authentic appearance without beautification or alteration. Create a photorealistic cinematic scene of the subject seated on a dark surface in an elegant, emotionally powerful pose, leaning slightly backward. One hand rests gently over the heart while the eyes remain closed. The subject wears a premium, perfectly fitted black shirt. From around the subject’s body, rich emerald-green luminous smoke rises naturally and gradually takes the form of a translucent feminine spirit floating beside the subject. The spirit must remain completely mysterious: her face should have no recognizable features, no defined identity, and should appear entirely concealed within the flowing smoke. Maintain a dark mystical environment with deep shadows, subtle green-and-golden rim lighting, atmospheric volumetric haze, tiny glowing particles, realistic layered smoke movement, cinematic depth, dramatic lighting, natural skin detail, realistic fabric texture, and physically believable illumination. The final image should feel like an original cinematic fantasy photograph, not a recreation of any existing artwork. Preserve the same visual concept, subject positioning, emotional expression, color atmosphere, and overall composition described above. Ultra-photorealistic, extremely detailed, cinematic photography, natural proportions, realistic smoke physics, high dynamic range, dramatic shadows, premium editorial quality, ultra-high definition, 3:4 aspect ratio.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt11.jpg",
+      "tags": [
+        "Fantasy",
+        "Portrait",
+        "Surreal",
+        "Mystical",
+        "Emerald Smoke"
+      ]
     },
     {
       "id": "prompt_010",
@@ -75,7 +101,14 @@
       "title": "Surreal Pine Forest Double-Exposure",
       "prompt_text": "Create an original surreal fine-art double-exposure portrait of a young woman shown in left-facing side profile. Her gaze is directed downward, with one hand raised gently toward her forehead. Give her an elegant, short pixie hairstyle and preserve realistic natural skin detail. Merge her profile organically with a dense evergreen pine woodland. Tall conifer trees should appear to emerge naturally from and around the upper silhouette of her head, accompanied by delicate leafless branches. A group of dark birds should pass through the woman's silhouette and continue outward into the surrounding space, conveying themes of freedom, memories, and emotional release. Use a predominantly monochrome black-and-white photographic treatment, while introducing a restrained warm amber-gold sunrise glow filtering between the trees. The warm light should remain subtle and atmospheric rather than overpowering the monochrome aesthetic. Create a minimalist pale/white surrounding background with soft mist and atmospheric haze. The overall mood should feel mysterious, emotional, dreamlike, elegant, and quietly haunting. Use strong but refined tonal contrast, cinematic illumination, realistic skin texture, fine photographic detail, natural depth, delicate fog diffusion, and seamless double-exposure blending. Keep the composition balanced and visually clean, with the woman's profile remaining clearly recognizable while the forest integrates naturally into her silhouette. Original fine-art photographic interpretation, surreal editorial aesthetic, sophisticated tonal grading, highly detailed textures, crisp primary subject, controlled soft background, cinematic depth, high-resolution photographic realism, vertical portrait composition.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt10.jpg",
-      "tags": ["Fantasy", "Portrait", "Double Exposure", "Surreal", "Nature", "Monochrome"]
+      "tags": [
+        "Fantasy",
+        "Portrait",
+        "Double Exposure",
+        "Surreal",
+        "Nature",
+        "Monochrome"
+      ]
     },
     {
       "id": "prompt_009",
@@ -83,7 +116,14 @@
       "title": "Orange Halo Cyberpunk Fashion Portrait",
       "prompt_text": "Create an original, ultra-photorealistic cinematic fashion portrait using the uploaded reference image strictly for facial identity. Preserve exact facial proportions, face shape, eyes, eyebrows, nose, lips, jawline, skin tone, natural skin texture, hairstyle, beard, and overall recognizable appearance. The subject wears a black hoodie beneath a black overcoat and round black sunglasses, with one hand naturally adjusting the sunglasses using two fingers. Head is slightly lowered and turned 35 degrees to the left. Bright glowing orange circular neon light directly behind the head forming a clean halo in a deep black studio environment with subtle atmospheric smoke and floating dust particles. Warm orange rim illumination with soft frontal key light on face, 85mm portrait perspective, f/1.8 shallow depth of field, sharp focus on face, luxury fashion editorial cyberpunk aesthetic, 3:4 vertical composition.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt9.jpg",
-      "tags": ["Cinematic", "Portrait", "Cyberpunk", "Neon", "Fashion", "Studio"]
+      "tags": [
+        "Cinematic",
+        "Portrait",
+        "Cyberpunk",
+        "Neon",
+        "Fashion",
+        "Studio"
+      ]
     },
     {
       "id": "prompt_008",
@@ -91,7 +131,14 @@
       "title": "Dramatic Overhead Streetwear Portrait",
       "prompt_text": "Subject and Attire: A male model in a confident, neutral pose wearing an oversized, red fleece hoodie. The hoodie features a specific design: white, curved seam lines. Setting and Perspective: A dark, minimalist studio setting. The image should be captured from a dramatic, top-down (overhead) perspective. Lighting: A powerful circular spotlight should be positioned directly overhead. This will create deep, defined shadows and a distinct, elongated silhouette of the model on the floor. Composition and Style: The composition should adhere to the rule-of-thirds, with the subject offset. The overall feel must be a moody, editorial, cinematic fashion campaign look. Technical Details: High-contrast lighting with deep blacks and vibrant red highlights. Emphasize realistic skin texture and detailed fabric fibers in the fleece. Use a medium-wide angle lens (e.g., 35mm) with a shallow depth of field (e.g., f/2.8) and low light sensitivity (e.g., ISO 200), simulating a high-end cinema camera look.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt8.jpg",
-      "tags": ["portrait", "streetwear", "cinematic", "top-down", "spotlight", "red hoodie"]
+      "tags": [
+        "portrait",
+        "streetwear",
+        "cinematic",
+        "top-down",
+        "spotlight",
+        "red hoodie"
+      ]
     },
     {
       "id": "prompt_007",
@@ -99,7 +146,13 @@
       "title": "Proud with the Flag",
       "prompt_text": "A powerful, low-angle portrait of a person [Reference Image of Person's Face] standing proudly in a large, sunlit public square, holding a large, waving national flag of Pakistan (dark green with a white crescent and star) on a long wooden pole. The person is dressed in a crisp, white Shalwar Kameez, looking off-camera with a proud, patriotic expression. The background is a gently blurred, enthusiastic Independence Day crowd under a bright blue sky with scattered clouds. Soft, natural daylight, warm tones, and high detail in the flag's texture.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt7.jpg",
-      "tags": ["Trending", "Portrait", "Patriotic", "Flag", "Daylight"]
+      "tags": [
+        "Trending",
+        "Portrait",
+        "Patriotic",
+        "Flag",
+        "Daylight"
+      ]
     },
     {
       "id": "prompt_006",
@@ -107,7 +160,13 @@
       "title": "Fireworks at Minar-e-Pakistan",
       "prompt_text": "A cinematic, high-resolution night photograph capturing a person [Reference Image of Person's Face] standing with a joyful expression near the historic Minar-e-Pakistan in Lahore. The monument is beautifully illuminated with green and white lights. The person is looking upwards at a spectacular display of green and white fireworks bursting across the dark night sky. They are wearing a stylish, contemporary dark green kurta. The atmosphere is electric, filled with celebratory lights from the crowd. Natural film grain, shallow depth of field, sharp focus on the person and the fireworks.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt6.jpg",
-      "tags": ["Trending", "Portrait", "Patriotic", "Night", "Fireworks"]
+      "tags": [
+        "Trending",
+        "Portrait",
+        "Patriotic",
+        "Night",
+        "Fireworks"
+      ]
     },
     {
       "id": "prompt_005",
@@ -115,7 +174,13 @@
       "title": "Moody B&W Dodge Charger Street Style",
       "prompt_text": "Black and white photography, photorealistic, ultra detailed, 4k- a young man in his mid-20s with hairstyle and a beard, wearing black sunglasses, oversized graphic t-shirt with large white gothic \"84\" print, dark baggy cargo jeans, white Nike sneakers, sitting on the trunk lip/ rear spoiler of a white Dodge Charger R/T Scat Pack, rear 3/4 angle view, left leg bent on trunk, right leg hanging down, right hand adjusting sunglasses, left hand resting on knee, looking to the side with a cool attitude, white car with black alloy wheels, black rear spoiler, tinted windows, Dodge Charger badge on trunk, LED taillights, license plate \"01 RAJPUT\", dual exhaust, parked in an empty asphalt parking lot, background blurred- trees, houses, light pole, soccer goal, cloudy bright sky, daytime natural overcast lighting, soft shadows, shallow depth of field, bokeh background, low angle shot, sharp focus on subject and car, vertical portrait composition, Instagram street style, moody, high contrast black and white filter, slight film grain, 100% my face same, zoom in 3:4",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt5.jpg",
-      "tags": ["Trending", "Portrait", "Cinematic", "Black and White", "Street Style"]
+      "tags": [
+        "Trending",
+        "Portrait",
+        "Cinematic",
+        "Black and White",
+        "Street Style"
+      ]
     },
     {
       "id": "prompt_004",
@@ -123,7 +188,12 @@
       "title": "Cinematic Golden Light Portrait",
       "prompt_text": "Cinematic close-up portrait of a young man in a white shirt, framed from mid-chest up, occupying most of the frame. His chest and shoulders are angled slightly toward the left side of the frame, while his face is turned toward the right side, looking slightly upward/right, with a calm, thoughtful expression. Messy textured dark hair. Behind him are hanging translucent crinkled cellophane/iridescent metallic foil sheets, creating a shimmering glass-like curtain with vertical folds, reflections and colorful prism highlights. Strong warm golden sunlight passes through the reflective sheets from the right, casting sharp broken leaf-like streaks of golden light and shadow across his face, neck and white shirt, while cool blue light fills the left side. Blue, cyan, purple and amber bokeh in the background, dreamy reflective atmosphere, shallow depth of field, highly detailed cinematic photography, natural skin texture, 4:5 portrait.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt4.jpg",
-      "tags": ["Trending", "Cinematic", "Golden Hour", "Bokeh"]
+      "tags": [
+        "Trending",
+        "Cinematic",
+        "Golden Hour",
+        "Bokeh"
+      ]
     },
     {
       "id": "prompt_003",
@@ -131,7 +201,11 @@
       "title": "14th August Independence Day Poster",
       "prompt_text": "A vertical Pakistan Independence Day poster design, 14th August theme. A young man with wavy black hair, light beard, wearing a white kurta with a green and white striped scarf/stole draped around his neck, standing confidently, looking at camera with a slight smile. Background shows Minar-e-Pakistan & Qayed Azam mazar monument on the left, a large waving Pakistani flag (dark green with white crescent moon and star, white vertical stripe) on the right side, golden fireworks bursting in the sky, green confetti/paper pieces falling across the frame, warm golden-green cinematic lighting, soft bokeh effect. Top left \"14th AUGUST — INDEPENDENCE DAY\" in white/gold. Bottom section has decorative Urdu calligraphy line, below it bold text \"PROUD TO BE PAKISTANI\" in white and green gradient. Portrait/poster style, high detail, professional photo-manipulation, patriotic aesthetic, 9:16 aspect ratio.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt3.jpg",
-      "tags": ["Trending", "Portrait", "Studio"]
+      "tags": [
+        "Trending",
+        "Portrait",
+        "Studio"
+      ]
     },
     {
       "id": "prompt_002",
@@ -139,7 +213,11 @@
       "title": "Fire and Ice Submerged Portrait",
       "prompt_text": "Create a high-contrast close-up portrait of the referenced man. The image should depict only the left half of his face, partially submerge in water, with fire and ice droplets and bubbles visible on his skin and hair. Illuminate the left side of the face dramatically, casting the rest into deep shadow. dark background. detail in skin texture beard stubble, and eye focus to evoke a moody cinematic atmosphere. 3:4 orientation. Make it warm color, use my face details from uploaded photo.",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt2.jpg",
-      "tags": ["Trending", "Fantasy", "Concept Art"]
+      "tags": [
+        "Trending",
+        "Fantasy",
+        "Concept Art"
+      ]
     },
     {
       "id": "prompt_001",
@@ -147,7 +225,19 @@
       "title": "Fiery Power Stance",
       "prompt_text": "Dramatic scene of a man standing proudly surrounded by strong flames, his arms emitting flames in gradient colors of red, blue and red, dynamic energy with oversized white t-shirt, camouflage shorts, and black converse shoes, dark background to enhance the contrast of fire and movement, cultural performance feel, high detail, cinematic lighting, and fast shutter photography style",
       "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt1.jpg",
-      "tags": ["Trending", "Cinematic", "Patriotic"]
+      "tags": [
+        "Trending",
+        "Cinematic",
+        "Patriotic"
+      ]
+    },
+    {
+      "id": "prompt_sky-climber_86874",
+      "category": "Nature",
+      "title": "Sky climber",
+      "prompt_text": "Create a photorealistic cinematic portrait using the uploaded image strictly as a reference for the subject’s facial identity. Maintain the person’s recognizable facial characteristics, natural complexion, facial proportions, hairstyle and hairline, eyebrows, eyes, nose, lips, jawline, beard or facial-hair pattern, and authentic skin texture. Do not beautify, reshape, de-age, or otherwise alter the person’s identity.\n\nGive the subject thick, naturally tousled hair with realistic individual strands, believable volume, and natural texture. Place him outdoors beneath a magnificent deep-blue summer sky filled with enormous, highly detailed bright-white cumulus clouds.\n\nUse an extremely low camera position around waist-to-chest height, pointing strongly upward for a dramatic heroic perspective. Keep the subject primarily in the lower-right/central area of the vertical frame, leaving substantial open sky and towering cloud formations above him.\n\nAngle the torso slightly and have the head gently raised toward the sky while turned toward the right side of the frame, creating the feeling that he is peacefully admiring the sky. Keep the shoulders relaxed. His expression should appear calm, self-assured, and subtly joyful, with a natural understated smile.\n\nDress him in a loose black short-sleeve textured button-up shirt. The material should have realistic woven detail, natural creases, folds, and fabric behavior. Leave the upper buttons slightly open for a relaxed fashion-editorial appearance.\n\nAdd stylish rectangular sunglasses with transparent smoky-gray thick translucent frames. The lenses must contain physically believable reflections of the bright sky and surrounding clouds.\n\nBehind the subject, create a gigantic vertically rising wall of brilliant white cumulus clouds. The clouds should have extremely detailed fluffy formations, realistic dimensional shading, sunlit edges, atmospheric perspective, and convincing depth. Surround the formation with a rich natural deep-blue sky and a few subtle wispy clouds.\n\nInclude several small, soft white flower petals naturally floating through the air at different distances. Some petals should remain crisp and detailed, while others should show subtle motion blur or shallow-focus softness to create authentic depth and movement.\n\nUse professional full-frame photographic aesthetics with an ultra-wide 24mm perspective and a pronounced low-angle viewpoint. Illuminate the scene with natural bright daylight and physically believable shadows. Add subtle atmospheric haze, authentic reflections in the sunglasses, individually distinguishable hair strands, detailed beard texture, visible pores, and realistic skin detail suitable for close inspection.\n\nMaintain cinematic framing, shallow-to-moderate depth of field, natural photographic color rendering, subtle film grain, and high dynamic range while avoiding an artificial HDR appearance. The final image should resemble premium editorial photography captured in exceptionally high resolution.\n\nFormat the composition as a vertical 4:5 Instagram portrait. Position the subject slightly toward the lower-right/center, with the head around the lower-middle portion of the frame. Place the enormous cloud formation directly behind and above him, preserving generous cinematic negative space across the upper portion and creating a powerful sense of scale, height, and atmospheric depth.\n\nThe result must be a newly generated original visual composition. Do not reproduce, trace, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid recognizable logos, watermarks, trademarks, or branded visual elements. Use the uploaded image only for facial identity reference.\n\nAvoid anime, cartoons, illustrations, paintings, CGI appearance, 3D-rendered aesthetics, artificial-looking faces, identity changes, beautified facial features, plastic or excessively smooth skin, fake-looking hair, blurred facial details, distorted anatomy, deformed hands or limbs, unrealistic sunglasses, incorrect lens reflections, flat-looking clouds, artificial skies, excessive saturation, oversharpening, fake HDR, excessive glow, artificial lighting, wax-like skin, text, logos, and watermarks.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178084146.jpg",
+      "tags": []
     }
   ]
 }
