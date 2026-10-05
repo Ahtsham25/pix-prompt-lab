@@ -1,1 +1,35 @@
+</div>
+
+<script>
+const els = {
+  token: document.getElementById('token'),
+  owner: document.getElementById('owner'),
+  repo: document.getElementById('repo'),
+  folderPath: document.getElementById('folderPath'),
+  imageFile: document.getElementById('imageFile'),
+  preview: document.getElementById('preview'),
+  title: document.getElementById('title'),
+  category: document.getElementById('category'),
+  categoryList: document.getElementById('categoryList'),
+  promptText: document.getElementById('promptText'),
+  tags: document.getElementById('tags'),
+  rememberToken: document.getElementById('rememberToken'),
+  saveBtn: document.getElementById('saveBtn'),
+  status: document.getElementById('status'),
+};
+
+// Restore saved token/settings
+const saved = localStorage.getItem('pixprompt_admin_token');
+if (saved) { els.token.value = saved; els.rememberToken.checked = true; }
+const savedOwner = localStorage.getItem('pixprompt_admin_owner');
+const savedRepo = localStorage.getItem('pixprompt_admin_repo');
+const savedPath = localStorage.getItem('pixprompt_admin_path');
+if (savedOwner) els.owner.value = savedOwner;
+if (savedRepo) els.repo.value = savedRepo;
+if (savedPath) els.folderPath.value = savedPath;
+
+function showStatus(msg, type) {
+  els.status.textContent = msg;
+  els.status.className = 'status show ' + type;
+}
 
