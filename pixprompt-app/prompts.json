@@ -249,6 +249,16 @@
         "All",
         "trending"
       ]
+    },
+    {
+      "id": "prompt_aesthetic-music_43107",
+      "category": "Product",
+      "title": "Aesthetic music",
+      "prompt_text": "Create an ultra-realistic cinematic streetwear portrait of a young Indian man standing alone inside a dim underground parking garage, positioned beside the front section of a glossy black luxury sedan. His head is naturally lowered and both hands are placed inside the pockets of his clothing.\n\nHe is dressed in an oversized beige polo T-shirt paired with extremely loose, heavily relaxed faded-gray cargo jeans. Add a realistic wristwatch and beige Crocs-style casual footwear. Preserve the overall relaxed streetwear styling, proportions, and visual character of the outfit.\n\nThe environment should feel dark, atmospheric, and industrial. Use moody fluorescent ceiling illumination that creates realistic highlights and shadows across the subject, vehicle, and surroundings. The concrete floor should appear slightly wet and reflective, producing natural reflections from the overhead lights and car. Keep the background dark and understated with a shallow depth of field that separates the subject from the surroundings.\n\nApply a muted green-brown cinematic color treatment with restrained contrast, natural skin tones, realistic exposure, and subtle photographic film grain. Maintain a premium editorial photography aesthetic rather than an artificial CGI appearance.\n\nOn the left side of the composition, include a large floating translucent dark-glass music-player interface with a modern premium streaming-player appearance. Display the track information for Koti's “Niddura Pothunna,” including its album artwork, playback progress bar, and standard playback controls. Keep the interface visually integrated into the scene with realistic translucency, reflections, subtle glow, and depth, while avoiding reproduction of any specific proprietary app interface, logo, or trademarked UI design.\n\nPreserve the intended pose, clothing arrangement, vehicle placement, floating music-player position, lighting direction, framing, perspective, and overall cinematic composition. The subject should remain the primary visual focus while the car and music interface complement the scene.\n\nUse a strict vertical 4:5 Instagram composition at 1080 × 1350 resolution. Maintain realistic photographic detail, natural textures, physically believable lighting and reflections, authentic fabric folds, realistic denim texture, detailed skin and hair, and subtle depth-of-field effects.\n\nCreate the final image as a new, original AI-generated composition. Do not copy, trace, reproduce, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid unnecessary logos, watermarks, or other branded visual elements.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791179340233.jpg",
+      "tags": [
+        "Trending"
+      ]
     }
   ]
 }
