@@ -4,9 +4,11 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 private sealed class GridItem {
     data class PromptItem(val prompt: Prompt) : GridItem()
@@ -15,13 +17,8 @@ private sealed class GridItem {
 }
 
 /**
- * Grid adapter for the Explore screen with paginated "Load More" behavior:
- *  - Shows only [visiblePrompts] (a slice of the full filtered list).
- *  - Inserts a full-width banner ad every AD_INTERVAL prompts.
- *  - If [hasMore] is true, a "Load More" row is appended at the end.
- *    Tapping it triggers a rewarded ad via [onLoadMoreClick]; only on
- *    successful reward does the caller extend visiblePrompts (by PAGE_SIZE)
- *    and re-submit.
+ * Grid adapter for Explore & Videos screens with paginated "Load More" behavior
+ * and smooth card entrance animations.
  */
 class ExploreGridAdapter(
     private val activity: Activity,
@@ -42,6 +39,7 @@ class ExploreGridAdapter(
     }
 
     private var items: List<GridItem> = buildItems(visiblePrompts, hasMore)
+    private var lastAnimatedPosition = -1
 
     private fun buildItems(prompts: List<Prompt>, more: Boolean): List<GridItem> {
         val result = mutableListOf<GridItem>()
@@ -61,6 +59,7 @@ class ExploreGridAdapter(
         visiblePrompts = newVisiblePrompts
         hasMore = newHasMore
         items = buildItems(newVisiblePrompts, newHasMore)
+        lastAnimatedPosition = -1
         notifyDataSetChanged()
     }
 
@@ -94,13 +93,13 @@ class ExploreGridAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is GridItem.PromptItem -> bindPrompt(holder as PromptAdapter.PromptViewHolder, item.prompt)
+            is GridItem.PromptItem -> bindPrompt(holder as PromptAdapter.PromptViewHolder, item.prompt, position)
             is GridItem.AdItem -> bindAd(holder as AdViewHolder)
             is GridItem.LoadMoreItem -> bindLoadMore(holder as LoadMoreViewHolder)
         }
     }
 
-    private fun bindPrompt(holder: PromptAdapter.PromptViewHolder, prompt: Prompt) {
+    private fun bindPrompt(holder: PromptAdapter.PromptViewHolder, prompt: Prompt, position: Int) {
         holder.title.text = prompt.title
         holder.category.text = prompt.category
 
@@ -108,6 +107,7 @@ class ExploreGridAdapter(
             .load(prompt.image_url)
             .placeholder(R.drawable.image_placeholder)
             .error(R.drawable.image_placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade(250))
             .centerCrop()
             .into(holder.image)
 
@@ -116,8 +116,25 @@ class ExploreGridAdapter(
             if (favorite) R.drawable.ic_bookmark else R.drawable.ic_bookmark_border
         )
 
+        if (position > lastAnimatedPosition) {
+            holder.itemView.alpha = 0f
+            holder.itemView.translationY = 24f
+            holder.itemView.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(260)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+            lastAnimatedPosition = position
+        }
+
         holder.itemView.setOnClickListener { onClick(prompt) }
-        holder.bookmark.setOnClickListener { onBookmarkClick(prompt, holder) }
+        holder.bookmark.setOnClickListener {
+            holder.bookmark.animate().scaleX(1.25f).scaleY(1.25f).setDuration(110).withEndAction {
+                holder.bookmark.animate().scaleX(1f).scaleY(1f).setDuration(110).start()
+            }.start()
+            onBookmarkClick(prompt, holder)
+        }
     }
 
     private fun bindAd(holder: AdViewHolder) {

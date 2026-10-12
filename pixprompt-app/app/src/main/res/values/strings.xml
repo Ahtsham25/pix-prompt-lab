@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">PixPrompt Lab</string>
-    <string name="search_hint">Search prompts…</string>
+    <string name="app_name">Pixvid Lab</string>
+    <string name="search_hint">Search image prompts…</string>
+    <string name="search_video_hint">Search video prompts…</string>
+    <string name="video_prompts">Video Prompts</string>
     <string name="copy">Copy</string>
     <string name="copied">Prompt copied!</string>
     <string name="bookmark">Save</string>
@@ -11,5 +13,5 @@
     <string name="loading">Loading prompts…</string>
     <string name="load_failed">Could not load prompts. Please check your internet connection and try again.</string>
     <string name="no_results">No prompts found.</string>
-    <string name="splash_tagline">AI Prompts, Instantly.</string>
+    <string name="splash_tagline">AI Image &amp; Video Prompts, Instantly.</string>
 </resources>

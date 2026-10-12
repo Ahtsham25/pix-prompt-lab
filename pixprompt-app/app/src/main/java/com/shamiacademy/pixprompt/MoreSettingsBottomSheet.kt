@@ -78,11 +78,11 @@ class MoreSettingsBottomSheet : BottomSheetDialogFragment() {
             type = "text/plain"
             putExtra(
                 Intent.EXTRA_TEXT,
-                "Check out PixPrompt Lab — a library of ready-to-use AI image prompts!\n" +
+                "Check out Pixvid Lab — a library of ready-to-use AI image & video prompts!\n" +
                     "https://play.google.com/store/apps/details?id=$pkg"
             )
         }
-        startActivity(Intent.createChooser(shareIntent, "Share PixPrompt Lab"))
+        startActivity(Intent.createChooser(shareIntent, "Share Pixvid Lab"))
         dismiss()
     }
 }

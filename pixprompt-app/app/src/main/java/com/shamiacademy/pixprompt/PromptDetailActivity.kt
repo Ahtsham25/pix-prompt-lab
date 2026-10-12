@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.shamiacademy.pixprompt.databinding.ActivityPromptDetailBinding
 import kotlin.math.abs
 
@@ -22,6 +23,7 @@ class PromptDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPromptDetailBinding
     private lateinit var promptId: String
     private lateinit var promptText: String
+    private var isVideoPrompt: Boolean = false
     private lateinit var swipeBackDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +31,18 @@ class PromptDetailActivity : AppCompatActivity() {
         binding = ActivityPromptDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        BottomNavHelper.setup(this, NavTab.EXPLORE)
-        setupSwipeToGoBack()
-
         promptId = intent.getStringExtra("id") ?: ""
         val title = intent.getStringExtra("title") ?: ""
         val category = intent.getStringExtra("category") ?: ""
         promptText = intent.getStringExtra("prompt_text") ?: ""
         val imageUrl = intent.getStringExtra("image_url") ?: ""
+        isVideoPrompt = intent.getBooleanExtra("is_video", false) ||
+            intent.getStringExtra("type").equals("video", ignoreCase = true)
 
+        BottomNavHelper.setup(this, if (isVideoPrompt) NavTab.VIDEOS else NavTab.EXPLORE)
+        setupSwipeToGoBack()
+
+        binding.detailSubtitle.text = if (isVideoPrompt) "Featured Video Prompt" else "Featured Prompt"
         binding.detailTitle.text = title
         binding.detailCategory.text = category
         binding.detailPromptText.text = promptText
@@ -46,6 +51,7 @@ class PromptDetailActivity : AppCompatActivity() {
             .load(imageUrl)
             .placeholder(R.drawable.image_placeholder)
             .error(R.drawable.image_placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade(250))
             .fitCenter()
             .into(binding.detailImage)
 
@@ -75,6 +81,12 @@ class PromptDetailActivity : AppCompatActivity() {
             copyToClipboard(promptText, showToast = false)
             Toast.makeText(this, "Prompt copied — paste it into ChatGPT", Toast.LENGTH_SHORT).show()
             openAiApp(Constants.CHATGPT_PACKAGE, Constants.CHATGPT_WEB_URL)
+        }
+
+        binding.tryFlowButton.setOnClickListener {
+            copyToClipboard(promptText, showToast = false)
+            Toast.makeText(this, "Prompt copied — paste it into Google Flow", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.FLOW_WEB_URL)))
         }
     }
 
@@ -110,11 +122,10 @@ class PromptDetailActivity : AppCompatActivity() {
 
         binding.root.setOnTouchListener { _, event ->
             swipeBackDetector.onTouchEvent(event)
-            false // never block normal button taps/scrolling
+            false
         }
     }
 
-    /** Goes back to Explore — shows an interstitial every time, then navigates back once it's dismissed. */
     private fun goBack() {
         AdsManager.showInterstitialAlways(this) {
             finish()
@@ -122,19 +133,36 @@ class PromptDetailActivity : AppCompatActivity() {
         }
     }
 
-    /** Fake "AI processing" delay before revealing the (already-known) prompt text. */
+    /** Animated "AI processing" delay before revealing the prompt text and action buttons. */
     private fun runGenerateFlow() {
         binding.resultBox.visibility = View.GONE
         binding.detailInlineAdContainer.visibility = View.GONE
         binding.tryAiRow.visibility = View.GONE
+        binding.tryFlowButton.visibility = View.GONE
         binding.processingBar.visibility = View.VISIBLE
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.processingBar.visibility = View.GONE
+
+            binding.resultBox.alpha = 0f
+            binding.resultBox.translationY = 16f
             binding.resultBox.visibility = View.VISIBLE
+            binding.resultBox.animate().alpha(1f).translationY(0f).setDuration(280).start()
+
             binding.detailInlineAdContainer.visibility = View.VISIBLE
             AdsManager.loadBanner(this, binding.detailInlineAdContainer)
-            binding.tryAiRow.visibility = View.VISIBLE
+
+            if (isVideoPrompt) {
+                binding.tryFlowButton.alpha = 0f
+                binding.tryFlowButton.translationY = 16f
+                binding.tryFlowButton.visibility = View.VISIBLE
+                binding.tryFlowButton.animate().alpha(1f).translationY(0f).setStartDelay(80).setDuration(280).start()
+            } else {
+                binding.tryAiRow.alpha = 0f
+                binding.tryAiRow.translationY = 16f
+                binding.tryAiRow.visibility = View.VISIBLE
+                binding.tryAiRow.animate().alpha(1f).translationY(0f).setStartDelay(80).setDuration(280).start()
+            }
         }, 1500L)
     }
 

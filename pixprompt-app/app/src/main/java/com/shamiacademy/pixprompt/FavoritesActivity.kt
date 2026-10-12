@@ -28,9 +28,9 @@ class FavoritesActivity : AppCompatActivity() {
             items = emptyList(),
             isFavorite = { id -> PrefsHelper.isFavorite(this, id) },
             onClick = { prompt -> openDetail(prompt) },
-            onBookmarkClick = { prompt, holder ->
+            onBookmarkClick = { prompt, _ ->
                 PrefsHelper.toggleFavorite(this, prompt.id)
-                loadFavorites() // refresh list since item may need to disappear
+                loadFavorites()
             }
         )
         binding.favoritesRecycler.layoutManager = GridLayoutManager(this, 2)
@@ -49,7 +49,7 @@ class FavoritesActivity : AppCompatActivity() {
             val result = DataRepository.loadPrompts()
             result.onSuccess { data ->
                 val favoriteIds = PrefsHelper.getFavoriteIds(this@FavoritesActivity)
-                val favoritePrompts = data.prompts.filter { favoriteIds.contains(it.id) }
+                val favoritePrompts = data.allCombinedPrompts().filter { favoriteIds.contains(it.id) }
                 adapter.updateItems(favoritePrompts)
                 binding.favEmptyText.text = getString(R.string.no_favorites)
                 binding.favEmptyText.visibility =
@@ -70,7 +70,9 @@ class FavoritesActivity : AppCompatActivity() {
             intent.putExtra("category", prompt.category)
             intent.putExtra("prompt_text", prompt.prompt_text)
             intent.putExtra("image_url", prompt.image_url)
+            intent.putExtra("is_video", prompt.isVideo())
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 }

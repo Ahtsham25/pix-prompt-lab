@@ -34,6 +34,12 @@
             android:theme="@style/Theme.PixPrompt" />
 
         <activity
+            android:name=".VideosActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/Theme.PixPrompt" />
+
+        <activity
             android:name=".PromptDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.PixPrompt" />

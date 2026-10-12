@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0A0A12;
+    --surface: #15151F;
+    --surface-light: #1C1C28;
+    --accent: #A855F7;
+    --accent2: #EC4899;
+    --grad-start: #6366F1;
+    --grad-mid: #D946EF;
+    --grad-end: #F97316;
+    --text: #FFFFFF;
+    --text2: #9CA3AF;
+  }
+
+  body {
+    background-color: #0A0A12;
+    color: #FFFFFF;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0;
+  }
+}
+
+.pix-gradient-border {
+  background: linear-gradient(45deg, #6366F1, #D946EF, #F97316);
+  padding: 2px;
+}
+
+.pix-button-gradient {
+  background: linear-gradient(90deg, #D946EF, #EC4899);
+}
+
+.pix-flow-gradient {
+  background: linear-gradient(90deg, #06B6D4, #A855F7, #EC4899);
+}
+
+.pix-badge-gradient {
+  background: linear-gradient(135deg, #06B6D4, #A855F7, #EC4899);
+}
+
+.pix-avatar-gradient {
+  background: linear-gradient(135deg, #6366F1, #EC4899);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes pixFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pixSplashPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.68);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pix-card {
+  animation: pixFadeUp 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-pix-splash {
+  animation: pixSplashPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

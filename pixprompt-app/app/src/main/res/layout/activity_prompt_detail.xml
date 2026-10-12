@@ -42,6 +42,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/detailSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Featured Prompt"
@@ -206,7 +207,7 @@
                     android:src="@drawable/ic_copy_small" />
             </LinearLayout>
 
-            <!-- Inline banner ad: shown between the copied prompt and Try Gemini/ChatGPT -->
+            <!-- Inline banner ad: shown between the copied prompt and Try buttons -->
             <FrameLayout
                 android:id="@+id/detailInlineAdContainer"
                 android:layout_width="match_parent"
@@ -216,7 +217,7 @@
                 android:layout_marginEnd="16dp"
                 android:visibility="gone" />
 
-            <!-- Try Gemini / Try ChatGPT -->
+            <!-- Try Gemini / Try ChatGPT (shown for Image Prompts) -->
             <LinearLayout
                 android:id="@+id/tryAiRow"
                 android:layout_width="match_parent"
@@ -277,6 +278,34 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <!-- Try with Flow (shown for Video Prompts instead of Gemini/ChatGPT) -->
+            <LinearLayout
+                android:id="@+id/tryFlowButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/try_button_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_flow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Try with Flow"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
