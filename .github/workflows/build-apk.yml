@@ -33,9 +33,26 @@ jobs:
 
       - name: Prepare named APK files
         run: |
-          mkdir -p artifacts-ready
-          cp pixprompt-app/app/build/outputs/apk/debug/app-debug.apk artifacts-ready/Pixvid-Lab-User-v1.0.3.apk
-          cp pixprompt-app/admin-app/build/outputs/apk/debug/admin-app-debug.apk artifacts-ready/Pixvid-Admin-v1.0.1.apk
+          mkdir -p "${{ github.workspace }}/artifacts-ready"
+          USER_APK=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          ADMIN_APK=$(find admin-app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          echo "User APK found at: $USER_APK"
+          echo "Admin APK found at: $ADMIN_APK"
+          if [ -n "$USER_APK" ] && [ -f "$USER_APK" ]; then
+            cp "$USER_APK" "${{ github.workspace }}/artifacts-ready/Pixvid-Lab-User-v1.0.3.apk"
+          else
+            echo "Error: User APK not found!"
+            find . -name "*.apk"
+            exit 1
+          fi
+          if [ -n "$ADMIN_APK" ] && [ -f "$ADMIN_APK" ]; then
+            cp "$ADMIN_APK" "${{ github.workspace }}/artifacts-ready/Pixvid-Admin-v1.0.1.apk"
+          else
+            echo "Error: Admin APK not found!"
+            find . -name "*.apk"
+            exit 1
+          fi
+          ls -lh "${{ github.workspace }}/artifacts-ready"
 
       - name: Upload Pixvid Lab (User App) APK
         uses: actions/upload-artifact@v4
