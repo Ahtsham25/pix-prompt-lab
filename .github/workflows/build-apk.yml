@@ -1,4 +1,4 @@
-name: Build PixPrompt APK
+name: Build Pixvid Lab & Pixvid Admin APKs
 
 on:
   push:
@@ -28,11 +28,17 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
-      - name: Build debug APK
+      - name: Build User App & Admin App debug APKs
         run: gradle assembleDebug --stacktrace
 
-      - name: Upload APK artifact
+      - name: Upload Pixvid Lab (User App) APK
         uses: actions/upload-artifact@v4
         with:
-          name: PixPrompt-debug-apk
+          name: Pixvid-Lab-User-APK
           path: pixprompt-app/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload Pixvid Admin (Separate Admin App) APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pixvid-Admin-APK
+          path: pixprompt-app/admin-app/build/outputs/apk/debug/admin-app-debug.apk

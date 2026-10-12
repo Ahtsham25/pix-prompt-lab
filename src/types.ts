@@ -1,11 +1,13 @@
 export interface Prompt {
   id: string;
-  type?: 'image' | 'video';
   category: string;
   title: string;
   prompt_text: string;
   image_url: string;
   tags: string[];
+  type?: 'image' | 'video';
+  created_at?: string;
+  timestamp?: number;
 }
 
 export interface PromptData {
@@ -18,6 +20,5 @@ export enum NavTab {
   EXPLORE = 'EXPLORE',
   VIDEOS = 'VIDEOS',
   FAVORITE = 'FAVORITE',
-  ADMIN = 'ADMIN',
   PRIVACY = 'PRIVACY',
 }

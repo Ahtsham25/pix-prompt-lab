@@ -7,7 +7,6 @@ import {
   Shield,
   Sliders,
   ChevronRight,
-  PlusCircle,
 } from 'lucide-react';
 import { Constants } from '../constants';
 import { PixvidLogo } from './PixvidLogo';
@@ -17,7 +16,6 @@ interface MoreSettingsModalProps {
   onClose: () => void;
   onOpenPrivacyPolicy: () => void;
   onOpenAdConsent: () => void;
-  onOpenAdminPanel: () => void;
   showToast: (msg: string) => void;
 }
 
@@ -26,7 +24,6 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
   onClose,
   onOpenPrivacyPolicy,
   onOpenAdConsent,
-  onOpenAdminPanel,
   showToast,
 }) => {
   if (!isOpen) return null;
@@ -91,7 +88,7 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
           </button>
         </div>
 
-        {/* Rows matching dialog_more_settings.xml */}
+        {/* Rows matching dialog_more_settings.xml (No Admin button in user app) */}
         <div className="flex flex-col gap-2 px-4">
           <button
             onClick={handleOpenWhatsApp}
@@ -153,22 +150,6 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
               <Sliders className="w-5 h-5 text-sky-400" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">Manage Ad Consent</span>
-            <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
-          </button>
-
-          <button
-            onClick={() => {
-              onClose();
-              onOpenAdminPanel();
-            }}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
-          >
-            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
-              <PlusCircle className="w-5 h-5 text-[#F97316]" />
-            </div>
-            <span className="flex-1 text-[14px] font-medium text-white">
-              Admin Panel (Add Prompt)
-            </span>
             <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
           </button>
         </div>

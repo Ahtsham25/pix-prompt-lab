@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixvid Lab — Standalone Gemini AI Admin Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07070E;
+      --surface: rgba(19, 19, 34, 0.82);
+      --surface-light: #171728;
+      --accent: #A855F7;
+      --accent2: #EC4899;
+      --cyan: #38BDF8;
+      --text: #FFFFFF;
+      --text2: #A1A1B5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(540px circle at 12% 8%, rgba(217, 70, 239, 0.24), rgba(124, 58, 237, 0.09) 45%, transparent 75%),
+        radial-gradient(500px circle at 88% 44%, rgba(6, 182, 212, 0.19), rgba(99, 102, 241, 0.08) 48%, transparent 76%),
+        radial-gradient(580px circle at 50% 94%, rgba(236, 72, 153, 0.20), rgba(168, 85, 247, 0.07) 50%, transparent 78%);
+      color: var(--text);
+      padding: 24px 16px 48px;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 660px; margin: 0 auto; }
+    .header-border {
+      background: linear-gradient(135deg, #38BDF8, #A855F7, #F43F5E);
+      padding: 1.5px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 18px;
+      background: rgba(19, 19, 34, 0.9);
+      backdrop-filter: blur(18px);
+      border-radius: 18.5px;
+    }
+    .brand-row { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #38BDF8, #A855F7, #F43F5E);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .badge-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #161336, #2D094E, #590D3B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-family: "Outfit", sans-serif;
+      font-size: 19px;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .sub { color: var(--text2); font-size: 12px; margin-top: 2px; }
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+    .card h2 {
+      font-family: "Outfit", sans-serif;
+      font-size: 15px;
+      margin: 0 0 12px;
+      color: var(--accent2);
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--text2);
+      margin-bottom: 6px;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+    label:first-of-type { margin-top: 0; }
+    input[type="text"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      background: var(--surface-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--accent2); }
+    textarea { min-height: 115px; resize: vertical; line-height: 1.55; }
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .type-btn {
+      height: 46px;
+      border-radius: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--surface-light);
+      color: var(--text2);
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .type-btn.active-image {
+      background: linear-gradient(95deg, #C026D3, #EC4899);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 24px rgba(236, 72, 153, 0.28);
+    }
+    .type-btn.active-video {
+      background: linear-gradient(95deg, #06B6D4, #8B5CF6, #EC4899);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.28);
+    }
+    .upload-box {
+      border: 2px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      background: rgba(20, 20, 36, 0.75);
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .upload-box:hover { border-color: var(--accent2); }
+    .preview {
+      margin-top: 12px;
+      max-height: 220px;
+      max-width: 100%;
+      border-radius: 12px;
+      display: none;
+    }
+    .btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(95deg, #C026D3, #EC4899);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .reanalyze-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(56, 189, 248, 0.12);
+      color: #38BDF8;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+    .status {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+    }
+    .status.ok { display: block; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status.err { display: block; background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status.loading { display: block; background: #1D1D35; color: #E2E8F0; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .row { display: flex; gap: 10px; }
+    .row > * { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header-border">
+      <header>
+        <div class="brand-row">
+          <div class="badge">
+            <div class="badge-inner">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2.4L19.9 6.95V17.05L12 21.6L4.1 17.05V6.95L12 2.4Z" stroke="#38BDF8" stroke-width="1.3"/>
+                <path d="M9.3 7.55C9.3 6.98 9.92 6.64 10.41 6.93L17.25 10.98C17.73 11.27 17.73 11.97 17.25 12.26L10.41 16.31C9.92 16.6 9.3 16.26 9.3 15.69V7.55Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h1>Pixvid Lab — Admin Studio</h1>
+            <div class="sub">Upload any image or GIF — Gemini AI auto-generates Title, Category, Prompt &amp; Tags</div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="card">
+      <h2>1. Upload &amp; Auto-Generate with Gemini AI</h2>
+
+      <label>Select Prompt Section</label>
+      <div class="type-grid">
+        <button type="button" id="btnTypeImage" class="type-btn active-image">Image Prompt (Gemini / GPT)</button>
+        <button type="button" id="btnTypeVideo" class="type-btn">Video Prompt (Google Flow)</button>
+      </div>
+
+      <label>Preview Image or GIF Thumbnail</label>
+      <label class="upload-box" for="imageFile">
+        <div style="font-weight:700; font-size:14px; color:#fff;">Click to select Preview Image or GIF</div>
+        <div style="font-size:12px; color:#A1A1B5; margin-top:4px;">Gemini AI will immediately analyze the visual and fill all fields below</div>
+        <input type="file" id="imageFile" accept="image/*,.gif" style="display:none;" />
+        <img id="preview" class="preview" alt="Preview" />
+      </label>
+      <button type="button" id="reanalyzeBtn" class="reanalyze-btn">↻ Re-Analyze Image with Gemini AI</button>
+
+      <div id="status" class="status"></div>
+
+      <div class="row">
+        <div>
+          <label>Title</label>
+          <input type="text" id="title" placeholder="Auto-filled by Gemini AI…" />
+        </div>
+        <div>
+          <label>Category</label>
+          <input type="text" id="category" list="categoryList" placeholder="e.g. Cinematic" />
+          <datalist id="categoryList">
+            <option value="Trending"></option>
+            <option value="Cinematic"></option>
+            <option value="Fantasy"></option>
+            <option value="Portrait"></option>
+            <option value="Product"></option>
+            <option value="Nature"></option>
+          </datalist>
+        </div>
+      </div>
+
+      <label id="promptLabel">Prompt Text (Auto-Generated by Gemini AI)</label>
+      <textarea id="promptText" placeholder="Upload an image above to auto-generate, or write your prompt here…"></textarea>
+
+      <label>Tags (comma separated)</label>
+      <input type="text" id="tags" placeholder="Trending, Cinematic, Google Flow" />
+
+      <button class="btn" id="saveBtn">Publish Prompt</button>
+    </div>
+
+    <div class="card">
+      <h2>2. GitHub Repository Sync (Optional)</h2>
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx (leave blank for local save only)" />
+
+      <div class="row">
+        <div>
+          <label>Repo Owner</label>
+          <input type="text" id="owner" value="Ahtsham25" />
+        </div>
+        <div>
+          <label>Repo Name</label>
+          <input type="text" id="repo" value="pix-prompt-lab" />
+        </div>
+      </div>
+
+      <label>Folder Path inside Repo</label>
+      <input type="text" id="folderPath" value="pixprompt-app" />
+
+      <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer;">
+        <input type="checkbox" id="rememberToken" />
+        <span>Remember my GitHub token on this device</span>
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const tokenInput = document.getElementById('token');
+    const ownerInput = document.getElementById('owner');
+    const repoInput = document.getElementById('repo');
+    const pathInput = document.getElementById('folderPath');
+    const rememberBox = document.getElementById('rememberToken');
+    const imageFileInput = document.getElementById('imageFile');
+    const previewImg = document.getElementById('preview');
+    const reanalyzeBtn = document.getElementById('reanalyzeBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const statusBox = document.getElementById('status');
+    const btnTypeImage = document.getElementById('btnTypeImage');
+    const btnTypeVideo = document.getElementById('btnTypeVideo');
+    const titleInput = document.getElementById('title');
+    const categoryInput = document.getElementById('category');
+    const promptInput = document.getElementById('promptText');
+    const tagsInput = document.getElementById('tags');
+
+    let currentType = 'image';
+    let currentBase64 = '';
+    let currentMimeType = 'image/jpeg';
+    let currentExt = 'jpg';
+
+    const savedToken = localStorage.getItem('pixprompt_admin_token');
+    if (savedToken) { tokenInput.value = savedToken; rememberBox.checked = true; }
+
+    function setStatus(msg, type) {
+      statusBox.textContent = msg;
+      statusBox.className = 'status ' + type;
+    }
+
+    btnTypeImage.addEventListener('click', () => {
+      currentType = 'image';
+      btnTypeImage.className = 'type-btn active-image';
+      btnTypeVideo.className = 'type-btn';
+      if (currentBase64) analyzeWithGemini();
+    });
+
+    btnTypeVideo.addEventListener('click', () => {
+      currentType = 'video';
+      btnTypeVideo.className = 'type-btn active-video';
+      btnTypeImage.className = 'type-btn';
+      if (currentBase64) analyzeWithGemini();
+    });
+
+    async function analyzeWithGemini() {
+      if (!currentBase64) return;
+      setStatus('Gemini AI is analyzing your image and generating Title, Category, Prompt & Tags…', 'loading');
+      reanalyzeBtn.disabled = true;
+      try {
+        const res = await fetch('/api/admin/analyze-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            imageBase64: currentBase64,
+            mimeType: currentMimeType,
+            promptType: currentType,
+            categories: ['Trending', 'Cinematic', 'Fantasy', 'Portrait', 'Product', 'Nature']
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Gemini analysis failed');
+        if (data.title) titleInput.value = data.title;
+        if (data.category) categoryInput.value = data.category;
+        if (data.prompt_text) promptInput.value = data.prompt_text;
+        if (Array.isArray(data.tags)) tagsInput.value = data.tags.join(', ');
+        setStatus('Gemini AI auto-filled Title, Category, Prompt Text, and Tags!', 'ok');
+      } catch (err) {
+        setStatus('Gemini Analysis Error: ' + (err.message || err), 'err');
+      } finally {
+        reanalyzeBtn.disabled = false;
+      }
+    }
+
+    reanalyzeBtn.addEventListener('click', analyzeWithGemini);
+
+    imageFileInput.addEventListener('change', () => {
+      const f = imageFileInput.files[0];
+      if (!f) return;
+      currentExt = (f.name.split('.').pop() || 'jpg').toLowerCase();
+      currentMimeType = f.type || 'image/jpeg';
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target.result;
+        previewImg.src = dataUrl;
+        previewImg.style.display = 'inline-block';
+        reanalyzeBtn.style.display = 'inline-block';
+        currentBase64 = dataUrl.split(',')[1] || '';
+        analyzeWithGemini();
+      };
+      reader.readAsDataURL(f);
+    });
+
+    saveBtn.addEventListener('click', async () => {
+      const title = titleInput.value.trim();
+      const category = categoryInput.value.trim();
+      const promptText = promptInput.value.trim();
+      const tagsRaw = tagsInput.value.trim();
+      if (!title || !category || !promptText || !currentBase64) {
+        setStatus('Please upload an image and ensure Title, Category, and Prompt text are filled.', 'err');
+        return;
+      }
+      saveBtn.disabled = true;
+      setStatus('Saving prompt to library…', 'loading');
+      try {
+        const res = await fetch('/api/prompts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: currentType,
+            title,
+            category,
+            prompt_text: promptText,
+            tags: tagsRaw,
+            imageBase64: currentBase64,
+            imageExt: currentExt
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to save prompt');
+        setStatus('Published "' + title + '" to ' + (currentType === 'video' ? 'Video Prompts' : 'Image Prompts') + '!', 'ok');
+      } catch (err) {
+        setStatus('Error: ' + (err.message || err), 'err');
+      } finally {
+        saveBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

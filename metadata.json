@@ -1,5 +1,8 @@
 {
   "name": "PixPrompt Lab",
   "description": "Browse categorized AI art prompts, generate and reveal full prompt details, copy with one tap, save favorites, and manage prompts via the built-in admin panel.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

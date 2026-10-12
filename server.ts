@@ -3,9 +3,58 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI, Type } from '@google/genai';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+interface PromptRecord {
+  id: string;
+  type?: 'image' | 'video';
+  category: string;
+  title: string;
+  prompt_text: string;
+  image_url: string;
+  tags: string[];
+  created_at?: string;
+  timestamp?: number;
+}
+
+function getPromptTimestamp(prompt: PromptRecord): number {
+  if (typeof prompt.timestamp === 'number' && Number.isFinite(prompt.timestamp) && prompt.timestamp > 0) {
+    return prompt.timestamp;
+  }
+  if (prompt.created_at) {
+    const parsed = Date.parse(prompt.created_at);
+    if (!Number.isNaN(parsed) && parsed > 0) {
+      return parsed;
+    }
+  }
+  const epochMatch = `${prompt.image_url || ''} ${prompt.id || ''}`.match(/(\d{13})/);
+  if (epochMatch && epochMatch[1]) {
+    return Number(epochMatch[1]);
+  }
+  const seqMatch = (prompt.id || '').match(/prompt_0*(\d+)$/i);
+  if (seqMatch && seqMatch[1]) {
+    return 1700000000000 + Number(seqMatch[1]) * 3600_000;
+  }
+  return 0;
+}
+
+function sortPromptsNewestFirst(list: PromptRecord[]): PromptRecord[] {
+  return [...list].sort((a, b) => getPromptTimestamp(b) - getPromptTimestamp(a));
+}
+
+function getGeminiClient(): GoogleGenAI {
+  return new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
+    },
+  });
+}
 
 function getPromptsFilePaths(): string[] {
   const rootPath = path.join(__dirname, 'prompts.json');
@@ -34,7 +83,7 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.use(express.json({ limit: '15mb' }));
+  app.use(express.json({ limit: '20mb' }));
 
   // Serve images from /images and /pixprompt-app/images
   const serveImage = (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -58,7 +107,16 @@ async function startServer() {
   app.use('/images', serveImage);
   app.use('/pixprompt-app/images', serveImage);
 
-  // GET /api/prompts - returns synchronized prompts.json data
+  // Serve standalone admin.html when requested directly
+  app.get(['/admin.html', '/pixprompt-app/admin.html'], (_req, res, next) => {
+    const subAdmin = path.join(__dirname, 'pixprompt-app', 'admin.html');
+    const rootAdmin = path.join(__dirname, 'admin.html');
+    if (fs.existsSync(rootAdmin)) return res.sendFile(rootAdmin);
+    if (fs.existsSync(subAdmin)) return res.sendFile(subAdmin);
+    next();
+  });
+
+  // GET /api/prompts - returns synchronized prompts.json data sorted strictly newest-first
   app.get('/api/prompts', (_req, res) => {
     try {
       const [primaryPath] = getPromptsFilePaths();
@@ -71,6 +129,8 @@ async function startServer() {
       }
       const raw = fs.readFileSync(primaryPath, 'utf-8');
       const data = JSON.parse(raw);
+      data.prompts = sortPromptsNewestFirst(data.prompts || []);
+      data.video_prompts = sortPromptsNewestFirst(data.video_prompts || []);
       return res.json(data);
     } catch (err) {
       console.error('Error reading prompts.json:', err);
@@ -86,7 +146,92 @@ async function startServer() {
     return res.status(404).json({ error: 'prompts.json not found' });
   });
 
-  // POST /api/prompts - add a new image or video prompt and keep both JSON files synchronized
+  // POST /api/admin/analyze-image - Uses Gemini Vision (gemini-3.8-flash) to auto-generate Title, Category, Prompt Text & Tags
+  app.post('/api/admin/analyze-image', async (req, res) => {
+    try {
+      const { imageBase64, mimeType, promptType, categories } = req.body;
+      if (!imageBase64) {
+        return res.status(400).json({ error: 'imageBase64 is required for Gemini analysis.' });
+      }
+
+      const isVideo = promptType === 'video';
+      const availableCategories =
+        Array.isArray(categories) && categories.length > 0
+          ? categories.filter((c: string) => c !== 'All').join(', ')
+          : 'Trending, Cinematic, Fantasy, Portrait, Product, Nature';
+
+      const instruction = isVideo
+        ? `Analyze this uploaded preview image/GIF and generate a production-grade AI VIDEO generation prompt specifically designed for Google Flow.
+Describe the scene's dynamic camera movement (e.g. slow-motion tracking shot, gimbal orbit, dolly push-in, crane ascent), subject motion, atmospheric physics (wind, particles, smoke, light flares), lighting, lens characteristics, and cinematic mood so a user can recreate this exact visual as a high-definition cinematic video in Google Flow.
+Also provide a catchy 3-6 word Title, choose the best matching Category from [${availableCategories}], and provide 4-6 relevant Tags.`
+        : `Analyze this uploaded image and generate a comprehensive, ultra-detailed AI IMAGE generation prompt designed for Google Gemini and ChatGPT.
+Describe the subject's pose, attire, lighting direction, color palette, environment, camera angle, lens depth-of-field, and realistic textures in rich detail. If a person is present, instruct the AI to preserve the reference subject's natural facial identity and proportions while recreating the exact scene, style, and lighting.
+Also provide a catchy 3-6 word Title, choose the best matching Category from [${availableCategories}], and provide 4-6 relevant Tags.`;
+
+      const ai = getGeminiClient();
+      const response = await ai.models.generateContent({
+        model: 'gemini-3.8-flash',
+        contents: {
+          parts: [
+            {
+              inlineData: {
+                mimeType: mimeType || 'image/jpeg',
+                data: imageBase64,
+              },
+            },
+            {
+              text: instruction,
+            },
+          ],
+        },
+        config: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              title: {
+                type: Type.STRING,
+                description: 'Concise, evocative 3 to 6 word title for this prompt.',
+              },
+              category: {
+                type: Type.STRING,
+                description: `Best matching category from: ${availableCategories}`,
+              },
+              prompt_text: {
+                type: Type.STRING,
+                description: 'Detailed, production-ready AI generation prompt.',
+              },
+              tags: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.STRING,
+                },
+                description: '4 to 6 descriptive tags.',
+              },
+            },
+            required: ['title', 'category', 'prompt_text', 'tags'],
+          },
+        },
+      });
+
+      const rawText = response.text?.trim() || '{}';
+      const parsed = JSON.parse(rawText);
+
+      return res.json({
+        ok: true,
+        title: parsed.title || '',
+        category: parsed.category || 'Cinematic',
+        prompt_text: parsed.prompt_text || '',
+        tags: Array.isArray(parsed.tags) ? parsed.tags : [],
+      });
+    } catch (err: unknown) {
+      console.error('Gemini analyze-image error:', err);
+      const message = err instanceof Error ? err.message : 'Failed to analyze image with Gemini';
+      return res.status(500).json({ error: message });
+    }
+  });
+
+  // POST /api/prompts - add a new image or video prompt with exact Date & Time and sort newest-first
   app.post('/api/prompts', (req, res) => {
     try {
       const { title, category, prompt_text, tags, type, imageBase64, imageExt, imageUrl } =
@@ -95,6 +240,8 @@ async function startServer() {
         return res.status(400).json({ error: 'Title, category, and prompt_text are required.' });
       }
 
+      const nowMs = Date.now();
+      const nowIso = new Date(nowMs).toISOString();
       const promptType = type === 'video' ? 'video' : 'image';
       const filePaths = getPromptsFilePaths();
       const primaryPath = filePaths[0];
@@ -110,7 +257,7 @@ async function startServer() {
       let finalImageUrl = imageUrl || '/images/prompt1.jpg';
       if (imageBase64) {
         const ext = (imageExt || 'jpg').replace(/[^a-z0-9]/gi, '').toLowerCase() || 'jpg';
-        const filename = `prompt_${Date.now()}.${ext}`;
+        const filename = `prompt_${nowMs}.${ext}`;
         const imgBuffer = Buffer.from(imageBase64, 'base64');
         for (const dir of getImagesDirPaths()) {
           fs.writeFileSync(path.join(dir, filename), imgBuffer);
@@ -125,7 +272,7 @@ async function startServer() {
         .replace(/(^-|-$)/g, '')
         .slice(0, 40);
       const prefix = promptType === 'video' ? 'vid' : 'prompt';
-      const newId = `${prefix}_${slug || Date.now()}_${Date.now().toString().slice(-5)}`;
+      const newId = `${prefix}_${slug || nowMs}_${nowMs}`;
 
       const parsedTags: string[] = Array.isArray(tags)
         ? tags
@@ -133,7 +280,7 @@ async function startServer() {
         ? tags.split(',').map((t: string) => t.trim()).filter(Boolean)
         : [];
 
-      const newEntry = {
+      const newEntry: PromptRecord = {
         id: newId,
         type: promptType,
         category: String(category).trim(),
@@ -141,18 +288,26 @@ async function startServer() {
         prompt_text: String(prompt_text).trim(),
         image_url: finalImageUrl,
         tags: parsedTags,
+        created_at: nowIso,
+        timestamp: nowMs,
       };
 
       if (promptType === 'video') {
-        data.video_prompts = Array.isArray(data.video_prompts)
-          ? [newEntry, ...data.video_prompts]
-          : [newEntry];
+        data.video_prompts = sortPromptsNewestFirst([
+          newEntry,
+          ...(Array.isArray(data.video_prompts) ? data.video_prompts : []),
+        ]);
       } else {
-        data.prompts = Array.isArray(data.prompts) ? [newEntry, ...data.prompts] : [newEntry];
+        data.prompts = sortPromptsNewestFirst([
+          newEntry,
+          ...(Array.isArray(data.prompts) ? data.prompts : []),
+        ]);
       }
 
       data.categories = Array.isArray(data.categories) ? data.categories : [];
-      if (!data.categories.some((c: string) => c.toLowerCase() === newEntry.category.toLowerCase())) {
+      if (
+        !data.categories.some((c: string) => c.toLowerCase() === newEntry.category.toLowerCase())
+      ) {
         data.categories.push(newEntry.category);
       }
 
@@ -165,6 +320,34 @@ async function startServer() {
     } catch (err) {
       console.error('Error saving prompt:', err);
       return res.status(500).json({ error: 'Failed to save prompt' });
+    }
+  });
+
+  // DELETE /api/prompts/:id - remove an image or video prompt from prompts.json
+  app.delete('/api/prompts/:id', (req, res) => {
+    try {
+      const targetId = req.params.id;
+      const filePaths = getPromptsFilePaths();
+      const primaryPath = filePaths[0];
+      if (!fs.existsSync(primaryPath)) {
+        return res.status(404).json({ error: 'prompts.json not found' });
+      }
+      const data = JSON.parse(fs.readFileSync(primaryPath, 'utf-8'));
+      data.prompts = sortPromptsNewestFirst(
+        (data.prompts || []).filter((p: { id: string }) => p.id !== targetId)
+      );
+      data.video_prompts = sortPromptsNewestFirst(
+        (data.video_prompts || []).filter((p: { id: string }) => p.id !== targetId)
+      );
+
+      const serialized = JSON.stringify(data, null, 2);
+      for (const fp of filePaths) {
+        fs.writeFileSync(fp, serialized, 'utf-8');
+      }
+      return res.json({ ok: true, data });
+    } catch (err) {
+      console.error('Error deleting prompt:', err);
+      return res.status(500).json({ error: 'Failed to delete prompt' });
     }
   });
 

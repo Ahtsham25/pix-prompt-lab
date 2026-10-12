@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "PixPrompt"
-include(":app")
+include ':app', ':admin-app'

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
   Search,
   Heart,
@@ -6,22 +6,34 @@ import {
   Sparkles,
   RefreshCw,
   X,
-  PlusCircle,
   Check,
   Video,
   Play,
   Image as ImageIcon,
 } from 'lucide-react';
 import { Prompt, PromptData, NavTab } from './types';
-import { Constants, resolvePromptImageUrl } from './constants';
+import { Constants, resolvePromptImageUrl, sortPromptsLatestFirst } from './constants';
 import { PixvidLogo } from './components/PixvidLogo';
 import { PromptDetailView } from './components/PromptDetailView';
 import { MoreSettingsModal } from './components/MoreSettingsModal';
-import { AdminPanelView } from './components/AdminPanelView';
 import { PrivacyPolicyView } from './components/PrivacyPolicyView';
+import { AdBanner } from './components/AdBanner';
 
 const FAVORITES_STORAGE_KEY = 'pixprompt_favorite_ids';
 const AD_CONSENT_STORAGE_KEY = 'pixprompt_ad_consent';
+
+function checkIsAdminRoute(): boolean {
+  const path = window.location.pathname.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  return (
+    path === '/admin' ||
+    path.startsWith('/admin/') ||
+    search.includes('admin=1') ||
+    search.includes('mode=admin') ||
+    hash === '#admin'
+  );
+}
 
 interface PromptCardProps {
   prompt: Prompt;
@@ -95,9 +107,7 @@ const PromptCard: React.FC<PromptCardProps> = ({
           <h3 className="text-[13px] font-bold text-white truncate leading-snug drop-shadow-xs">
             {prompt.title}
           </h3>
-          <p className="text-[11px] text-[#CBD5E1]/85 truncate mt-0.5">
-            {prompt.category}
-          </p>
+          <p className="text-[11px] text-[#CBD5E1]/85 truncate mt-0.5">{prompt.category}</p>
         </div>
 
         {/* Frosted Bookmark / Heart icon in bottom-right */}
@@ -118,7 +128,8 @@ const PromptCard: React.FC<PromptCardProps> = ({
 };
 
 export function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [isStandaloneAdmin, setIsStandaloneAdmin] = useState<boolean>(() => checkIsAdminRoute());
+  const [showSplash, setShowSplash] = useState<boolean>(() => !checkIsAdminRoute());
   const [activeTab, setActiveTab] = useState<NavTab>(NavTab.EXPLORE);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
 
@@ -148,6 +159,19 @@ export function App() {
   });
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+
+  useEffect(() => {
+    const onPopState = () => {
+      setIsStandaloneAdmin(checkIsAdminRoute());
+    };
+    window.addEventListener('popstate', onPopState);
+    window.addEventListener('hashchange', onPopState);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('hashchange', onPopState);
+    };
+  }, []);
+
   const showToast = useCallback((msg: string) => {
     setToastMessage(msg);
   }, []);
@@ -159,9 +183,10 @@ export function App() {
   }, [toastMessage]);
 
   useEffect(() => {
+    if (!showSplash) return;
     const timer = setTimeout(() => setShowSplash(false), 1450);
     return () => clearTimeout(timer);
-  }, []);
+  }, [showSplash]);
 
   const applyLoadedData = useCallback((data: PromptData) => {
     const rawPrompts = data.prompts || [];
@@ -186,8 +211,8 @@ export function App() {
       }
     }
 
-    setImagePrompts(imgs);
-    setVideoPrompts(combinedVids);
+    setImagePrompts(sortPromptsLatestFirst(imgs));
+    setVideoPrompts(sortPromptsLatestFirst(combinedVids));
     setCategories(['All', ...(data.categories || [])]);
   }, []);
 
@@ -299,6 +324,24 @@ export function App() {
     showToast('Ad consent preferences updated');
   };
 
+  // Dedicated Standalone Admin Studio App (/admin) — completely separate from the User App
+  if (isStandaloneAdmin) {
+    return (
+      <AdminPanelView
+        categories={categories}
+        imagePrompts={imagePrompts}
+        videoPrompts={videoPrompts}
+        onPromptAdded={(updatedData) => {
+          applyLoadedData(updatedData);
+        }}
+        onOpenUserApp={() => {
+          window.history.pushState({}, '', '/');
+          setIsStandaloneAdmin(false);
+        }}
+      />
+    );
+  }
+
   // Flagship Studio Splash Screen (SplashActivity.kt + activity_splash.xml)
   if (showSplash) {
     return (
@@ -357,6 +400,7 @@ export function App() {
 
   return (
     <div className="min-h-screen pix-ambient-bg text-white flex justify-center relative overflow-hidden">
+
       {/* Persistent Faded Glowing Ambient Background Orbs across the entire app */}
       <div
         className="fixed -top-32 left-1/2 -translate-x-[260px] w-[420px] h-[420px] rounded-full bg-[#D946EF]/20 blur-[120px] pointer-events-none z-0"
@@ -381,14 +425,6 @@ export function App() {
             onBack={() => setSelectedPrompt(null)}
             showToast={showToast}
           />
-        ) : activeTab === NavTab.ADMIN ? (
-          <AdminPanelView
-            categories={categories}
-            onBack={() => setActiveTab(NavTab.EXPLORE)}
-            onPromptAdded={(updatedData) => {
-              applyLoadedData(updatedData);
-            }}
-          />
         ) : activeTab === NavTab.PRIVACY ? (
           <PrivacyPolicyView onBack={() => setActiveTab(NavTab.EXPLORE)} />
         ) : activeTab === NavTab.FAVORITE ? (
@@ -397,7 +433,9 @@ export function App() {
             <div className="mx-4 mt-3.5 pix-gradient-border rounded-[18px] shadow-lg shadow-black/25">
               <div className="h-[56px] pix-glass-panel rounded-[16.5px] flex items-center justify-between px-3.5">
                 <div className="flex items-center gap-3">
-                  <PixvidLogo size="md" />
+                  <div>
+                    <PixvidLogo size="md" />
+                  </div>
                   <div className="flex flex-col leading-tight">
                     <span className="text-[18px] font-bold text-white font-display">
                       Favorites
@@ -429,7 +467,8 @@ export function App() {
                   </div>
                   <p className="text-[15px] font-semibold text-white">No saved prompts yet</p>
                   <p className="text-[13px] text-[#9CA3AF] leading-relaxed max-w-[260px]">
-                    Tap the heart icon on any image or video prompt to save it here for instant access.
+                    Tap the heart icon on any image or video prompt to save it here for instant
+                    access.
                   </p>
                 </div>
               ) : (
@@ -455,15 +494,17 @@ export function App() {
             <div className="mx-4 mt-3.5 pix-gradient-border rounded-[18px] shadow-lg shadow-black/25">
               <div className="h-[56px] pix-glass-panel rounded-[16.5px] flex items-center justify-between px-3.5">
                 <div className="flex items-center gap-3">
-                  <PixvidLogo size="md" />
+                  <div>
+                    <PixvidLogo size="md" />
+                  </div>
                   <div className="flex flex-col leading-tight">
                     <span className="text-[18px] font-bold text-white tracking-tight font-display">
                       {Constants.APP_NAME}
                     </span>
                     <span className="text-[11px] text-[#A1A1B5]">
                       {isVideosScreen
-                        ? `${videoPrompts.length} Google Flow Video Prompts`
-                        : `${imagePrompts.length} AI Image Prompts`}
+                        ? 'Google Flow Video Prompts'
+                        : 'AI Image Prompts Studio'}
                     </span>
                   </div>
                 </div>
@@ -559,22 +600,45 @@ export function App() {
                   </button>
                 </div>
               ) : filteredPrompts.length === 0 ? (
-                <div className="h-full min-h-[320px] flex items-center justify-center px-8 text-center">
-                  <p className="text-[14px] text-[#9CA3AF]">No prompts found.</p>
+                <div className="h-full min-h-[320px] flex flex-col items-center justify-center px-8 text-center gap-3">
+                  <div className="w-14 h-14 rounded-2xl pix-glass-panel border border-white/10 flex items-center justify-center">
+                    {isVideosScreen ? (
+                      <Video className="w-6 h-6 text-[#38BDF8]" />
+                    ) : (
+                      <ImageIcon className="w-6 h-6 text-[#EC4899]" />
+                    )}
+                  </div>
+                  <p className="text-[15px] font-semibold text-white">
+                    {isVideosScreen ? 'No video prompts yet' : 'No prompts found'}
+                  </p>
+                  <p className="text-[13px] text-[#9CA3AF] leading-relaxed max-w-[270px]">
+                    {isVideosScreen
+                      ? 'New Google Flow video prompts added from the Admin Studio will appear here.'
+                      : 'Try selecting a different category or clearing your search query.'}
+                  </p>
                 </div>
               ) : (
                 <>
                   <div className="grid grid-cols-2 gap-3">
-                    {visiblePrompts.map((prompt, index) => (
-                      <PromptCard
-                        key={`${activeTab}_${prompt.id}`}
-                        prompt={prompt}
-                        index={index}
-                        isFavorite={favoriteIds.has(prompt.id)}
-                        onSelect={(p) => setSelectedPrompt(p)}
-                        onToggleFavorite={handleToggleFavorite}
-                      />
-                    ))}
+                    {visiblePrompts.map((prompt, index) => {
+                      const showAdAfter = (index + 1) % Constants.AD_INTERVAL === 0;
+                      return (
+                        <React.Fragment key={`${activeTab}_${prompt.id}`}>
+                          <PromptCard
+                            prompt={prompt}
+                            index={index}
+                            isFavorite={favoriteIds.has(prompt.id)}
+                            onSelect={(p) => setSelectedPrompt(p)}
+                            onToggleFavorite={handleToggleFavorite}
+                          />
+                          {showAdAfter && (
+                            <div className="col-span-2 my-1">
+                              <AdBanner label={`Inline Grid Ad (After prompt #${index + 1})`} />
+                            </div>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
                   </div>
 
                   {/* Load More Button matching item_load_more.xml */}
@@ -593,7 +657,14 @@ export function App() {
           </div>
         )}
 
-        {/* Frosted Glass Bottom Navigation Bar matching updated bottom_nav_bar.xml (Images, Videos, Favorite, Admin) */}
+        {/* Bottom Banner Ad (matches Android Activity layout adContainer above bottomNavBar) */}
+        {!selectedPrompt && activeTab !== NavTab.PRIVACY && (
+          <div className="px-3.5 py-1.5 shrink-0 bg-[#0E0E1B]/80 border-t border-white/5">
+            <AdBanner label="AdMob Smart Banner" />
+          </div>
+        )}
+
+        {/* Frosted Glass Bottom Navigation Bar — 3 User Tabs Only: Images, Videos, Favorite */}
         <nav className="h-[74px] bg-[#121220]/90 backdrop-blur-2xl border-t border-white/10 flex items-center justify-around pt-1.5 shrink-0 z-20">
           <button
             onClick={() => {
@@ -698,37 +769,6 @@ export function App() {
               Favorite
             </span>
           </button>
-
-          <button
-            onClick={() => {
-              setSelectedPrompt(null);
-              setActiveTab(NavTab.ADMIN);
-            }}
-            className="flex-1 h-full flex flex-col items-center justify-center cursor-pointer"
-          >
-            <div
-              className={`w-[36px] h-[36px] rounded-full flex items-center justify-center transition-all duration-200 ${
-                activeTab === NavTab.ADMIN && !selectedPrompt
-                  ? 'pix-button-gradient scale-105 shadow-md shadow-[#EC4899]/30'
-                  : ''
-              }`}
-            >
-              <PlusCircle
-                className={`w-5 h-5 ${
-                  activeTab === NavTab.ADMIN && !selectedPrompt ? 'text-white' : 'text-[#9CA3AF]'
-                }`}
-              />
-            </div>
-            <span
-              className={`text-[11px] mt-0.5 ${
-                activeTab === NavTab.ADMIN && !selectedPrompt
-                  ? 'text-white font-semibold'
-                  : 'text-[#9CA3AF]'
-              }`}
-            >
-              Admin
-            </span>
-          </button>
         </nav>
 
         {/* Toast Notification */}
@@ -740,7 +780,7 @@ export function App() {
         )}
       </div>
 
-      {/* More & Settings Bottom Sheet */}
+      {/* More & Settings Bottom Sheet (No Admin link inside User App) */}
       <MoreSettingsModal
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
@@ -749,10 +789,6 @@ export function App() {
           setActiveTab(NavTab.PRIVACY);
         }}
         onOpenAdConsent={() => setIsAdConsentOpen(true)}
-        onOpenAdminPanel={() => {
-          setSelectedPrompt(null);
-          setActiveTab(NavTab.ADMIN);
-        }}
         showToast={showToast}
       />
 

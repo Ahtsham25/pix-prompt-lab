@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Image as ImageIcon, Video } from 'lucide-react';
-import { PromptData } from '../types';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Image as ImageIcon,
+  Video,
+  Sparkles,
+  Upload,
+  Check,
+  Trash2,
+  ExternalLink,
+  RefreshCw,
+} from 'lucide-react';
+import { Prompt, PromptData } from '../types';
+import {
+  resolvePromptImageUrl,
+  sortPromptsLatestFirst,
+  formatPromptDateTime,
+  getPromptTimestamp,
+} from '../constants';
 import { PixvidLogo } from './PixvidLogo';
 
 interface AdminPanelViewProps {
   categories: string[];
-  onBack: () => void;
+  imagePrompts: Prompt[];
+  videoPrompts: Prompt[];
   onPromptAdded: (updatedData: PromptData) => void;
+  onOpenUserApp?: () => void;
 }
 
 export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
   categories,
-  onBack,
+  imagePrompts,
+  videoPrompts,
   onPromptAdded,
+  onOpenUserApp,
 }) => {
   const [token, setToken] = useState('');
   const [owner, setOwner] = useState('Ahtsham25');
@@ -27,8 +46,10 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
   const [tags, setTags] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
+  const [imageMimeType, setImageMimeType] = useState<string>('image/jpeg');
   const [imageExt, setImageExt] = useState<string>('jpg');
 
+  const [analyzing, setAnalyzing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<{ msg: string; type: 'ok' | 'err' | 'loading' } | null>(
     null
@@ -48,6 +69,55 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
     if (savedPath) setFolderPath(savedPath);
   }, []);
 
+  const analyzeImageWithGemini = useCallback(
+    async (b64: string, mime: string, targetType: 'image' | 'video') => {
+      setAnalyzing(true);
+      setStatus({
+        msg: `Gemini AI is analyzing your uploaded preview and generating ${
+          targetType === 'video' ? 'Google Flow Video' : 'Image'
+        } prompt details…`,
+        type: 'loading',
+      });
+
+      try {
+        const res = await fetch('/api/admin/analyze-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            imageBase64: b64,
+            mimeType: mime,
+            promptType: targetType,
+            categories: categories.filter((c) => c !== 'All'),
+          }),
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.error || `Gemini analysis failed (${res.status})`);
+        }
+
+        if (data.title) setTitle(data.title);
+        if (data.category) setCategory(data.category);
+        if (data.prompt_text) setPromptText(data.prompt_text);
+        if (Array.isArray(data.tags)) {
+          setTags(data.tags.join(', '));
+        }
+
+        setStatus({
+          msg: 'Gemini AI automatically generated Title, Category, Prompt Text, and Tags!',
+          type: 'ok',
+        });
+      } catch (err: unknown) {
+        const message =
+          err instanceof Error ? err.message : 'Could not analyze image with Gemini AI';
+        setStatus({ msg: message, type: 'err' });
+      } finally {
+        setAnalyzing(false);
+      }
+    },
+    [categories]
+  );
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -56,7 +126,9 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
       return;
     }
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+    const mime = file.type || (ext === 'gif' ? 'image/gif' : ext === 'png' ? 'image/png' : 'image/jpeg');
     setImageExt(ext);
+    setImageMimeType(mime);
 
     const reader = new FileReader();
     reader.onload = (ev) => {
@@ -64,8 +136,18 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
       setImagePreview(dataUrl);
       const b64 = dataUrl.split(',')[1] || '';
       setImageBase64(b64);
+      if (b64) {
+        analyzeImageWithGemini(b64, mime, promptType);
+      }
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleTypeSwitch = (newType: 'image' | 'video') => {
+    setPromptType(newType);
+    if (imageBase64) {
+      analyzeImageWithGemini(imageBase64, imageMimeType, newType);
+    }
   };
 
   const utf8ToBase64 = (str: string) => btoa(unescape(encodeURIComponent(str)));
@@ -78,7 +160,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
       return;
     }
     if (!imageBase64) {
-      setStatus({ msg: 'Please choose a preview image.', type: 'err' });
+      setStatus({ msg: 'Please upload a preview image or GIF thumbnail first.', type: 'err' });
       return;
     }
 
@@ -119,7 +201,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
       }
 
       if (token.trim()) {
-        setStatus({ msg: 'Uploading image to GitHub repository…', type: 'loading' });
+        setStatus({ msg: 'Uploading preview image to GitHub repository…', type: 'loading' });
         const cleanFolder = folderPath.trim().replace(/\/$/, '');
         const imagesDir = cleanFolder ? `${cleanFolder}/images` : 'images';
         const jsonFile = cleanFolder ? `${cleanFolder}/prompts.json` : 'prompts.json';
@@ -135,7 +217,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
           method: 'PUT',
           headers: authHeaders,
           body: JSON.stringify({
-            message: `Add image ${filename} via Pixvid Lab Admin Panel`,
+            message: `Add image ${filename} via Pixvid Lab Admin Studio`,
             content: imageBase64,
           }),
         });
@@ -152,23 +234,31 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
         setStatus({ msg: 'Updating prompts.json on GitHub…', type: 'loading' });
         const getRes = await fetch(`${apiBase}/${jsonFile}`, { headers: authHeaders });
         if (!getRes.ok) {
-          throw new Error(`Saved locally, but could not read GitHub prompts.json (${getRes.status})`);
+          throw new Error(
+            `Saved locally, but could not read GitHub prompts.json (${getRes.status})`
+          );
         }
         const getData = await getRes.json();
         const ghJson = JSON.parse(base64ToUtf8(getData.content));
+
+        const nowMs = localResult.prompt?.timestamp || Date.now();
+        const nowIso = localResult.prompt?.created_at || new Date(nowMs).toISOString();
 
         const ghEntry = {
           ...localResult.prompt,
           type: promptType,
           image_url: cdnUrl,
+          created_at: nowIso,
+          timestamp: nowMs,
         };
 
         if (promptType === 'video') {
-          ghJson.video_prompts = ghJson.video_prompts || [];
-          ghJson.video_prompts.unshift(ghEntry);
+          ghJson.video_prompts = sortPromptsLatestFirst([
+            ghEntry,
+            ...(ghJson.video_prompts || []),
+          ]);
         } else {
-          ghJson.prompts = ghJson.prompts || [];
-          ghJson.prompts.unshift(ghEntry);
+          ghJson.prompts = sortPromptsLatestFirst([ghEntry, ...(ghJson.prompts || [])]);
         }
 
         ghJson.categories = ghJson.categories || [];
@@ -184,7 +274,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
           method: 'PUT',
           headers: authHeaders,
           body: JSON.stringify({
-            message: `Add ${promptType} prompt "${title.trim()}" via Pixvid Lab Admin Panel`,
+            message: `Add ${promptType} prompt "${title.trim()}" via Pixvid Lab Admin Studio`,
             content: utf8ToBase64(JSON.stringify(ghJson, null, 2)),
             sha: getData.sha,
           }),
@@ -193,18 +283,20 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
         if (!putRes.ok) {
           const err = await putRes.json().catch(() => ({}));
           throw new Error(
-            `Saved locally, but could not commit prompts.json to GitHub: ${err.message || putRes.status}`
+            `Saved locally, but could not commit prompts.json to GitHub: ${
+              err.message || putRes.status
+            }`
           );
         }
 
         setStatus({
-          msg: `Saved! "${title.trim()}" (${promptType}) added to library and pushed to GitHub.`,
+          msg: `Published! "${title.trim()}" (${promptType}) saved locally and pushed to GitHub.`,
           type: 'ok',
         });
       } else {
         setStatus({
-          msg: `Saved! "${title.trim()}" added to ${
-            promptType === 'video' ? 'Video Prompts' : 'Image Prompts'
+          msg: `Published! "${title.trim()}" added to ${
+            promptType === 'video' ? 'Video Prompts (Flow)' : 'Image Prompts'
           }.`,
           type: 'ok',
         });
@@ -223,225 +315,373 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
     }
   };
 
+  const handleDeletePrompt = async (id: string, itemTitle: string) => {
+    try {
+      const res = await fetch(`/api/prompts/${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Failed to delete prompt');
+      const result = await res.json();
+      if (result.data) {
+        onPromptAdded(result.data);
+        setStatus({ msg: `Deleted "${itemTitle}" from library.`, type: 'ok' });
+      }
+    } catch {
+      setStatus({ msg: 'Could not delete prompt.', type: 'err' });
+    }
+  };
+
+  const currentList = promptType === 'video' ? videoPrompts : imagePrompts;
+
   return (
-    <div className="flex flex-col flex-1 min-h-0 animate-pix-card">
-      {/* Frosted Studio Header */}
-      <div className="mx-4 mt-3.5 pix-gradient-border rounded-[18px] shadow-lg shadow-black/25">
-        <div className="h-[56px] pix-glass-panel rounded-[16.5px] flex items-center justify-between px-3.5">
-          <div className="flex items-center gap-3">
-            <PixvidLogo size="md" />
-            <div>
-              <h1 className="text-[16px] font-bold text-white leading-tight font-display">
-                Pixvid Lab — Admin
-              </h1>
-              <p className="text-[11px] text-[#A1A1B5]">
-                Add new Image or Video prompts to your library
-              </p>
+    <div className="min-h-screen pix-ambient-bg text-white flex justify-center py-6 px-4">
+      <div className="w-full max-w-[680px] space-y-5 animate-pix-card">
+        {/* Top Studio Bar */}
+        <header className="pix-gradient-border rounded-[20px] shadow-2xl shadow-black/40">
+          <div className="pix-glass-panel rounded-[18.5px] px-5 py-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
+              <PixvidLogo size="md" />
+              <div>
+                <h1 className="text-[19px] font-bold text-white leading-tight font-display">
+                  Pixvid Lab — Admin Studio
+                </h1>
+                <p className="text-[12px] text-[#A1A1B5]">
+                  Upload any image or GIF — Gemini AI auto-generates the prompt &amp; metadata
+                </p>
+              </div>
+            </div>
+
+            {onOpenUserApp && (
+              <button
+                onClick={onOpenUserApp}
+                className="px-3.5 py-2 rounded-[12px] bg-white/10 hover:bg-white/15 border border-white/10 text-[12.5px] font-semibold text-white flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors cursor-pointer"
+              >
+                <span>Preview User App</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </header>
+
+        {/* Main Upload + Gemini Auto-Generator Card */}
+        <div className="pix-glass-panel border border-white/10 rounded-[22px] p-6 shadow-2xl shadow-black/40 space-y-5">
+          {/* Step 1: Select Section Type */}
+          <div>
+            <label className="block text-[12.5px] font-semibold text-[#A1A1B5] mb-2">
+              1. Choose Target Section
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => handleTypeSwitch('image')}
+                className={`h-[48px] rounded-[14px] flex items-center justify-center gap-2.5 text-[13.5px] font-bold transition-all cursor-pointer ${
+                  promptType === 'image'
+                    ? 'pix-button-gradient text-white shadow-lg shadow-[#EC4899]/25'
+                    : 'bg-[#171728] border border-white/10 text-[#9CA3AF] hover:text-white'
+                }`}
+              >
+                <ImageIcon className="w-4 h-4" />
+                <span>Image Prompt (Gemini / GPT)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleTypeSwitch('video')}
+                className={`h-[48px] rounded-[14px] flex items-center justify-center gap-2.5 text-[13.5px] font-bold transition-all cursor-pointer ${
+                  promptType === 'video'
+                    ? 'pix-flow-gradient text-white shadow-lg shadow-[#06B6D4]/25'
+                    : 'bg-[#171728] border border-white/10 text-[#9CA3AF] hover:text-white'
+                }`}
+              >
+                <Video className="w-4 h-4" />
+                <span>Video Prompt (Google Flow)</span>
+              </button>
             </div>
           </div>
-          <button
-            onClick={onBack}
-            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 transition-colors cursor-pointer"
-            aria-label="Back"
-          >
-            <ArrowLeft className="w-5 h-5 text-white" />
-          </button>
-        </div>
-      </div>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
-        {/* New Prompt Form */}
-        <div className="pix-glass-panel border border-white/10 rounded-[18px] p-[18px] shadow-xl shadow-black/25">
-          <h2 className="text-[14px] font-bold text-[#EC4899] mb-3 font-display">New Prompt</h2>
+          {/* Step 2: Upload Preview Image / GIF to Trigger Gemini AI */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-[12.5px] font-semibold text-[#A1A1B5]">
+                2. Upload Preview Image or GIF Thumbnail (Auto-Analyzed by Gemini AI)
+              </label>
+              {imageBase64 && (
+                <button
+                  type="button"
+                  onClick={() => analyzeImageWithGemini(imageBase64, imageMimeType, promptType)}
+                  disabled={analyzing}
+                  className="text-[12px] font-semibold text-[#38BDF8] hover:text-white flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${analyzing ? 'animate-spin' : ''}`} />
+                  <span>{analyzing ? 'Analyzing…' : 'Re-Analyze with Gemini'}</span>
+                </button>
+              )}
+            </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">Prompt Type</label>
-          <div className="grid grid-cols-2 gap-2.5 mb-3.5">
-            <button
-              type="button"
-              onClick={() => setPromptType('image')}
-              className={`h-[44px] rounded-[12px] flex items-center justify-center gap-2 text-[13px] font-bold transition-all cursor-pointer ${
-                promptType === 'image'
-                  ? 'pix-button-gradient text-white shadow-md shadow-[#EC4899]/20'
-                  : 'bg-[#1C1C28] text-[#9CA3AF] hover:text-white'
-              }`}
-            >
-              <ImageIcon className="w-4 h-4" />
-              <span>Image Prompt</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setPromptType('video')}
-              className={`h-[44px] rounded-[12px] flex items-center justify-center gap-2 text-[13px] font-bold transition-all cursor-pointer ${
-                promptType === 'video'
-                  ? 'pix-button-gradient text-white shadow-md shadow-[#EC4899]/20'
-                  : 'bg-[#1C1C28] text-[#9CA3AF] hover:text-white'
-              }`}
-            >
-              <Video className="w-4 h-4" />
-              <span>Video Prompt (Flow)</span>
-            </button>
+            <label className="flex flex-col items-center justify-center border-2 border-dashed border-white/15 hover:border-[#EC4899]/60 rounded-[18px] bg-[#141424]/80 p-5 cursor-pointer transition-colors">
+              <input
+                type="file"
+                accept="image/*,.gif"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              {imagePreview ? (
+                <div className="flex flex-col items-center gap-3 w-full">
+                  <img
+                    src={imagePreview}
+                    alt="Uploaded preview"
+                    className="max-h-[240px] rounded-[14px] object-contain shadow-lg"
+                  />
+                  <span className="text-[12px] text-[#A1A1B5] flex items-center gap-1.5">
+                    <Upload className="w-3.5 h-3.5 text-[#EC4899]" />
+                    Click to choose a different image or GIF
+                  </span>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2 py-4 text-center">
+                  <div className="w-12 h-12 rounded-2xl pix-badge-gradient flex items-center justify-center shadow-lg shadow-[#A855F7]/25">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-[14px] font-bold text-white mt-1">
+                    Click to upload Preview Image or GIF
+                  </div>
+                  <div className="text-[12px] text-[#9CA3AF] max-w-[380px]">
+                    As soon as you select an image, Gemini AI will analyze it and write the Title,
+                    Category, {promptType === 'video' ? 'Google Flow Video' : 'Image'} Prompt, and
+                    Tags automatically.
+                  </div>
+                </div>
+              )}
+            </label>
           </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">
-            Preview Image / Thumbnail
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="w-full bg-[#1C1C28] rounded-[12px] p-3 text-[13px] text-[#9CA3AF] file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#D946EF] file:text-white cursor-pointer"
-          />
-          {imagePreview && (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="mt-2.5 max-h-[200px] rounded-[12px] object-contain"
-            />
+          {/* Status / Gemini Analysis Progress Banner */}
+          {status && (
+            <div
+              className={`px-4 py-3 rounded-[14px] text-[13px] font-medium flex items-center gap-2.5 ${
+                status.type === 'ok'
+                  ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+                  : status.type === 'err'
+                  ? 'bg-red-500/15 border border-red-500/30 text-red-300'
+                  : 'bg-[#1D1D35] border border-[#A855F7]/40 text-white'
+              }`}
+            >
+              {status.type === 'loading' ? (
+                <div className="w-4 h-4 border-2 border-[#38BDF8] border-t-transparent rounded-full animate-spin shrink-0" />
+              ) : status.type === 'ok' ? (
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+              ) : null}
+              <span>{status.msg}</span>
+            </div>
           )}
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mt-3.5 mb-1.5">
-            Title
-          </label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder={
-              promptType === 'video'
-                ? 'e.g. Golden Sunset Rider Motion'
-                : 'e.g. Golden Hour Portrait'
-            }
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#A855F7]"
-          />
+          {/* Step 3: Auto-Filled Prompt Fields */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1.5">
+                Title
+              </label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={
+                  promptType === 'video'
+                    ? 'e.g. Cinematic Sunset Rider Motion'
+                    : 'e.g. Golden Hour Portrait'
+                }
+                className="w-full bg-[#171728] border border-white/10 rounded-[13px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:border-[#EC4899]"
+              />
+            </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mt-3.5 mb-1.5">
-            Category
-          </label>
-          <input
-            type="text"
-            list="adminCategoryList"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="e.g. Cinematic"
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#A855F7]"
-          />
-          <datalist id="adminCategoryList">
-            {categories
-              .filter((c) => c !== 'All')
-              .map((cat) => (
-                <option key={cat} value={cat} />
-              ))}
-          </datalist>
+            <div>
+              <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1.5">
+                Category
+              </label>
+              <input
+                type="text"
+                list="adminCategoryList"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="e.g. Cinematic"
+                className="w-full bg-[#171728] border border-white/10 rounded-[13px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:border-[#EC4899]"
+              />
+              <datalist id="adminCategoryList">
+                {categories
+                  .filter((c) => c !== 'All')
+                  .map((cat) => (
+                    <option key={cat} value={cat} />
+                  ))}
+              </datalist>
+            </div>
+          </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mt-3.5 mb-1.5">
-            Prompt text
-          </label>
-          <textarea
-            value={promptText}
-            onChange={(e) => setPromptText(e.target.value)}
-            placeholder={
-              promptType === 'video'
-                ? 'Paste the full Google Flow video generation prompt here...'
-                : 'Paste the full image prompt here...'
-            }
-            rows={4}
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#A855F7] resize-y"
-          />
+          <div>
+            <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1.5">
+              {promptType === 'video'
+                ? 'Google Flow Video Prompt Text (Auto-Generated by Gemini)'
+                : 'Image Prompt Text (Auto-Generated by Gemini)'}
+            </label>
+            <textarea
+              value={promptText}
+              onChange={(e) => setPromptText(e.target.value)}
+              placeholder={
+                promptType === 'video'
+                  ? 'Upload an image above to auto-generate a Google Flow video prompt, or type here…'
+                  : 'Upload an image above to auto-generate a detailed image prompt, or type here…'
+              }
+              rows={5}
+              className="w-full bg-[#171728] border border-white/10 rounded-[13px] px-3.5 py-3 text-[13.5px] leading-relaxed text-white placeholder-[#6B7280] focus:outline-none focus:border-[#EC4899] resize-y"
+            />
+          </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mt-3.5 mb-1.5">
-            Tags (comma separated)
-          </label>
-          <input
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            placeholder="Trending, Cinematic, Google Flow"
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#A855F7]"
-          />
+          <div>
+            <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1.5">
+              Tags (comma separated)
+            </label>
+            <input
+              type="text"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              placeholder="Trending, Cinematic, Google Flow"
+              className="w-full bg-[#171728] border border-white/10 rounded-[13px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:border-[#EC4899]"
+            />
+          </div>
 
           <button
             onClick={handleSave}
-            disabled={saving}
-            className="w-full mt-[18px] h-[50px] rounded-[14px] pix-button-gradient text-white text-[15px] font-bold disabled:opacity-50 cursor-pointer"
+            disabled={saving || analyzing}
+            className={`w-full h-[52px] rounded-[15px] ${
+              promptType === 'video' ? 'pix-flow-gradient' : 'pix-button-gradient'
+            } text-white text-[15px] font-bold flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer`}
           >
-            {saving ? 'Saving…' : 'Save to prompts.json'}
+            <Sparkles className="w-4 h-4" />
+            <span>
+              {saving
+                ? 'Publishing…'
+                : promptType === 'video'
+                ? 'Publish to Video Prompts (Google Flow)'
+                : 'Publish to Image Prompts'}
+            </span>
           </button>
+        </div>
 
-          {status && (
-            <div
-              className={`mt-3.5 px-3.5 py-3 rounded-[12px] text-[13px] leading-relaxed ${
-                status.type === 'ok'
-                  ? 'bg-emerald-500/15 text-emerald-400'
-                  : status.type === 'err'
-                  ? 'bg-red-500/15 text-red-400'
-                  : 'bg-[#1C1C28] text-[#9CA3AF]'
-              }`}
-            >
-              {status.msg}
+        {/* Live Library Manager for Current Tab */}
+        <div className="pix-glass-panel border border-white/10 rounded-[22px] p-6 shadow-xl shadow-black/30 space-y-3.5">
+          <div className="flex items-center justify-between">
+            <h2 className="text-[15px] font-bold text-white font-display">
+              {promptType === 'video'
+                ? `Published Video Prompts (${videoPrompts.length})`
+                : `Published Image Prompts (${imagePrompts.length})`}
+            </h2>
+            <span className="text-[12px] text-[#9CA3AF]">
+              Click trash icon to remove any item
+            </span>
+          </div>
+
+          {currentList.length === 0 ? (
+            <div className="py-8 text-center text-[13px] text-[#9CA3AF] bg-[#141424]/60 rounded-[14px] border border-white/5">
+              No {promptType === 'video' ? 'video' : 'image'} prompts in library yet. Upload an
+              image above to create your first one!
+            </div>
+          ) : (
+            <div className="max-h-[300px] overflow-y-auto space-y-2 pr-1">
+              {currentList.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 p-2.5 rounded-[13px] bg-[#171728]/90 border border-white/5"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <img
+                      src={resolvePromptImageUrl(item.image_url)}
+                      alt={item.title}
+                      className="w-11 h-11 rounded-[9px] object-cover shrink-0 bg-[#121220]"
+                    />
+                    <div className="min-w-0">
+                      <div className="text-[13.5px] font-bold text-white truncate">
+                        {item.title}
+                      </div>
+                      <div className="text-[11.5px] text-[#9CA3AF] truncate">
+                        {item.category}
+                        {formatPromptDateTime(item) ? ` · ${formatPromptDateTime(item)}` : ''}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDeletePrompt(item.id, item.title)}
+                    className="w-9 h-9 rounded-[10px] bg-red-500/10 hover:bg-red-500/25 text-red-400 flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                    title="Delete prompt"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
             </div>
           )}
         </div>
 
-        {/* Optional GitHub Connection Settings */}
-        <div className="bg-[#15151F] rounded-[16px] p-[18px]">
-          <h2 className="text-[14px] font-bold text-[#EC4899] mb-3">
-            GitHub Sync (Optional — commits to repo)
+        {/* Optional GitHub Sync Settings */}
+        <div className="pix-glass-panel border border-white/10 rounded-[22px] p-6 shadow-xl shadow-black/30 space-y-3.5">
+          <h2 className="text-[15px] font-bold text-[#EC4899] font-display">
+            GitHub Repository Sync (Optional — Auto-Commits to GitHub)
           </h2>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">
-            GitHub Personal Access Token
-          </label>
-          <input
-            type="password"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            placeholder="ghp_xxxxxxxxxxxxxxxxxxxx (leave blank for local save only)"
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#A855F7]"
-          />
+          <div>
+            <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1.5">
+              GitHub Personal Access Token
+            </label>
+            <input
+              type="password"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx (leave blank for local save only)"
+              className="w-full bg-[#171728] border border-white/10 rounded-[13px] px-3.5 py-2.5 text-[13.5px] text-white placeholder-[#6B7280] focus:outline-none"
+            />
+          </div>
 
-          <div className="grid grid-cols-2 gap-2.5 mt-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">
-                Repo owner
+              <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1">
+                Repo Owner
               </label>
               <input
                 type="text"
                 value={owner}
                 onChange={(e) => setOwner(e.target.value)}
-                className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white focus:outline-none"
+                className="w-full bg-[#171728] border border-white/10 rounded-[12px] px-3 py-2 text-[13px] text-white focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">
-                Repo name
+              <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1">
+                Repo Name
               </label>
               <input
                 type="text"
                 value={repo}
                 onChange={(e) => setRepo(e.target.value)}
-                className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white focus:outline-none"
+                className="w-full bg-[#171728] border border-white/10 rounded-[12px] px-3 py-2 text-[13px] text-white focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[12px] font-semibold text-[#A1A1B5] mb-1">
+                App Folder Path
+              </label>
+              <input
+                type="text"
+                value={folderPath}
+                onChange={(e) => setFolderPath(e.target.value)}
+                className="w-full bg-[#171728] border border-white/10 rounded-[12px] px-3 py-2 text-[13px] text-white focus:outline-none"
               />
             </div>
           </div>
 
-          <label className="block text-[12px] font-bold text-[#9CA3AF] mt-3.5 mb-1.5">
-            Folder path inside repo
-          </label>
-          <input
-            type="text"
-            value={folderPath}
-            onChange={(e) => setFolderPath(e.target.value)}
-            className="w-full bg-[#1C1C28] rounded-[12px] px-3.5 py-3 text-[14px] text-white focus:outline-none"
-          />
-
-          <label className="flex items-center gap-2 text-[12px] text-[#9CA3AF] mt-3 cursor-pointer">
+          <label className="flex items-center gap-2 text-[12px] text-[#A1A1B5] cursor-pointer pt-1">
             <input
               type="checkbox"
               checked={rememberToken}
               onChange={(e) => setRememberToken(e.target.checked)}
               className="rounded accent-[#D946EF]"
             />
-            <span>Remember my token on this device</span>
+            <span>Remember my GitHub token on this device</span>
           </label>
         </div>
       </div>

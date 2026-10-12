@@ -1,3 +1,5 @@
+import { Prompt } from './types';
+
 /**
  * Central place for links and constants used across Pixvid Lab
  * Mirrors Constants.kt and AdsManager.kt from the Android project.
@@ -38,4 +40,57 @@ export function resolvePromptImageUrl(url: string): string {
     return `/images/${match[1]}`;
   }
   return url;
+}
+
+/**
+ * Computes a deterministic epoch millisecond timestamp for any prompt so
+ * newer posts always sort before older posts (Date by Date, Time by Time).
+ */
+export function getPromptTimestamp(prompt: Prompt): number {
+  if (typeof prompt.timestamp === 'number' && Number.isFinite(prompt.timestamp) && prompt.timestamp > 0) {
+    return prompt.timestamp;
+  }
+  if (prompt.created_at) {
+    const parsed = Date.parse(prompt.created_at);
+    if (!Number.isNaN(parsed) && parsed > 0) {
+      return parsed;
+    }
+  }
+  // Extract 13-digit epoch timestamp from image_url or id if present (e.g. prompt_1791179340233.jpg)
+  const epochMatch = `${prompt.image_url || ''} ${prompt.id || ''}`.match(/(\d{13})/);
+  if (epochMatch && epochMatch[1]) {
+    return Number(epochMatch[1]);
+  }
+  // Extract sequential prompt number (e.g. prompt_016 -> 16)
+  const seqMatch = (prompt.id || '').match(/prompt_0*(\d+)$/i);
+  if (seqMatch && seqMatch[1]) {
+    return 1700000000000 + Number(seqMatch[1]) * 3600_000;
+  }
+  return 0;
+}
+
+/**
+ * Sorts prompts strictly by Date & Time descending (Latest / Newest post first).
+ */
+export function sortPromptsLatestFirst(prompts: Prompt[]): Prompt[] {
+  return [...prompts].sort((a, b) => getPromptTimestamp(b) - getPromptTimestamp(a));
+}
+
+/**
+ * Formats a prompt's date/time for display in Admin Studio or Detail view.
+ */
+export function formatPromptDateTime(prompt: Prompt): string {
+  const ts = getPromptTimestamp(prompt);
+  if (!ts || ts < 1600000000000) return '';
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    }).format(new Date(ts));
+  } catch {
+    return '';
+  }
 }

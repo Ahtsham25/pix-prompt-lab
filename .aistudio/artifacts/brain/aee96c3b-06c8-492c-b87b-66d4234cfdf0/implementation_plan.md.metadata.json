@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan for separating the Admin Panel from the user app, clearing default video prompts, and adding Gemini AI automatic image-to-prompt generation (Title, Category, Prompt Text, Tags) in the standalone Admin Panel.",
+  "updatedAt":  "2026-10-12T09:51:46.799842497Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

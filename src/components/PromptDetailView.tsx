@@ -3,6 +3,7 @@ import { ArrowLeft, Copy, Heart, Sparkles, MessageSquare, Check, Play, ExternalL
 import { Prompt } from '../types';
 import { Constants, resolvePromptImageUrl } from '../constants';
 import { PixvidLogo } from './PixvidLogo';
+import { AdBanner } from './AdBanner';
 
 interface PromptDetailViewProps {
   prompt: Prompt;
@@ -203,6 +204,11 @@ export const PromptDetailView: React.FC<PromptDetailViewProps> = ({
                   <Copy className="w-4 h-4 text-white" />
                 )}
               </button>
+            </div>
+
+            {/* Inline AdMob Banner matching detailInlineAdContainer in activity_prompt_detail.xml */}
+            <div className="mx-4 mt-3">
+              <AdBanner label="AdMob Inline Banner" />
             </div>
 
             {isVideoPrompt ? (

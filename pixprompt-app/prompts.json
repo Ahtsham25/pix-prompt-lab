@@ -9,6 +9,44 @@
   ],
   "prompts": [
     {
+      "id": "prompt_aesthetic-music_43107",
+      "type": "image",
+      "category": "Product",
+      "title": "Aesthetic music",
+      "prompt_text": "Create an ultra-realistic cinematic streetwear portrait of a young Indian man standing alone inside a dim underground parking garage, positioned beside the front section of a glossy black luxury sedan. His head is naturally lowered and both hands are placed inside the pockets of his clothing.\n\nHe is dressed in an oversized beige polo T-shirt paired with extremely loose, heavily relaxed faded-gray cargo jeans. Add a realistic wristwatch and beige Crocs-style casual footwear. Preserve the overall relaxed streetwear styling, proportions, and visual character of the outfit.\n\nThe environment should feel dark, atmospheric, and industrial. Use moody fluorescent ceiling illumination that creates realistic highlights and shadows across the subject, vehicle, and surroundings. The concrete floor should appear slightly wet and reflective, producing natural reflections from the overhead lights and car. Keep the background dark and understated with a shallow depth of field that separates the subject from the surroundings.\n\nApply a muted green-brown cinematic color treatment with restrained contrast, natural skin tones, realistic exposure, and subtle photographic film grain. Maintain a premium editorial photography aesthetic rather than an artificial CGI appearance.\n\nOn the left side of the composition, include a large floating translucent dark-glass music-player interface with a modern premium streaming-player appearance. Display the track information for Koti's “Niddura Pothunna,” including its album artwork, playback progress bar, and standard playback controls. Keep the interface visually integrated into the scene with realistic translucency, reflections, subtle glow, and depth, while avoiding reproduction of any specific proprietary app interface, logo, or trademarked UI design.\n\nPreserve the intended pose, clothing arrangement, vehicle placement, floating music-player position, lighting direction, framing, perspective, and overall cinematic composition. The subject should remain the primary visual focus while the car and music interface complement the scene.\n\nUse a strict vertical 4:5 Instagram composition at 1080 × 1350 resolution. Maintain realistic photographic detail, natural textures, physically believable lighting and reflections, authentic fabric folds, realistic denim texture, detailed skin and hair, and subtle depth-of-field effects.\n\nCreate the final image as a new, original AI-generated composition. Do not copy, trace, reproduce, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid unnecessary logos, watermarks, or other branded visual elements.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791179340233.jpg",
+      "tags": [
+        "Trending"
+      ],
+      "timestamp": 1791179340233,
+      "created_at": "2026-10-05T05:49:00.233Z"
+    },
+    {
+      "id": "prompt_aesthetic-music-generic_20128",
+      "type": "image",
+      "category": "Trending",
+      "title": "Aesthetic music generic",
+      "prompt_text": "Create an ultra-realistic cinematic streetwear portrait of a young Indian man standing alone inside a dim underground parking garage, positioned beside the front section of a glossy black luxury sedan. His head is naturally lowered and both hands are placed inside the pockets of his clothing.\n\nHe is dressed in an oversized beige polo T-shirt paired with extremely loose, heavily relaxed faded-gray cargo jeans. Add a realistic wristwatch and beige Crocs-style casual footwear. Preserve the overall relaxed streetwear styling, proportions, and visual character of the outfit.\n\nThe environment should feel dark, atmospheric, and industrial. Use moody fluorescent ceiling illumination that creates realistic highlights and shadows across the subject, vehicle, and surroundings. The concrete floor should appear slightly wet and reflective, producing natural reflections from the overhead lights and car. Keep the background dark and understated with a shallow depth of field that separates the subject from the surroundings.\n\nApply a muted green-brown cinematic color treatment with restrained contrast, natural skin tones, realistic exposure, and subtle photographic film grain. Maintain a premium editorial photography aesthetic rather than an artificial CGI appearance.\n\nOn the left side of the composition, include a large floating translucent dark-glass music-player interface with a modern premium streaming-player appearance. Display the track information for Koti's “Niddura Pothunna,” including its album artwork, playback progress bar, and standard playback controls. Keep the interface visually integrated into the scene with realistic translucency, reflections, subtle glow, and depth, while avoiding reproduction of any specific proprietary app interface, logo, or trademarked UI design.\n\nPreserve the intended pose, clothing arrangement, vehicle placement, floating music-player position, lighting direction, framing, perspective, and overall cinematic composition. The subject should remain the primary visual focus while the car and music interface complement the scene.\n\nUse a strict vertical 4:5 Instagram composition at 1080 × 1350 resolution. Maintain realistic photographic detail, natural textures, physically believable lighting and reflections, authentic fabric folds, realistic denim texture, detailed skin and hair, and subtle depth-of-field effects.\n\nCreate the final image as a new, original AI-generated composition. Do not copy, trace, reproduce, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid unnecessary logos, watermarks, or other branded visual elements.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178917507.jpg",
+      "tags": [
+        "All",
+        "trending"
+      ],
+      "timestamp": 1791178917507,
+      "created_at": "2026-10-05T05:41:57.507Z"
+    },
+    {
+      "id": "prompt_sky-climber_86874",
+      "type": "image",
+      "category": "Nature",
+      "title": "Sky climber",
+      "prompt_text": "Create a photorealistic cinematic portrait using the uploaded image strictly as a reference for the subject’s facial identity. Maintain the person’s recognizable facial characteristics, natural complexion, facial proportions, hairstyle and hairline, eyebrows, eyes, nose, lips, jawline, beard or facial-hair pattern, and authentic skin texture. Do not beautify, reshape, de-age, or otherwise alter the person’s identity.\n\nGive the subject thick, naturally tousled hair with realistic individual strands, believable volume, and natural texture. Place him outdoors beneath a magnificent deep-blue summer sky filled with enormous, highly detailed bright-white cumulus clouds.\n\nUse an extremely low camera position around waist-to-chest height, pointing strongly upward for a dramatic heroic perspective. Keep the subject primarily in the lower-right/central area of the vertical frame, leaving substantial open sky and towering cloud formations above him.\n\nAngle the torso slightly and have the head gently raised toward the sky while turned toward the right side of the frame, creating the feeling that he is peacefully admiring the sky. Keep the shoulders relaxed. His expression should appear calm, self-assured, and subtly joyful, with a natural understated smile.\n\nDress him in a loose black short-sleeve textured button-up shirt. The material should have realistic woven detail, natural creases, folds, and fabric behavior. Leave the upper buttons slightly open for a relaxed fashion-editorial appearance.\n\nAdd stylish rectangular sunglasses with transparent smoky-gray thick translucent frames. The lenses must contain physically believable reflections of the bright sky and surrounding clouds.\n\nBehind the subject, create a gigantic vertically rising wall of brilliant white cumulus clouds. The clouds should have extremely detailed fluffy formations, realistic dimensional shading, sunlit edges, atmospheric perspective, and convincing depth. Surround the formation with a rich natural deep-blue sky and a few subtle wispy clouds.\n\nInclude several small, soft white flower petals naturally floating through the air at different distances. Some petals should remain crisp and detailed, while others should show subtle motion blur or shallow-focus softness to create authentic depth and movement.\n\nUse professional full-frame photographic aesthetics with an ultra-wide 24mm perspective and a pronounced low-angle viewpoint. Illuminate the scene with natural bright daylight and physically believable shadows. Add subtle atmospheric haze, authentic reflections in the sunglasses, individually distinguishable hair strands, detailed beard texture, visible pores, and realistic skin detail suitable for close inspection.\n\nMaintain cinematic framing, shallow-to-moderate depth of field, natural photographic color rendering, subtle film grain, and high dynamic range while avoiding an artificial HDR appearance. The final image should resemble premium editorial photography captured in exceptionally high resolution.\n\nFormat the composition as a vertical 4:5 Instagram portrait. Position the subject slightly toward the lower-right/center, with the head around the lower-middle portion of the frame. Place the enormous cloud formation directly behind and above him, preserving generous cinematic negative space across the upper portion and creating a powerful sense of scale, height, and atmospheric depth.\n\nThe result must be a newly generated original visual composition. Do not reproduce, trace, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid recognizable logos, watermarks, trademarks, or branded visual elements. Use the uploaded image only for facial identity reference.\n\nAvoid anime, cartoons, illustrations, paintings, CGI appearance, 3D-rendered aesthetics, artificial-looking faces, identity changes, beautified facial features, plastic or excessively smooth skin, fake-looking hair, blurred facial details, distorted anatomy, deformed hands or limbs, unrealistic sunglasses, incorrect lens reflections, flat-looking clouds, artificial skies, excessive saturation, oversharpening, fake HDR, excessive glow, artificial lighting, wax-like skin, text, logos, and watermarks.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178084146.jpg",
+      "tags": [],
+      "timestamp": 1791178084146,
+      "created_at": "2026-10-05T05:28:04.146Z"
+    },
+    {
       "id": "prompt_016",
       "type": "image",
       "category": "Cinematic",
@@ -22,7 +60,9 @@
         "Roses",
         "Film Photography",
         "Editorial"
-      ]
+      ],
+      "timestamp": 1700057600000,
+      "created_at": "2023-11-15T14:13:20.000Z"
     },
     {
       "id": "prompt_015",
@@ -38,7 +78,9 @@
         "Horse",
         "Surreal",
         "Editorial"
-      ]
+      ],
+      "timestamp": 1700054000000,
+      "created_at": "2023-11-15T13:13:20.000Z"
     },
     {
       "id": "prompt_014",
@@ -54,7 +96,9 @@
         "Spirit",
         "Forest",
         "Out-of-Body"
-      ]
+      ],
+      "timestamp": 1700050400000,
+      "created_at": "2023-11-15T12:13:20.000Z"
     },
     {
       "id": "prompt_013",
@@ -69,7 +113,9 @@
         "Mystical",
         "Golden Smoke",
         "Spirit"
-      ]
+      ],
+      "timestamp": 1700046800000,
+      "created_at": "2023-11-15T11:13:20.000Z"
     },
     {
       "id": "prompt_012",
@@ -84,7 +130,9 @@
         "Surreal",
         "Ethereal",
         "Spirit"
-      ]
+      ],
+      "timestamp": 1700043200000,
+      "created_at": "2023-11-15T10:13:20.000Z"
     },
     {
       "id": "prompt_011",
@@ -99,7 +147,9 @@
         "Surreal",
         "Mystical",
         "Emerald Smoke"
-      ]
+      ],
+      "timestamp": 1700039600000,
+      "created_at": "2023-11-15T09:13:20.000Z"
     },
     {
       "id": "prompt_010",
@@ -115,7 +165,9 @@
         "Surreal",
         "Nature",
         "Monochrome"
-      ]
+      ],
+      "timestamp": 1700036000000,
+      "created_at": "2023-11-15T08:13:20.000Z"
     },
     {
       "id": "prompt_009",
@@ -131,7 +183,9 @@
         "Neon",
         "Fashion",
         "Studio"
-      ]
+      ],
+      "timestamp": 1700032400000,
+      "created_at": "2023-11-15T07:13:20.000Z"
     },
     {
       "id": "prompt_008",
@@ -147,7 +201,9 @@
         "top-down",
         "spotlight",
         "red hoodie"
-      ]
+      ],
+      "timestamp": 1700028800000,
+      "created_at": "2023-11-15T06:13:20.000Z"
     },
     {
       "id": "prompt_007",
@@ -162,7 +218,9 @@
         "Patriotic",
         "Flag",
         "Daylight"
-      ]
+      ],
+      "timestamp": 1700025200000,
+      "created_at": "2023-11-15T05:13:20.000Z"
     },
     {
       "id": "prompt_006",
@@ -177,7 +235,9 @@
         "Patriotic",
         "Night",
         "Fireworks"
-      ]
+      ],
+      "timestamp": 1700021600000,
+      "created_at": "2023-11-15T04:13:20.000Z"
     },
     {
       "id": "prompt_005",
@@ -192,7 +252,9 @@
         "Cinematic",
         "Black and White",
         "Street Style"
-      ]
+      ],
+      "timestamp": 1700018000000,
+      "created_at": "2023-11-15T03:13:20.000Z"
     },
     {
       "id": "prompt_004",
@@ -206,7 +268,9 @@
         "Cinematic",
         "Golden Hour",
         "Bokeh"
-      ]
+      ],
+      "timestamp": 1700014400000,
+      "created_at": "2023-11-15T02:13:20.000Z"
     },
     {
       "id": "prompt_003",
@@ -219,7 +283,9 @@
         "Trending",
         "Portrait",
         "Studio"
-      ]
+      ],
+      "timestamp": 1700010800000,
+      "created_at": "2023-11-15T01:13:20.000Z"
     },
     {
       "id": "prompt_002",
@@ -232,7 +298,9 @@
         "Trending",
         "Fantasy",
         "Concept Art"
-      ]
+      ],
+      "timestamp": 1700007200000,
+      "created_at": "2023-11-15T00:13:20.000Z"
     },
     {
       "id": "prompt_001",
@@ -245,128 +313,10 @@
         "Trending",
         "Cinematic",
         "Patriotic"
-      ]
-    },
-    {
-      "id": "prompt_sky-climber_86874",
-      "type": "image",
-      "category": "Nature",
-      "title": "Sky climber",
-      "prompt_text": "Create a photorealistic cinematic portrait using the uploaded image strictly as a reference for the subject’s facial identity. Maintain the person’s recognizable facial characteristics, natural complexion, facial proportions, hairstyle and hairline, eyebrows, eyes, nose, lips, jawline, beard or facial-hair pattern, and authentic skin texture. Do not beautify, reshape, de-age, or otherwise alter the person’s identity.\n\nGive the subject thick, naturally tousled hair with realistic individual strands, believable volume, and natural texture. Place him outdoors beneath a magnificent deep-blue summer sky filled with enormous, highly detailed bright-white cumulus clouds.\n\nUse an extremely low camera position around waist-to-chest height, pointing strongly upward for a dramatic heroic perspective. Keep the subject primarily in the lower-right/central area of the vertical frame, leaving substantial open sky and towering cloud formations above him.\n\nAngle the torso slightly and have the head gently raised toward the sky while turned toward the right side of the frame, creating the feeling that he is peacefully admiring the sky. Keep the shoulders relaxed. His expression should appear calm, self-assured, and subtly joyful, with a natural understated smile.\n\nDress him in a loose black short-sleeve textured button-up shirt. The material should have realistic woven detail, natural creases, folds, and fabric behavior. Leave the upper buttons slightly open for a relaxed fashion-editorial appearance.\n\nAdd stylish rectangular sunglasses with transparent smoky-gray thick translucent frames. The lenses must contain physically believable reflections of the bright sky and surrounding clouds.\n\nBehind the subject, create a gigantic vertically rising wall of brilliant white cumulus clouds. The clouds should have extremely detailed fluffy formations, realistic dimensional shading, sunlit edges, atmospheric perspective, and convincing depth. Surround the formation with a rich natural deep-blue sky and a few subtle wispy clouds.\n\nInclude several small, soft white flower petals naturally floating through the air at different distances. Some petals should remain crisp and detailed, while others should show subtle motion blur or shallow-focus softness to create authentic depth and movement.\n\nUse professional full-frame photographic aesthetics with an ultra-wide 24mm perspective and a pronounced low-angle viewpoint. Illuminate the scene with natural bright daylight and physically believable shadows. Add subtle atmospheric haze, authentic reflections in the sunglasses, individually distinguishable hair strands, detailed beard texture, visible pores, and realistic skin detail suitable for close inspection.\n\nMaintain cinematic framing, shallow-to-moderate depth of field, natural photographic color rendering, subtle film grain, and high dynamic range while avoiding an artificial HDR appearance. The final image should resemble premium editorial photography captured in exceptionally high resolution.\n\nFormat the composition as a vertical 4:5 Instagram portrait. Position the subject slightly toward the lower-right/center, with the head around the lower-middle portion of the frame. Place the enormous cloud formation directly behind and above him, preserving generous cinematic negative space across the upper portion and creating a powerful sense of scale, height, and atmospheric depth.\n\nThe result must be a newly generated original visual composition. Do not reproduce, trace, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid recognizable logos, watermarks, trademarks, or branded visual elements. Use the uploaded image only for facial identity reference.\n\nAvoid anime, cartoons, illustrations, paintings, CGI appearance, 3D-rendered aesthetics, artificial-looking faces, identity changes, beautified facial features, plastic or excessively smooth skin, fake-looking hair, blurred facial details, distorted anatomy, deformed hands or limbs, unrealistic sunglasses, incorrect lens reflections, flat-looking clouds, artificial skies, excessive saturation, oversharpening, fake HDR, excessive glow, artificial lighting, wax-like skin, text, logos, and watermarks.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178084146.jpg",
-      "tags": []
-    },
-    {
-      "id": "prompt_aesthetic-music-generic_20128",
-      "type": "image",
-      "category": "Trending",
-      "title": "Aesthetic music generic",
-      "prompt_text": "Create an ultra-realistic cinematic streetwear portrait of a young Indian man standing alone inside a dim underground parking garage, positioned beside the front section of a glossy black luxury sedan. His head is naturally lowered and both hands are placed inside the pockets of his clothing.\n\nHe is dressed in an oversized beige polo T-shirt paired with extremely loose, heavily relaxed faded-gray cargo jeans. Add a realistic wristwatch and beige Crocs-style casual footwear. Preserve the overall relaxed streetwear styling, proportions, and visual character of the outfit.\n\nThe environment should feel dark, atmospheric, and industrial. Use moody fluorescent ceiling illumination that creates realistic highlights and shadows across the subject, vehicle, and surroundings. The concrete floor should appear slightly wet and reflective, producing natural reflections from the overhead lights and car. Keep the background dark and understated with a shallow depth of field that separates the subject from the surroundings.\n\nApply a muted green-brown cinematic color treatment with restrained contrast, natural skin tones, realistic exposure, and subtle photographic film grain. Maintain a premium editorial photography aesthetic rather than an artificial CGI appearance.\n\nOn the left side of the composition, include a large floating translucent dark-glass music-player interface with a modern premium streaming-player appearance. Display the track information for Koti's “Niddura Pothunna,” including its album artwork, playback progress bar, and standard playback controls. Keep the interface visually integrated into the scene with realistic translucency, reflections, subtle glow, and depth, while avoiding reproduction of any specific proprietary app interface, logo, or trademarked UI design.\n\nPreserve the intended pose, clothing arrangement, vehicle placement, floating music-player position, lighting direction, framing, perspective, and overall cinematic composition. The subject should remain the primary visual focus while the car and music interface complement the scene.\n\nUse a strict vertical 4:5 Instagram composition at 1080 × 1350 resolution. Maintain realistic photographic detail, natural textures, physically believable lighting and reflections, authentic fabric folds, realistic denim texture, detailed skin and hair, and subtle depth-of-field effects.\n\nCreate the final image as a new, original AI-generated composition. Do not copy, trace, reproduce, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid unnecessary logos, watermarks, or other branded visual elements.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178917507.jpg",
-      "tags": [
-        "All",
-        "trending"
-      ]
-    },
-    {
-      "id": "prompt_aesthetic-music_43107",
-      "type": "image",
-      "category": "Product",
-      "title": "Aesthetic music",
-      "prompt_text": "Create an ultra-realistic cinematic streetwear portrait of a young Indian man standing alone inside a dim underground parking garage, positioned beside the front section of a glossy black luxury sedan. His head is naturally lowered and both hands are placed inside the pockets of his clothing.\n\nHe is dressed in an oversized beige polo T-shirt paired with extremely loose, heavily relaxed faded-gray cargo jeans. Add a realistic wristwatch and beige Crocs-style casual footwear. Preserve the overall relaxed streetwear styling, proportions, and visual character of the outfit.\n\nThe environment should feel dark, atmospheric, and industrial. Use moody fluorescent ceiling illumination that creates realistic highlights and shadows across the subject, vehicle, and surroundings. The concrete floor should appear slightly wet and reflective, producing natural reflections from the overhead lights and car. Keep the background dark and understated with a shallow depth of field that separates the subject from the surroundings.\n\nApply a muted green-brown cinematic color treatment with restrained contrast, natural skin tones, realistic exposure, and subtle photographic film grain. Maintain a premium editorial photography aesthetic rather than an artificial CGI appearance.\n\nOn the left side of the composition, include a large floating translucent dark-glass music-player interface with a modern premium streaming-player appearance. Display the track information for Koti's “Niddura Pothunna,” including its album artwork, playback progress bar, and standard playback controls. Keep the interface visually integrated into the scene with realistic translucency, reflections, subtle glow, and depth, while avoiding reproduction of any specific proprietary app interface, logo, or trademarked UI design.\n\nPreserve the intended pose, clothing arrangement, vehicle placement, floating music-player position, lighting direction, framing, perspective, and overall cinematic composition. The subject should remain the primary visual focus while the car and music interface complement the scene.\n\nUse a strict vertical 4:5 Instagram composition at 1080 × 1350 resolution. Maintain realistic photographic detail, natural textures, physically believable lighting and reflections, authentic fabric folds, realistic denim texture, detailed skin and hair, and subtle depth-of-field effects.\n\nCreate the final image as a new, original AI-generated composition. Do not copy, trace, reproduce, or closely imitate any existing photograph, artwork, advertisement, or distinctive copyrighted composition. Avoid unnecessary logos, watermarks, or other branded visual elements.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791179340233.jpg",
-      "tags": [
-        "Trending"
-      ]
+      ],
+      "timestamp": 1700003600000,
+      "created_at": "2023-11-14T23:13:20.000Z"
     }
   ],
-  "video_prompts": [
-    {
-      "id": "vid_001",
-      "type": "video",
-      "category": "Cinematic",
-      "title": "Golden Sunset Rider & Spirit Horse Motion",
-      "prompt_text": "Cinematic 4K slow-motion tracking shot (60fps) starting from a low heroic angle beside a young man in an oversized black sweater and sunglasses leaning against a vintage black Royal Enfield motorcycle at golden sunset. As the camera smoothly dollies in and orbits 30 degrees to the right, warm golden dust particles swirl through the air behind him and coalesce into a luminous, translucent spirit horse galloping in slow motion across the misty horizon. Volumetric golden rim lighting flares gently across the lens, realistic wind movement in the subject's curly hair and fabric, shallow depth of field on 50mm cinema anamorphic lens, rich film grain and high dynamic range.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt15.jpg",
-      "tags": [
-        "Trending",
-        "Cinematic",
-        "Video",
-        "Slow Motion",
-        "Google Flow"
-      ]
-    },
-    {
-      "id": "vid_002",
-      "type": "video",
-      "category": "Fantasy",
-      "title": "Fiery Aura Slow-Motion Energy Burst",
-      "prompt_text": "High-speed Phantom Flex 4K slow-motion video at 120fps: a young man stands in a powerful stance in a dark atmospheric arena as dual streams of vivid red and electric blue flames ignite along his forearms and swirl upward in realistic fluid vortexes. The camera pushes forward dynamically from a medium-wide shot into a tight heroic close-up while embers and glowing sparks drift past the lens in foreground bokeh. Dynamic flickering fire illumination dances across his face and white oversized t-shirt, physically accurate smoke and flame turbulence, blockbuster VFX cinema grade.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt1.jpg",
-      "tags": [
-        "Trending",
-        "Fantasy",
-        "Action",
-        "VFX",
-        "Google Flow"
-      ]
-    },
-    {
-      "id": "vid_003",
-      "type": "video",
-      "category": "Cinematic",
-      "title": "Cyberpunk Neon Halo Camera Orbit",
-      "prompt_text": "Smooth 360-degree gimbal arc shot in a dark atmospheric studio around a stylish subject wearing a black overcoat, hoodie, and round dark sunglasses in front of a glowing orange circular neon halo tube. As the camera glides slowly from profile to frontal view on an 85mm f/1.4 cinema prime lens, volumetric haze and fine illuminated dust motes drift lazily through the warm orange rim light. The subject slowly raises two fingers to adjust his sunglasses as orange neon reflections sweep across the dark lenses. Moody cyberpunk fashion film aesthetic, 24fps cinema motion blur.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt9.jpg",
-      "tags": [
-        "Trending",
-        "Cinematic",
-        "Cyberpunk",
-        "Neon",
-        "Fashion"
-      ]
-    },
-    {
-      "id": "vid_004",
-      "type": "video",
-      "category": "Fantasy",
-      "title": "Mystical Forest Astral Projection Ascent",
-      "prompt_text": "Dreamlike cinematic crane shot inside a misty emerald woodland at dawn. A young woman rests peacefully on a bed of autumn leaves while a luminous, semi-transparent astral spirit gently rises upward from her body in fluid slow motion, arching gracefully mid-air. Sunbeams pierce through the tall forest canopy as golden pollen and mist drift across the frame. Smooth vertical camera elevation with subtle parallax, photorealistic lighting, ethereal atmosphere.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt14.jpg",
-      "tags": [
-        "Fantasy",
-        "Surreal",
-        "Forest",
-        "Cinematic"
-      ]
-    },
-    {
-      "id": "vid_005",
-      "type": "video",
-      "category": "Nature",
-      "title": "Cumulus Sky Climber Petal Drift",
-      "prompt_text": "Ultra-wide 24mm low-angle cinema shot looking upward at a young man in a textured black short-sleeve shirt and translucent smoky-gray sunglasses against a towering wall of sunlit white cumulus clouds in a deep summer sky. White flower petals float and spin naturally past the lens in slow motion while the clouds billow subtly in time-lapse motion behind him. Bright reflections of moving clouds glide across his sunglasses as he turns his head slightly toward the sunlight with a calm smile.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791178084146.jpg",
-      "tags": [
-        "Trending",
-        "Nature",
-        "Cinematic",
-        "Daylight"
-      ]
-    },
-    {
-      "id": "vid_006",
-      "type": "video",
-      "category": "Portrait",
-      "title": "Underground Garage Floating Music HUD",
-      "prompt_text": "Moody handheld Steadicam push-in inside a dimly lit underground parking garage with wet reflective concrete floors. A young man in relaxed streetwear leans beside a glossy black luxury sedan under flickering cool fluorescent ceiling tubes. To his left, a translucent holographic dark-glass music player interface hovers in 3D space with animated audio waveform bars and subtle glass reflections. Shallow depth of field, cinematic green-amber color grade, realistic puddle reflections.",
-      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791179340233.jpg",
-      "tags": [
-        "Trending",
-        "Portrait",
-        "Product",
-        "Streetwear"
-      ]
-    }
-  ]
+  "video_prompts": []
 }
