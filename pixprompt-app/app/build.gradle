@@ -5,20 +5,20 @@ plugins {
 
 android {
     namespace 'com.shamiacademy.pixprompt'
-    compileSdk 36
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.shamiacademy.pixprompt"
         minSdk 23
-        targetSdk 36
-        versionCode 3
-        versionName "1.0.2"
+        targetSdk 34
+        versionCode 4
+        versionName "1.0.3"
     }
 
     signingConfigs {
         release {
             def ksPath = System.getenv("KEYSTORE_PATH")
-            if (ksPath != null) {
+            if (ksPath != null && file(ksPath).exists()) {
                 storeFile file(ksPath)
                 storePassword System.getenv("KEYSTORE_PASSWORD")
                 keyAlias System.getenv("KEY_ALIAS")
@@ -28,10 +28,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            def ksPath = System.getenv("KEYSTORE_PATH")
+            if (ksPath != null && file(ksPath).exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
         }
     }
 
