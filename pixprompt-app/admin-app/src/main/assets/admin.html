@@ -199,6 +199,92 @@
     .status.loading { display: block; background: #1D1D35; color: #E2E8F0; border: 1px solid rgba(168, 85, 247, 0.4); }
     .row { display: flex; gap: 10px; }
     .row > * { flex: 1; }
+    .prompt-list-box {
+      max-height: 380px;
+      overflow-y: auto;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+    .prompt-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(23, 23, 40, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .prompt-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 9px;
+      object-fit: cover;
+      background: #121220;
+      flex-shrink: 0;
+    }
+    .prompt-info {
+      min-width: 0;
+      flex: 1;
+    }
+    .prompt-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .prompt-meta {
+      font-size: 11.5px;
+      color: var(--text2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .prompt-del-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #F87171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .prompt-del-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.45);
+    }
+    .tab-pills {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tab-pill {
+      flex: 1;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--surface-light);
+      color: var(--text2);
+      cursor: pointer;
+    }
+    .tab-pill.active {
+      background: rgba(168, 85, 247, 0.2);
+      color: #E9D5FF;
+      border-color: rgba(168, 85, 247, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -220,6 +306,42 @@
           </div>
         </div>
       </header>
+    </div>
+
+    <!-- Gemini AI Configuration Card -->
+    <div class="card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: rgba(22, 19, 44, 0.88);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h2 style="margin:0; color:#C084FC; display:flex; align-items:center; gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C084FC" stroke-width="2">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+          Google Gemini AI API Key
+        </h2>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-size:12px; color:#38BDF8; text-decoration:none; font-weight:700;">
+          Get Free Key ↗
+        </a>
+      </div>
+      <p style="font-size:12px; color:var(--text2); margin:0 0 10px; line-height:1.5;">
+        Generate your free API key at <b>Google AI Studio</b> and enter it below. The Admin APK connects directly to Google Gemini AI to auto-generate prompts.
+      </p>
+
+      <div style="position:relative;">
+        <input type="password" id="geminiApiKey" placeholder="AIzaSy... (Paste Gemini API Key)" style="padding-right: 70px;" />
+        <button type="button" id="toggleKeyVisibility" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:none; color:#E2E8F0; font-size:11px; padding:6px 10px; border-radius:8px; cursor:pointer; font-weight:600;">
+          Show
+        </button>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; flex-wrap:wrap; gap:8px;">
+        <label style="display:flex; align-items:center; gap:8px; margin:0; cursor:pointer; font-weight:normal; font-size:12px; color:var(--text2);">
+          <input type="checkbox" id="rememberGeminiKey" checked />
+          <span>Remember API Key on this device</span>
+        </label>
+        <button type="button" id="testKeyBtn" style="background:rgba(168, 85, 247, 0.2); border:1px solid rgba(168, 85, 247, 0.4); color:#E9D5FF; font-size:11.5px; font-weight:700; padding:6px 12px; border-radius:8px; cursor:pointer;">
+          ⚡ Test API Key
+        </button>
+      </div>
+      <div id="keyStatus" style="font-size:12px; margin-top:8px; display:none; padding:8px 12px; border-radius:8px;"></div>
     </div>
 
     <div class="card">
@@ -294,6 +416,38 @@
         <span>Remember my GitHub token on this device</span>
       </label>
     </div>
+
+    <!-- 3. Manage & Delete Prompts Card -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0; display:flex; align-items:center; gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          3. Manage &amp; Delete Prompts
+        </h2>
+        <button type="button" id="refreshPromptsBtn" style="background:rgba(255,255,255,0.08); border:none; color:#E2E8F0; font-size:12px; padding:6px 12px; border-radius:8px; cursor:pointer; font-weight:600;">
+          ↻ Refresh List
+        </button>
+      </div>
+      <p style="font-size:12px; color:var(--text2); margin:8px 0 0; line-height:1.5;">
+        Any prompt uploaded by mistake can be easily deleted here. Deleting removes it permanently from the library and syncs with GitHub.
+      </p>
+
+      <div class="tab-pills">
+        <button type="button" id="tabImagesList" class="tab-pill active">Image Prompts (<span id="imgCountBadge">0</span>)</button>
+        <button type="button" id="tabVideosList" class="tab-pill">Video Prompts (<span id="vidCountBadge">0</span>)</button>
+      </div>
+
+      <input type="text" id="filterPromptsInput" placeholder="Search prompts by title or category…" style="margin-top:10px; font-size:13px; padding:10px 12px;" />
+
+      <div id="promptsListBox" class="prompt-list-box">
+        <div style="padding:24px; text-align:center; font-size:13px; color:var(--text2);">
+          Loading prompts library…
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -314,13 +468,96 @@
     const promptInput = document.getElementById('promptText');
     const tagsInput = document.getElementById('tags');
 
+    // Gemini API Key elements
+    const geminiApiKeyInput = document.getElementById('geminiApiKey');
+    const toggleKeyVisibilityBtn = document.getElementById('toggleKeyVisibility');
+    const rememberGeminiKeyBox = document.getElementById('rememberGeminiKey');
+    const testKeyBtn = document.getElementById('testKeyBtn');
+    const keyStatusBox = document.getElementById('keyStatus');
+
     let currentType = 'image';
     let currentBase64 = '';
     let currentMimeType = 'image/jpeg';
     let currentExt = 'jpg';
 
+    // Load saved GitHub token
     const savedToken = localStorage.getItem('pixprompt_admin_token');
     if (savedToken) { tokenInput.value = savedToken; rememberBox.checked = true; }
+
+    // Load saved Gemini API Key
+    const savedGeminiKey = localStorage.getItem('pixprompt_gemini_api_key');
+    if (savedGeminiKey) {
+      geminiApiKeyInput.value = savedGeminiKey;
+      rememberGeminiKeyBox.checked = true;
+    }
+
+    geminiApiKeyInput.addEventListener('input', () => {
+      if (rememberGeminiKeyBox.checked) {
+        localStorage.setItem('pixprompt_gemini_api_key', geminiApiKeyInput.value.trim());
+      }
+    });
+
+    rememberGeminiKeyBox.addEventListener('change', () => {
+      if (rememberGeminiKeyBox.checked) {
+        localStorage.setItem('pixprompt_gemini_api_key', geminiApiKeyInput.value.trim());
+      } else {
+        localStorage.removeItem('pixprompt_gemini_api_key');
+      }
+    });
+
+    toggleKeyVisibilityBtn.addEventListener('click', () => {
+      if (geminiApiKeyInput.type === 'password') {
+        geminiApiKeyInput.type = 'text';
+        toggleKeyVisibilityBtn.textContent = 'Hide';
+      } else {
+        geminiApiKeyInput.type = 'password';
+        toggleKeyVisibilityBtn.textContent = 'Show';
+      }
+    });
+
+    function showKeyStatus(msg, type) {
+      keyStatusBox.style.display = 'block';
+      keyStatusBox.textContent = msg;
+      if (type === 'ok') {
+        keyStatusBox.style.background = 'rgba(16, 185, 129, 0.15)';
+        keyStatusBox.style.color = '#34D399';
+        keyStatusBox.style.border = '1px solid rgba(16, 185, 129, 0.35)';
+      } else if (type === 'err') {
+        keyStatusBox.style.background = 'rgba(239, 68, 68, 0.15)';
+        keyStatusBox.style.color = '#F87171';
+        keyStatusBox.style.border = '1px solid rgba(239, 68, 68, 0.35)';
+      } else {
+        keyStatusBox.style.background = 'rgba(168, 85, 247, 0.15)';
+        keyStatusBox.style.color = '#E9D5FF';
+        keyStatusBox.style.border = '1px solid rgba(168, 85, 247, 0.35)';
+      }
+    }
+
+    testKeyBtn.addEventListener('click', async () => {
+      const key = geminiApiKeyInput.value.trim();
+      if (!key) {
+        showKeyStatus('Please enter a Gemini API Key to test.', 'err');
+        return;
+      }
+      showKeyStatus('Testing API Key with Google Gemini…', 'loading');
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(key)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: 'Hello Gemini, respond with {"status":"ok"}' }] }],
+            generationConfig: { responseMimeType: 'application/json' }
+          })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err?.error?.message || `HTTP ${res.status}`);
+        }
+        showKeyStatus('✅ Gemini API Key is working perfectly!', 'ok');
+      } catch (err) {
+        showKeyStatus('❌ ' + (err.message || err), 'err');
+      }
+    });
 
     function setStatus(msg, type) {
       statusBox.textContent = msg;
@@ -358,28 +595,132 @@
       if (currentBase64) analyzeWithGemini();
     });
 
+    async function callGeminiDirectly(apiKey, b64, mime, pType) {
+      const isVideo = pType === 'video';
+      const availableCategories = 'Trending, Cinematic, Fantasy, Portrait, Product, Nature';
+
+      const instruction = isVideo
+        ? `Analyze this preview visual and generate a production-grade AI VIDEO generation prompt specifically designed for Google Flow.
+Describe camera movement (orbit, tracking shot, push-in, crane elevation), subject dynamics, atmospheric effects (smoke, particles, light flares), lighting, and cinematic mood so a creator can generate this as a cinematic video in Google Flow.
+Also provide a catchy 3-6 word Title, pick best Category from [${availableCategories}], and provide 4-6 relevant Tags.
+Return STRICT JSON format:
+{
+  "title": "string",
+  "category": "string",
+  "prompt_text": "string",
+  "tags": ["tag1", "tag2", "tag3", "tag4"]
+}`
+        : `Analyze this image and generate an ultra-detailed AI IMAGE generation prompt designed for Google Gemini and ChatGPT.
+Describe subject's pose, facial features, attire, lighting direction, color palette, environment, camera lens, depth-of-field, and realistic textures in rich detail.
+Also provide a catchy 3-6 word Title, pick best Category from [${availableCategories}], and provide 4-6 relevant Tags.
+Return STRICT JSON format:
+{
+  "title": "string",
+  "category": "string",
+  "prompt_text": "string",
+  "tags": ["tag1", "tag2", "tag3", "tag4"]
+}`;
+
+      const requestBody = {
+        contents: [
+          {
+            parts: [
+              {
+                inlineData: {
+                  mimeType: mime || 'image/jpeg',
+                  data: b64
+                }
+              },
+              {
+                text: instruction
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          responseMimeType: 'application/json'
+        }
+      };
+
+      const modelsToTry = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+      let lastErr = null;
+
+      for (const model of modelsToTry) {
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+          });
+
+          if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            const msg = errData?.error?.message || `HTTP ${res.status}`;
+            if (msg.includes('API_KEY_INVALID') || msg.includes('API key not valid')) {
+              throw new Error('Gemini API Key درست نہیں ہے۔ براہ کرم Google AI Studio سے درست کی کاپی کریں۔');
+            }
+            throw new Error(`[${model}] ${msg}`);
+          }
+
+          const data = await res.json();
+          const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          if (!rawText) throw new Error('Empty response from ' + model);
+
+          const cleaned = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+          return JSON.parse(cleaned);
+        } catch (err) {
+          lastErr = err;
+          if (err.message && (err.message.includes('API_KEY_INVALID') || err.message.includes('درست نہیں'))) {
+            throw err;
+          }
+        }
+      }
+
+      throw lastErr || new Error('All Gemini vision models failed.');
+    }
+
     async function analyzeWithGemini() {
       if (!currentBase64) return;
-      setStatus('Gemini AI is analyzing your image and generating Title, Category, Prompt & Tags…', 'loading');
+      const apiKey = geminiApiKeyInput.value.trim();
+
+      setStatus('Gemini AI is analyzing visual and generating Title, Category, Prompt & Tags…', 'loading');
       reanalyzeBtn.disabled = true;
+
       try {
-        const res = await fetch('/api/admin/analyze-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            imageBase64: currentBase64,
-            mimeType: currentMimeType,
-            promptType: currentType,
-            categories: ['Trending', 'Cinematic', 'Fantasy', 'Portrait', 'Product', 'Nature']
-          })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Gemini analysis failed');
+        let data = null;
+
+        // 1. Direct call to Google Gemini API (Works everywhere, including Android APK without any local server!)
+        if (apiKey) {
+          data = await callGeminiDirectly(apiKey, currentBase64, currentMimeType, currentType);
+        } else {
+          // 2. Fallback to local server proxy if running on Web server
+          try {
+            const res = await fetch('/api/admin/analyze-image', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                imageBase64: currentBase64,
+                mimeType: currentMimeType,
+                promptType: currentType,
+                categories: ['Trending', 'Cinematic', 'Fantasy', 'Portrait', 'Product', 'Nature']
+              })
+            });
+            if (res.ok) {
+              data = await res.json();
+            }
+          } catch (_) {}
+
+          if (!data) {
+            throw new Error('براہ کرم اوپر Gemini API Key درج کریں۔ (Get free key from aistudio.google.com/app/apikey). In Android APK, direct Gemini API requires an API key.');
+          }
+        }
+
         if (data.title) titleInput.value = data.title;
         if (data.category) categoryInput.value = data.category;
         if (data.prompt_text) promptInput.value = data.prompt_text;
         if (Array.isArray(data.tags)) tagsInput.value = data.tags.join(', ');
-        setStatus('Gemini AI auto-filled Title, Category, Prompt Text, and Tags!', 'ok');
+        setStatus('✨ Gemini AI auto-filled Title, Category, Prompt Text, and Tags successfully!', 'ok');
       } catch (err) {
         setStatus('Gemini Analysis: ' + (err.message || err), 'err');
       } finally {
@@ -532,12 +873,222 @@
         previewImg.style.display = 'none';
         reanalyzeBtn.style.display = 'none';
         currentBase64 = '';
+        loadPromptsList();
       } catch (err) {
         setStatus('Error: ' + (err.message || err), 'err');
       } finally {
         saveBtn.disabled = false;
       }
     });
+
+    // --- Manage & Delete Prompts Logic ---
+    const refreshPromptsBtn = document.getElementById('refreshPromptsBtn');
+    const tabImagesList = document.getElementById('tabImagesList');
+    const tabVideosList = document.getElementById('tabVideosList');
+    const filterPromptsInput = document.getElementById('filterPromptsInput');
+    const promptsListBox = document.getElementById('promptsListBox');
+    const imgCountBadge = document.getElementById('imgCountBadge');
+    const vidCountBadge = document.getElementById('vidCountBadge');
+
+    let allPromptsData = { prompts: [], video_prompts: [] };
+    let activeListTab = 'image';
+
+    tabImagesList.addEventListener('click', () => {
+      activeListTab = 'image';
+      tabImagesList.className = 'tab-pill active';
+      tabVideosList.className = 'tab-pill';
+      renderPromptsList();
+    });
+
+    tabVideosList.addEventListener('click', () => {
+      activeListTab = 'video';
+      tabVideosList.className = 'tab-pill active';
+      tabImagesList.className = 'tab-pill';
+      renderPromptsList();
+    });
+
+    filterPromptsInput.addEventListener('input', () => {
+      renderPromptsList();
+    });
+
+    refreshPromptsBtn.addEventListener('click', () => {
+      loadPromptsList();
+    });
+
+    async function loadPromptsList() {
+      promptsListBox.innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:var(--text2);">Loading prompts…</div>';
+      const owner = ownerInput.value.trim();
+      const repo = repoInput.value.trim();
+      const folderPath = pathInput.value.trim().replace(/\/$/, '');
+      const jsonFile = folderPath ? folderPath + '/prompts.json' : 'prompts.json';
+
+      // 1. Try local server first if available
+      try {
+        const res = await fetch('/prompts.json?ts=' + Date.now());
+        if (res.ok) {
+          allPromptsData = await res.json();
+          renderPromptsList();
+          return;
+        }
+      } catch (_) {}
+
+      // 2. Fetch from GitHub CDN or Raw if local is not available
+      try {
+        const cdnUrl = 'https://raw.githubusercontent.com/' + owner + '/' + repo + '/main/' + jsonFile + '?ts=' + Date.now();
+        const res = await fetch(cdnUrl);
+        if (res.ok) {
+          allPromptsData = await res.json();
+          renderPromptsList();
+          return;
+        }
+      } catch (_) {}
+
+      // 3. Try bundled prompts.json fallback
+      try {
+        const res = await fetch('prompts.json');
+        if (res.ok) {
+          allPromptsData = await res.json();
+          renderPromptsList();
+          return;
+        }
+      } catch (_) {}
+
+      promptsListBox.innerHTML = '<div style="padding:20px;text-align:center;font-size:12px;color:#F87171;">Could not load prompts list. Tap "Refresh List" or check your network.</div>';
+    }
+
+    function renderPromptsList() {
+      const imgList = sortLatestFirst(allPromptsData.prompts || []);
+      const vidList = sortLatestFirst(allPromptsData.video_prompts || []);
+
+      imgCountBadge.textContent = imgList.length;
+      vidCountBadge.textContent = vidList.length;
+
+      const currentItems = activeListTab === 'video' ? vidList : imgList;
+      const query = (filterPromptsInput.value || '').trim().toLowerCase();
+
+      const filtered = query
+        ? currentItems.filter(p =>
+            (p.title || '').toLowerCase().includes(query) ||
+            (p.category || '').toLowerCase().includes(query) ||
+            (p.prompt_text || '').toLowerCase().includes(query)
+          )
+        : currentItems;
+
+      if (filtered.length === 0) {
+        promptsListBox.innerHTML = '<div style="padding:24px;text-align:center;font-size:12.5px;color:var(--text2);">' +
+          (query ? 'No matching prompts found.' : ('No ' + (activeListTab === 'video' ? 'video' : 'image') + ' prompts in library yet.')) +
+          '</div>';
+        return;
+      }
+
+      promptsListBox.innerHTML = filtered.map(item => {
+        let imgUrl = item.image_url || '';
+        if (imgUrl.startsWith('/')) {
+          imgUrl = imgUrl.slice(1);
+        }
+        const titleSafe = (item.title || 'Untitled').replace(/"/g, '&quot;');
+        const catSafe = (item.category || 'General').replace(/"/g, '&quot;');
+        const idSafe = encodeURIComponent(item.id || '');
+
+        return '<div class="prompt-item" id="item-' + idSafe + '">' +
+          '<img src="' + imgUrl + '" class="prompt-thumb" alt="' + titleSafe + '" onerror="this.src=\'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23222%22 width=%22100%22 height=%22100%22/><text fill=%22%23888%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2214%22>IMG</text></svg>\'"/>' +
+          '<div class="prompt-info">' +
+            '<div class="prompt-title">' + titleSafe + '</div>' +
+            '<div class="prompt-meta">' + catSafe + (item.created_at ? ' · ' + new Date(item.created_at).toLocaleDateString() : '') + '</div>' +
+          '</div>' +
+          '<button type="button" class="prompt-del-btn" onclick="deletePromptItem(\'' + idSafe + '\', \'' + titleSafe.replace(/'/g, "\\'") + '\')" title="Delete this prompt">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+              '<polyline points="3 6 5 6 21 6"></polyline>' +
+              '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>' +
+            '</svg>' +
+          '</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    window.deletePromptItem = async function(encodedId, title) {
+      const id = decodeURIComponent(encodedId);
+      const conf = confirm('کیا آپ واقعی اس پرامپٹ کو ڈیلیٹ کرنا چاہتے ہیں؟\n\n"' + title + '"');
+      if (!conf) return;
+
+      const itemEl = document.getElementById('item-' + encodedId);
+      if (itemEl) itemEl.style.opacity = '0.35';
+
+      setStatus('Deleting "' + title + '"…', 'loading');
+
+      try {
+        const token = tokenInput.value.trim();
+        const owner = ownerInput.value.trim();
+        const repo = repoInput.value.trim();
+        const folderPath = pathInput.value.trim().replace(/\/$/, '');
+        const jsonFile = folderPath ? folderPath + '/prompts.json' : 'prompts.json';
+
+        let localDone = false;
+        // 1. Delete on local server if available
+        try {
+          const res = await fetch('/api/prompts/' + encodeURIComponent(id), { method: 'DELETE' });
+          if (res.ok) {
+            const resJson = await res.json();
+            if (resJson.data) {
+              allPromptsData = resJson.data;
+              localDone = true;
+            }
+          }
+        } catch (_) {}
+
+        // 2. Delete on GitHub if token is present
+        if (token) {
+          setStatus('Updating GitHub repository to remove "' + title + '"…', 'loading');
+          const apiBase = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents';
+          const authHeaders = {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.github+json',
+            'Content-Type': 'application/json'
+          };
+
+          const getRes = await fetch(apiBase + '/' + jsonFile, { headers: authHeaders });
+          if (!getRes.ok) throw new Error('Could not read GitHub prompts.json (' + getRes.status + ')');
+          const getData = await getRes.json();
+          const ghJson = JSON.parse(base64ToUtf8(getData.content));
+
+          ghJson.prompts = (ghJson.prompts || []).filter(p => p.id !== id);
+          ghJson.video_prompts = (ghJson.video_prompts || []).filter(p => p.id !== id);
+
+          const putRes = await fetch(apiBase + '/' + jsonFile, {
+            method: 'PUT',
+            headers: authHeaders,
+            body: JSON.stringify({
+              message: 'Delete prompt "' + title + '" via Pixvid Admin',
+              content: utf8ToBase64(JSON.stringify(ghJson, null, 2)),
+              sha: getData.sha
+            })
+          });
+
+          if (!putRes.ok) {
+            const err = await putRes.json().catch(() => ({}));
+            throw new Error(err.message || 'GitHub commit failed (' + putRes.status + ')');
+          }
+
+          allPromptsData = ghJson;
+          setStatus('✅ "' + title + '" کامیابی سے ڈیلیٹ ہو گیا اور GitHub اپڈیٹ ہو گیا۔', 'ok');
+        } else if (localDone) {
+          setStatus('✅ "' + title + '" کامیابی سے ڈیلیٹ ہو گیا۔', 'ok');
+        } else {
+          // In Android standalone without token, update client view and alert user
+          allPromptsData.prompts = (allPromptsData.prompts || []).filter(p => p.id !== id);
+          allPromptsData.video_prompts = (allPromptsData.video_prompts || []).filter(p => p.id !== id);
+          setStatus('⚠️ Prompt removed from view. To permanently remove from GitHub, please enter your GitHub Token above.', 'ok');
+        }
+
+        renderPromptsList();
+      } catch (err) {
+        if (itemEl) itemEl.style.opacity = '1';
+        setStatus('Error deleting prompt: ' + (err.message || err), 'err');
+      }
+    };
+
+    // Load initial list
+    loadPromptsList();
   </script>
 </body>
 </html>

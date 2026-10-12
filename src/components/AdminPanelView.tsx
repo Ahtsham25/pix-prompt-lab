@@ -8,6 +8,12 @@ import {
   Trash2,
   ExternalLink,
   RefreshCw,
+  Key,
+  Eye,
+  EyeOff,
+  Zap,
+  CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 import { Prompt, PromptData } from '../types';
 import {
@@ -39,6 +45,13 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
   const [folderPath, setFolderPath] = useState('pixprompt-app');
   const [rememberToken, setRememberToken] = useState(false);
 
+  // Gemini API Key state
+  const [geminiApiKey, setGeminiApiKey] = useState('');
+  const [rememberGeminiKey, setRememberGeminiKey] = useState(true);
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [testingKey, setTestingKey] = useState(false);
+  const [testKeyStatus, setTestKeyStatus] = useState<{ msg: string; ok: boolean } | null>(null);
+
   const [promptType, setPromptType] = useState<'image' | 'video'>('image');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -67,7 +80,64 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
     if (savedOwner) setOwner(savedOwner);
     if (savedRepo) setRepo(savedRepo);
     if (savedPath) setFolderPath(savedPath);
+
+    const savedGeminiKey = localStorage.getItem('pixprompt_gemini_api_key');
+    if (savedGeminiKey) {
+      setGeminiApiKey(savedGeminiKey);
+      setRememberGeminiKey(true);
+    }
   }, []);
+
+  const handleGeminiKeyChange = (newKey: string) => {
+    setGeminiApiKey(newKey);
+    if (rememberGeminiKey) {
+      localStorage.setItem('pixprompt_gemini_api_key', newKey.trim());
+    }
+  };
+
+  const handleRememberKeyToggle = (checked: boolean) => {
+    setRememberGeminiKey(checked);
+    if (checked) {
+      localStorage.setItem('pixprompt_gemini_api_key', geminiApiKey.trim());
+    } else {
+      localStorage.removeItem('pixprompt_gemini_api_key');
+    }
+  };
+
+  const handleTestGeminiKey = async () => {
+    const key = geminiApiKey.trim();
+    if (!key) {
+      setTestKeyStatus({ msg: 'Please enter a Gemini API Key to test.', ok: false });
+      return;
+    }
+    setTestingKey(true);
+    setTestKeyStatus(null);
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(
+          key
+        )}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: 'Hello, reply with {"status":"ok"}' }] }],
+            generationConfig: { responseMimeType: 'application/json' },
+          }),
+        }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `HTTP ${res.status}`);
+      }
+      setTestKeyStatus({ msg: 'Gemini API Key is valid and working!', ok: true });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'API key test failed';
+      setTestKeyStatus({ msg, ok: false });
+    } finally {
+      setTestingKey(false);
+    }
+  };
 
   const analyzeImageWithGemini = useCallback(
     async (b64: string, mime: string, targetType: 'image' | 'video') => {
@@ -80,20 +150,101 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
       });
 
       try {
-        const res = await fetch('/api/admin/analyze-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            imageBase64: b64,
-            mimeType: mime,
-            promptType: targetType,
-            categories: categories.filter((c) => c !== 'All'),
-          }),
-        });
+        let data: any = null;
+        const key = geminiApiKey.trim();
 
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          throw new Error(data.error || `Gemini analysis failed (${res.status})`);
+        if (key) {
+          const isVideo = targetType === 'video';
+          const availableCategories =
+            categories.filter((c) => c !== 'All').join(', ') ||
+            'Trending, Cinematic, Fantasy, Portrait, Product, Nature';
+
+          const instruction = isVideo
+            ? `Analyze this preview visual and generate a production-grade AI VIDEO generation prompt specifically designed for Google Flow.
+Describe camera movement (orbit, tracking shot, push-in, crane elevation), subject dynamics, atmospheric effects (smoke, particles, light flares), lighting, and cinematic mood so a creator can generate this as a cinematic video in Google Flow.
+Also provide a catchy 3-6 word Title, pick best Category from [${availableCategories}], and provide 4-6 relevant Tags.
+Return STRICT JSON format:
+{
+  "title": "string",
+  "category": "string",
+  "prompt_text": "string",
+  "tags": ["tag1", "tag2", "tag3", "tag4"]
+}`
+            : `Analyze this image and generate an ultra-detailed AI IMAGE generation prompt designed for Google Gemini and ChatGPT.
+Describe subject's pose, facial features, attire, lighting direction, color palette, environment, camera lens, depth-of-field, and realistic textures in rich detail.
+Also provide a catchy 3-6 word Title, pick best Category from [${availableCategories}], and provide 4-6 relevant Tags.
+Return STRICT JSON format:
+{
+  "title": "string",
+  "category": "string",
+  "prompt_text": "string",
+  "tags": ["tag1", "tag2", "tag3", "tag4"]
+}`;
+
+          const reqBody = {
+            contents: [
+              {
+                parts: [
+                  { inlineData: { mimeType: mime, data: b64 } },
+                  { text: instruction },
+                ],
+              },
+            ],
+            generationConfig: { responseMimeType: 'application/json' },
+          };
+
+          const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+          let lastErr: any = null;
+
+          for (const model of models) {
+            try {
+              const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(
+                key
+              )}`;
+              const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reqBody),
+              });
+
+              if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                const msg = errData?.error?.message || `HTTP ${res.status}`;
+                if (msg.includes('API_KEY_INVALID') || msg.includes('API key not valid')) {
+                  throw new Error('Gemini API Key is invalid. Please check your key at Google AI Studio.');
+                }
+                throw new Error(`[${model}] ${msg}`);
+              }
+
+              const resJson = await res.json();
+              const rawText = resJson?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+              if (!rawText) throw new Error('Empty response from ' + model);
+              const cleaned = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+              data = JSON.parse(cleaned);
+              break;
+            } catch (err) {
+              lastErr = err;
+              if (err instanceof Error && err.message.includes('invalid')) throw err;
+            }
+          }
+
+          if (!data) throw lastErr || new Error('Could not analyze with Gemini models');
+        } else {
+          const res = await fetch('/api/admin/analyze-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              imageBase64: b64,
+              mimeType: mime,
+              promptType: targetType,
+              categories: categories.filter((c) => c !== 'All'),
+            }),
+          });
+
+          data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            throw new Error(data.error || `Gemini analysis failed (${res.status})`);
+          }
         }
 
         if (data.title) setTitle(data.title);
@@ -104,7 +255,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
         }
 
         setStatus({
-          msg: 'Gemini AI automatically generated Title, Category, Prompt Text, and Tags!',
+          msg: '✨ Gemini AI automatically generated Title, Category, Prompt Text, and Tags!',
           type: 'ok',
         });
       } catch (err: unknown) {
@@ -115,7 +266,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
         setAnalyzing(false);
       }
     },
-    [categories]
+    [categories, geminiApiKey]
   );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -316,18 +467,79 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
   };
 
   const handleDeletePrompt = async (id: string, itemTitle: string) => {
+    if (!window.confirm(`Are you sure you want to delete "${itemTitle}"?`)) {
+      return;
+    }
+
+    setStatus({ msg: `Deleting "${itemTitle}"…`, type: 'loading' });
+
     try {
-      const res = await fetch(`/api/prompts/${encodeURIComponent(id)}`, {
-        method: 'DELETE',
-      });
-      if (!res.ok) throw new Error('Failed to delete prompt');
-      const result = await res.json();
-      if (result.data) {
-        onPromptAdded(result.data);
-        setStatus({ msg: `Deleted "${itemTitle}" from library.`, type: 'ok' });
+      // 1. Delete on local server
+      let localSuccess = false;
+      let returnedData = null;
+      try {
+        const res = await fetch(`/api/prompts/${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+        });
+        if (res.ok) {
+          const result = await res.json();
+          returnedData = result.data;
+          localSuccess = true;
+          if (returnedData) {
+            onPromptAdded(returnedData);
+          }
+        }
+      } catch (_) {}
+
+      // 2. Delete on GitHub if token is provided
+      if (token.trim()) {
+        setStatus({ msg: `Removing "${itemTitle}" from GitHub repository…`, type: 'loading' });
+        const cleanFolder = folderPath.trim().replace(/\/$/, '');
+        const jsonFile = cleanFolder ? `${cleanFolder}/prompts.json` : 'prompts.json';
+        const apiBase = `https://api.github.com/repos/${owner.trim()}/${repo.trim()}/contents`;
+        const authHeaders = {
+          Authorization: `Bearer ${token.trim()}`,
+          Accept: 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+        };
+
+        const getRes = await fetch(`${apiBase}/${jsonFile}`, { headers: authHeaders });
+        if (!getRes.ok) {
+          throw new Error(`Could not fetch GitHub prompts.json (${getRes.status})`);
+        }
+        const getData = await getRes.json();
+        const ghJson = JSON.parse(base64ToUtf8(getData.content));
+
+        const prevImgCount = (ghJson.prompts || []).length;
+        const prevVidCount = (ghJson.video_prompts || []).length;
+
+        ghJson.prompts = (ghJson.prompts || []).filter((p: { id: string }) => p.id !== id);
+        ghJson.video_prompts = (ghJson.video_prompts || []).filter((p: { id: string }) => p.id !== id);
+
+        const putRes = await fetch(`${apiBase}/${jsonFile}`, {
+          method: 'PUT',
+          headers: authHeaders,
+          body: JSON.stringify({
+            message: `Delete prompt "${itemTitle}" via Pixvid Admin Studio`,
+            content: utf8ToBase64(JSON.stringify(ghJson, null, 2)),
+            sha: getData.sha,
+          }),
+        });
+
+        if (!putRes.ok) {
+          const err = await putRes.json().catch(() => ({}));
+          throw new Error(err.message || `Failed to update GitHub (${putRes.status})`);
+        }
+
+        setStatus({ msg: `Deleted "${itemTitle}" and updated GitHub repository!`, type: 'ok' });
+      } else if (localSuccess) {
+        setStatus({ msg: `Deleted "${itemTitle}" from local library.`, type: 'ok' });
+      } else {
+        throw new Error('Could not delete prompt. Please check your connection or GitHub token.');
       }
-    } catch {
-      setStatus({ msg: 'Could not delete prompt.', type: 'err' });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Could not delete prompt';
+      setStatus({ msg, type: 'err' });
     }
   };
 
@@ -362,6 +574,88 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
             )}
           </div>
         </header>
+
+        {/* Gemini AI API Key Configuration Card */}
+        <div className="pix-glass-panel border border-[#A855F7]/30 bg-[#16132C]/85 rounded-[22px] p-5 shadow-2xl shadow-black/40 space-y-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-[#C084FC]">
+              <Key className="w-4 h-4 text-[#C084FC]" />
+              <h2 className="text-[14.5px] font-bold font-display text-white">
+                Google Gemini AI API Key
+              </h2>
+            </div>
+            <a
+              href="https://aistudio.google.com/app/apikey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[12px] font-semibold text-[#38BDF8] hover:text-[#7DD3FC] flex items-center gap-1 transition-colors"
+            >
+              <span>Get Free Key</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <p className="text-[12px] text-[#A1A1B5] leading-relaxed">
+            Enter your Google Gemini API Key below. You can generate multiple free keys from Google AI Studio and rotate or update them anytime.
+          </p>
+
+          <div className="relative">
+            <input
+              type={showApiKey ? 'text' : 'password'}
+              value={geminiApiKey}
+              onChange={(e) => handleGeminiKeyChange(e.target.value)}
+              placeholder="AIzaSy... (Paste Gemini API Key from Google AI Studio)"
+              className="w-full bg-[#171728] border border-white/10 focus:border-[#C084FC] rounded-[13px] px-4 py-2.5 pr-20 text-[13.5px] text-white placeholder-[#6B7280] outline-none transition-colors"
+            />
+            <button
+              type="button"
+              onClick={() => setShowApiKey(!showApiKey)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-[8px] bg-white/10 hover:bg-white/15 text-[11px] font-semibold text-white/80 transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              {showApiKey ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+              <span>{showApiKey ? 'Hide' : 'Show'}</span>
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 pt-1 flex-wrap">
+            <label className="flex items-center gap-2 cursor-pointer text-[12px] text-[#A1A1B5] hover:text-white transition-colors">
+              <input
+                type="checkbox"
+                checked={rememberGeminiKey}
+                onChange={(e) => handleRememberKeyToggle(e.target.checked)}
+                className="w-4 h-4 rounded accent-[#C084FC] cursor-pointer"
+              />
+              <span>Remember API Key on this device</span>
+            </label>
+
+            <button
+              type="button"
+              onClick={handleTestGeminiKey}
+              disabled={testingKey}
+              className="px-3 py-1.5 rounded-[10px] bg-[#A855F7]/20 hover:bg-[#A855F7]/30 border border-[#A855F7]/40 text-[12px] font-semibold text-[#E9D5FF] flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              <Zap className={`w-3.5 h-3.5 ${testingKey ? 'animate-spin' : ''}`} />
+              <span>{testingKey ? 'Testing…' : 'Test API Key'}</span>
+            </button>
+          </div>
+
+          {testKeyStatus && (
+            <div
+              className={`p-2.5 rounded-[10px] text-[12px] flex items-center gap-2 ${
+                testKeyStatus.ok
+                  ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+                  : 'bg-red-500/15 border border-red-500/30 text-red-300'
+              }`}
+            >
+              {testKeyStatus.ok ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+              )}
+              <span>{testKeyStatus.msg}</span>
+            </div>
+          )}
+        </div>
 
         {/* Main Upload + Gemini Auto-Generator Card */}
         <div className="pix-glass-panel border border-white/10 rounded-[22px] p-6 shadow-2xl shadow-black/40 space-y-5">

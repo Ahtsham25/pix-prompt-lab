@@ -45,9 +45,13 @@ function sortPromptsNewestFirst(list: PromptRecord[]): PromptRecord[] {
   return [...list].sort((a, b) => getPromptTimestamp(b) - getPromptTimestamp(a));
 }
 
-function getGeminiClient(): GoogleGenAI {
+function getGeminiClient(customApiKey?: string): GoogleGenAI {
+  const apiKey = (customApiKey && customApiKey.trim()) || process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('No Gemini API Key provided. Please enter your Gemini API Key in the Admin Panel or set GEMINI_API_KEY in environment.');
+  }
   return new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
+    apiKey,
     httpOptions: {
       headers: {
         'User-Agent': 'aistudio-build',
@@ -149,7 +153,7 @@ async function startServer() {
   // POST /api/admin/analyze-image - Uses Gemini Vision (gemini-3.8-flash) to auto-generate Title, Category, Prompt Text & Tags
   app.post('/api/admin/analyze-image', async (req, res) => {
     try {
-      const { imageBase64, mimeType, promptType, categories } = req.body;
+      const { imageBase64, mimeType, promptType, categories, apiKey } = req.body;
       if (!imageBase64) {
         return res.status(400).json({ error: 'imageBase64 is required for Gemini analysis.' });
       }
@@ -168,9 +172,9 @@ Also provide a catchy 3-6 word Title, choose the best matching Category from [${
 Describe the subject's pose, attire, lighting direction, color palette, environment, camera angle, lens depth-of-field, and realistic textures in rich detail. If a person is present, instruct the AI to preserve the reference subject's natural facial identity and proportions while recreating the exact scene, style, and lighting.
 Also provide a catchy 3-6 word Title, choose the best matching Category from [${availableCategories}], and provide 4-6 relevant Tags.`;
 
-      const ai = getGeminiClient();
+      const ai = getGeminiClient(apiKey);
       const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-2.5-flash',
         contents: {
           parts: [
             {

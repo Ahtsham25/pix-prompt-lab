@@ -18,6 +18,7 @@ import { PromptDetailView } from './components/PromptDetailView';
 import { MoreSettingsModal } from './components/MoreSettingsModal';
 import { PrivacyPolicyView } from './components/PrivacyPolicyView';
 import { AdBanner } from './components/AdBanner';
+import { AdminPanelView } from './components/AdminPanelView';
 
 const FAVORITES_STORAGE_KEY = 'pixprompt_favorite_ids';
 const AD_CONSENT_STORAGE_KEY = 'pixprompt_ad_consent';
@@ -331,7 +332,7 @@ export function App() {
         categories={categories}
         imagePrompts={imagePrompts}
         videoPrompts={videoPrompts}
-        onPromptAdded={(updatedData) => {
+        onPromptAdded={(updatedData: PromptData) => {
           applyLoadedData(updatedData);
         }}
         onOpenUserApp={() => {
