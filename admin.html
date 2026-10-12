@@ -154,6 +154,60 @@
       transition: border-color 0.2s ease;
     }
     .upload-box:hover { border-color: var(--accent2); }
+    .compress-panel {
+      background: rgba(18, 18, 34, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .compress-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .cp-btn {
+      padding: 8px 4px;
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: #9CA3AF;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .cp-btn.active-fast {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #34D399;
+    }
+    .cp-btn.active-hd {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #38BDF8;
+    }
+    .cp-btn.active-light {
+      background: rgba(192, 132, 252, 0.2);
+      border-color: rgba(192, 132, 252, 0.5);
+      color: #E9D5FF;
+    }
+    .cp-btn.active-orig {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #FCD34D;
+    }
+    .stats-card {
+      margin-top: 10px;
+      background: rgba(18, 24, 41, 0.9);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 11.5px;
+      display: none;
+    }
     .preview {
       margin-top: 12px;
       max-height: 220px;
@@ -353,13 +407,65 @@
         <button type="button" id="btnTypeVideo" class="type-btn">Video Prompt (Google Flow)</button>
       </div>
 
-      <label>Preview Image or GIF Thumbnail</label>
+      <label>Preview Image or GIF Thumbnail (Smart ~40-50 KB Mobile Compressor)</label>
+      
+      <!-- Smart Compression Presets Bar -->
+      <div class="compress-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; flex-wrap:wrap; gap:4px;">
+          <span style="font-weight:700; color:#fff;">⚡ Mobile Compression Target:</span>
+          <span id="compressTargetDesc" style="color:#34D399; font-weight:600;">⚡ Target: 40–50 KB (High-Speed Mobile Delivery)</span>
+        </div>
+        <div class="compress-grid">
+          <button type="button" class="cp-btn active-fast" id="cpBtnFast">⚡ 40–50 KB<br><span style="font-size:9.5px;opacity:0.75;font-weight:normal;">Fastest</span></button>
+          <button type="button" class="cp-btn" id="cpBtnHd">💎 60–80 KB<br><span style="font-size:9.5px;opacity:0.75;font-weight:normal;">HD</span></button>
+          <button type="button" class="cp-btn" id="cpBtnLight">🚀 25–35 KB<br><span style="font-size:9.5px;opacity:0.75;font-weight:normal;">Light</span></button>
+          <button type="button" class="cp-btn" id="cpBtnOrig">📁 Original<br><span style="font-size:9.5px;opacity:0.75;font-weight:normal;">Raw</span></button>
+        </div>
+      </div>
+
       <label class="upload-box" for="imageFile">
         <div style="font-weight:700; font-size:14px; color:#fff;">Tap to select Preview Image or GIF</div>
-        <div style="font-size:12px; color:#A1A1B5; margin-top:4px;">Gemini AI will analyze the visual and auto-fill Title, Category, Prompt &amp; Tags</div>
+        <div style="font-size:12px; color:#A1A1B5; margin-top:4px;">HD images (1MB–5MB) are automatically compressed to ~40–50 KB for ultra-fast mobile loading</div>
         <input type="file" id="imageFile" accept="image/*,.gif" style="display:none;" />
         <img id="preview" class="preview" alt="Preview" />
       </label>
+
+      <!-- Compression Stats Box -->
+      <div id="statsCard" class="stats-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="color:#34D399; font-weight:700;">✅ Auto-Compressed &amp; Mobile-Optimized!</span>
+          <span id="statSavedBadge" style="background:rgba(16,185,129,0.25); color:#34D399; padding:2px 8px; border-radius:12px; font-weight:700; font-size:11px; border:1px solid rgba(16,185,129,0.4);">-98% ⚡</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px; text-align:center;">
+          <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:8px;">
+            <div style="font-size:9.5px; color:#9CA3AF;">ORIGINAL</div>
+            <div id="statOrigSize" style="font-weight:700; color:#fff; font-size:12px;">2.4 MB</div>
+            <div id="statOrigDims" style="font-size:9.5px; color:#6B7280;">1920x1080</div>
+          </div>
+          <div style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); padding:6px; border-radius:8px;">
+            <div style="font-size:9.5px; color:#34D399;">COMPRESSED</div>
+            <div id="statCompSize" style="font-weight:700; color:#34D399; font-size:12px;">47 KB</div>
+            <div id="statCompDims" style="font-size:9.5px; color:#34D399;">1080x608</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:8px;">
+            <div style="font-size:9.5px; color:#9CA3AF;">SAVED</div>
+            <div id="statSavedKb" style="font-weight:700; color:#38BDF8; font-size:12px;">2.35 MB</div>
+            <div style="font-size:9.5px; color:#6B7280;">Bandwidth</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3); padding:6px; border-radius:8px;">
+            <div style="font-size:9.5px; color:#9CA3AF;">SPEED</div>
+            <div style="font-weight:700; color:#C084FC; font-size:12px;">&lt; 0.05s</div>
+            <div style="font-size:9.5px; color:#6B7280;">4G Instant</div>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.08);">
+          <span style="font-size:11px; color:#A1A1B5;">Visual Quality Inspection:</span>
+          <div>
+            <button type="button" id="btnViewComp" style="background:rgba(16,185,129,0.25); border:1px solid rgba(16,185,129,0.4); color:#34D399; font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; cursor:pointer;">⚡ Compressed</button>
+            <button type="button" id="btnViewOrig" style="background:transparent; border:none; color:#9CA3AF; font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; cursor:pointer;">📷 Original</button>
+          </div>
+        </div>
+      </div>
       <button type="button" id="reanalyzeBtn" class="reanalyze-btn">↻ Re-Analyze Image with Gemini AI</button>
 
       <div id="status" class="status"></div>
@@ -730,19 +836,259 @@ Return STRICT JSON format:
 
     reanalyzeBtn.addEventListener('click', analyzeWithGemini);
 
+    let compressPreset = 'mobile-fast';
+    let originalDataUrl = null;
+    let originalFile = null;
+    let compressedDataUrl = null;
+    let compressionStats = null;
+    let activePreviewMode = 'compressed';
+
+    const compressTargetDesc = document.getElementById('compressTargetDesc');
+    const cpBtnFast = document.getElementById('cpBtnFast');
+    const cpBtnHd = document.getElementById('cpBtnHd');
+    const cpBtnLight = document.getElementById('cpBtnLight');
+    const cpBtnOrig = document.getElementById('cpBtnOrig');
+    const statsCard = document.getElementById('statsCard');
+    const statSavedBadge = document.getElementById('statSavedBadge');
+    const statOrigSize = document.getElementById('statOrigSize');
+    const statOrigDims = document.getElementById('statOrigDims');
+    const statCompSize = document.getElementById('statCompSize');
+    const statCompDims = document.getElementById('statCompDims');
+    const statSavedKb = document.getElementById('statSavedKb');
+    const btnViewComp = document.getElementById('btnViewComp');
+    const btnViewOrig = document.getElementById('btnViewOrig');
+
+    function updatePresetButtons(active) {
+      compressPreset = active;
+      [cpBtnFast, cpBtnHd, cpBtnLight, cpBtnOrig].forEach(b => {
+        b.className = 'cp-btn';
+      });
+      if (active === 'mobile-fast') {
+        cpBtnFast.className = 'cp-btn active-fast';
+        compressTargetDesc.textContent = '⚡ Target: 40–50 KB (High-Speed Mobile Delivery)';
+        compressTargetDesc.style.color = '#34D399';
+      } else if (active === 'crisp-hd') {
+        cpBtnHd.className = 'cp-btn active-hd';
+        compressTargetDesc.textContent = '💎 Target: 60–80 KB (Maximum HD Fidelity)';
+        compressTargetDesc.style.color = '#38BDF8';
+      } else if (active === 'ultra-light') {
+        cpBtnLight.className = 'cp-btn active-light';
+        compressTargetDesc.textContent = '🚀 Target: 25–35 KB (Ultra-Low Data Usage)';
+        compressTargetDesc.style.color = '#C084FC';
+      } else if (active === 'original') {
+        cpBtnOrig.className = 'cp-btn active-orig';
+        compressTargetDesc.textContent = '📁 Keep Original (Raw Uncompressed File)';
+        compressTargetDesc.style.color = '#F59E0B';
+      }
+    }
+
+    cpBtnFast.addEventListener('click', () => { updatePresetButtons('mobile-fast'); if (originalFile || originalDataUrl) processAndCompress(originalFile || originalDataUrl, false); });
+    cpBtnHd.addEventListener('click', () => { updatePresetButtons('crisp-hd'); if (originalFile || originalDataUrl) processAndCompress(originalFile || originalDataUrl, false); });
+    cpBtnLight.addEventListener('click', () => { updatePresetButtons('ultra-light'); if (originalFile || originalDataUrl) processAndCompress(originalFile || originalDataUrl, false); });
+    cpBtnOrig.addEventListener('click', () => { updatePresetButtons('original'); if (originalFile || originalDataUrl) processAndCompress(originalFile || originalDataUrl, false); });
+
+    btnViewComp.addEventListener('click', () => {
+      activePreviewMode = 'compressed';
+      if (compressedDataUrl) previewImg.src = compressedDataUrl;
+      btnViewComp.style.background = 'rgba(16,185,129,0.25)';
+      btnViewComp.style.border = '1px solid rgba(16,185,129,0.4)';
+      btnViewComp.style.color = '#34D399';
+      btnViewOrig.style.background = 'transparent';
+      btnViewOrig.style.border = 'none';
+      btnViewOrig.style.color = '#9CA3AF';
+    });
+
+    btnViewOrig.addEventListener('click', () => {
+      activePreviewMode = 'original';
+      if (originalDataUrl) previewImg.src = originalDataUrl;
+      btnViewOrig.style.background = 'rgba(245,158,11,0.25)';
+      btnViewOrig.style.border = '1px solid rgba(245,158,11,0.4)';
+      btnViewOrig.style.color = '#FCD34D';
+      btnViewComp.style.background = 'transparent';
+      btnViewComp.style.border = 'none';
+      btnViewComp.style.color = '#9CA3AF';
+    });
+
+    async function compressImageToTarget(sourceDataUrlOrFile, options = {}) {
+      const targetSizeKb = options.targetSizeKb || 48;
+      const maxDimension = options.maxDimension || 1080;
+      const initialQuality = options.initialQuality || 0.82;
+      const minQuality = 0.45;
+      const format = 'image/jpeg';
+
+      let dataUrl = '';
+      let originalSizeKb = 0;
+
+      if (typeof sourceDataUrlOrFile === 'string') {
+        dataUrl = sourceDataUrlOrFile;
+        const b64 = dataUrl.split(',')[1] || dataUrl;
+        originalSizeKb = Math.round((b64.length * 3) / 4 / 1024);
+      } else {
+        originalSizeKb = Math.round(sourceDataUrlOrFile.size / 1024);
+        dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(sourceDataUrlOrFile);
+        });
+      }
+
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.crossOrigin = 'anonymous';
+        el.onload = () => resolve(el);
+        el.onerror = reject;
+        el.src = dataUrl;
+      });
+
+      const origW = img.naturalWidth || img.width;
+      const origH = img.naturalHeight || img.height;
+      let targetW = origW;
+      let targetH = origH;
+
+      if (targetW > maxDimension || targetH > maxDimension) {
+        if (targetW > targetH) {
+          targetH = Math.round((targetH * maxDimension) / targetW);
+          targetW = maxDimension;
+        } else {
+          targetW = Math.round((targetW * maxDimension) / targetH);
+          targetH = maxDimension;
+        }
+      }
+
+      function render(w, h, q) {
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, w, h);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, w, h);
+        const outUrl = canvas.toDataURL(format, q);
+        const b64 = outUrl.split(',')[1] || '';
+        const sizeKb = Math.round((b64.length * 3) / 4 / 1024);
+        return { dataUrl: outUrl, base64: b64, sizeKb: sizeKb };
+      }
+
+      let attempt = render(targetW, targetH, initialQuality);
+      let q = initialQuality;
+      const maxThreshold = targetSizeKb + 8;
+      let iters = 0;
+
+      while (attempt.sizeKb > maxThreshold && q > minQuality && iters < 6) {
+        iters++;
+        q = Math.max(minQuality, q - 0.08);
+        attempt = render(targetW, targetH, q);
+        if (attempt.sizeKb <= maxThreshold) break;
+      }
+
+      if (attempt.sizeKb > maxThreshold && (targetW > 720 || targetH > 720)) {
+        targetW = Math.round(targetW * 0.85);
+        targetH = Math.round(targetH * 0.85);
+        attempt = render(targetW, targetH, Math.max(0.70, q));
+      }
+
+      const saved = originalSizeKb > 0 ? Math.max(0, Math.min(99, Math.round((1 - attempt.sizeKb / originalSizeKb) * 100))) : 0;
+
+      return {
+        dataUrl: attempt.dataUrl,
+        base64: attempt.base64,
+        sizeKb: attempt.sizeKb,
+        originalSizeKb: originalSizeKb || attempt.sizeKb,
+        width: targetW,
+        height: targetH,
+        originalWidth: origW,
+        originalHeight: origH,
+        savedPercentage: saved
+      };
+    }
+
+    async function processAndCompress(source, triggerGemini = true) {
+      if (currentExt === 'gif' && compressPreset === 'original') {
+        statsCard.style.display = 'none';
+        previewImg.src = originalDataUrl;
+        previewImg.style.display = 'inline-block';
+        reanalyzeBtn.style.display = 'inline-block';
+        currentBase64 = (originalDataUrl || '').split(',')[1] || '';
+        if (triggerGemini) analyzeWithGemini();
+        return;
+      }
+
+      if (compressPreset === 'original') {
+        statsCard.style.display = 'none';
+        previewImg.src = originalDataUrl;
+        previewImg.style.display = 'inline-block';
+        reanalyzeBtn.style.display = 'inline-block';
+        currentBase64 = (originalDataUrl || '').split(',')[1] || '';
+        if (triggerGemini) analyzeWithGemini();
+        return;
+      }
+
+      setStatus('⚡ Compressing image to ' + (compressPreset === 'mobile-fast' ? '40–50 KB' : 'target') + '…', 'loading');
+      try {
+        let targetSizeKb = 48;
+        let maxDimension = 1080;
+        let initialQuality = 0.82;
+
+        if (compressPreset === 'mobile-fast') {
+          targetSizeKb = 48;
+          maxDimension = 1080;
+          initialQuality = 0.82;
+        } else if (compressPreset === 'crisp-hd') {
+          targetSizeKb = 72;
+          maxDimension = 1280;
+          initialQuality = 0.88;
+        } else if (compressPreset === 'ultra-light') {
+          targetSizeKb = 32;
+          maxDimension = 900;
+          initialQuality = 0.70;
+        }
+
+        const res = await compressImageToTarget(source, { targetSizeKb, maxDimension, initialQuality });
+        compressionStats = res;
+        compressedDataUrl = res.dataUrl;
+        currentBase64 = res.base64;
+        currentMimeType = 'image/jpeg';
+        currentExt = 'jpg';
+
+        previewImg.src = res.dataUrl;
+        previewImg.style.display = 'inline-block';
+        reanalyzeBtn.style.display = 'inline-block';
+
+        // Update Stats Card
+        statsCard.style.display = 'block';
+        statSavedBadge.textContent = '-' + res.savedPercentage + '% ⚡';
+        statOrigSize.textContent = res.originalSizeKb > 1024 ? (res.originalSizeKb / 1024).toFixed(1) + ' MB' : res.originalSizeKb + ' KB';
+        statOrigDims.textContent = res.originalWidth + 'x' + res.originalHeight;
+        statCompSize.textContent = res.sizeKb + ' KB';
+        statCompDims.textContent = res.width + 'x' + res.height + ' (HD)';
+        const savedKb = Math.max(0, res.originalSizeKb - res.sizeKb);
+        statSavedKb.textContent = savedKb > 1024 ? (savedKb / 1024).toFixed(1) + ' MB' : savedKb + ' KB';
+
+        if (triggerGemini) {
+          analyzeWithGemini();
+        } else {
+          setStatus('✨ Compressed to ' + res.sizeKb + ' KB (' + res.savedPercentage + '% bandwidth saved)', 'ok');
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus('Compression error: ' + (err.message || err), 'err');
+      }
+    }
+
     imageFileInput.addEventListener('change', () => {
       const f = imageFileInput.files[0];
       if (!f) return;
+      originalFile = f;
       currentExt = (f.name.split('.').pop() || 'jpg').toLowerCase();
       currentMimeType = f.type || 'image/jpeg';
+
       const reader = new FileReader();
       reader.onload = (ev) => {
-        const dataUrl = ev.target.result;
-        previewImg.src = dataUrl;
-        previewImg.style.display = 'inline-block';
-        reanalyzeBtn.style.display = 'inline-block';
-        currentBase64 = dataUrl.split(',')[1] || '';
-        analyzeWithGemini();
+        originalDataUrl = ev.target.result;
+        processAndCompress(f, true);
       };
       reader.readAsDataURL(f);
     });
