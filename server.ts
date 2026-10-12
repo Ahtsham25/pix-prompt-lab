@@ -174,7 +174,7 @@ Also provide a catchy 3-6 word Title, choose the best matching Category from [${
 
       const ai = getGeminiClient(apiKey);
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
         contents: {
           parts: [
             {

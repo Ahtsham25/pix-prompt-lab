@@ -114,7 +114,7 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
     setTestKeyStatus(null);
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(
           key
         )}`,
         {
@@ -193,7 +193,7 @@ Return STRICT JSON format:
             generationConfig: { responseMimeType: 'application/json' },
           };
 
-          const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+          const models = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-flash-latest', 'gemini-3.1-flash-lite'];
           let lastErr: any = null;
 
           for (const model of models) {
