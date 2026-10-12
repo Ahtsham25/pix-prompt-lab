@@ -10,6 +10,7 @@ import {
   PlusCircle,
 } from 'lucide-react';
 import { Constants } from '../constants';
+import { PixvidLogo } from './PixvidLogo';
 
 interface MoreSettingsModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
   };
 
   const handleShareApp = async () => {
-    const shareText = `Check out PixPrompt Lab — a library of ready-to-use AI image prompts!\n${Constants.PLAY_STORE_URL}`;
+    const shareText = `Check out ${Constants.APP_NAME} — a studio library of ready-to-use AI image & video prompts!\n${Constants.PLAY_STORE_URL}`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -65,22 +66,28 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-end justify-center"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end justify-center"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-[480px] bg-[#15151F] rounded-t-[24px] pb-6 border-t border-white/10 shadow-2xl animate-in slide-in-from-bottom duration-200"
+        className="w-full max-w-[500px] bg-[#131322]/95 backdrop-blur-2xl rounded-t-[28px] pb-7 border-t border-white/15 shadow-2xl animate-pix-card"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Drag handle affordance */}
+        <div className="w-10 h-1.5 bg-white/15 rounded-full mx-auto mt-3" />
+
         {/* Header */}
-        <div className="flex items-center justify-between p-5">
-          <h2 className="text-[19px] font-bold text-white">More &amp; Settings</h2>
+        <div className="flex items-center justify-between px-5 pt-3.5 pb-4">
+          <div className="flex items-center gap-2.5">
+            <PixvidLogo size="sm" />
+            <h2 className="text-[18px] font-bold text-white font-display">More &amp; Settings</h2>
+          </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 transition-colors cursor-pointer"
             aria-label="Close menu"
           >
-            <X className="w-5 h-5 text-[#9CA3AF]" />
+            <X className="w-4 h-4 text-[#9CA3AF]" />
           </button>
         </div>
 
@@ -88,9 +95,9 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
         <div className="flex flex-col gap-2 px-4">
           <button
             onClick={handleOpenWhatsApp}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
               <MessageCircle className="w-5 h-5 text-emerald-400" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">
@@ -101,9 +108,9 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
 
           <button
             onClick={handleRateUs}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
               <Star className="w-5 h-5 text-amber-400" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">Rate Us</span>
@@ -112,9 +119,9 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
 
           <button
             onClick={handleShareApp}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
               <Share2 className="w-5 h-5 text-[#A855F7]" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">Share Our App</span>
@@ -126,9 +133,9 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
               onClose();
               onOpenPrivacyPolicy();
             }}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
               <Shield className="w-5 h-5 text-[#EC4899]" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">Privacy Policy</span>
@@ -140,10 +147,10 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
               onClose();
               onOpenAdConsent();
             }}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
-              <Sliders className="w-5 h-5 text-indigo-400" />
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
+              <Sliders className="w-5 h-5 text-sky-400" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">Manage Ad Consent</span>
             <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
@@ -154,9 +161,9 @@ export const MoreSettingsModal: React.FC<MoreSettingsModalProps> = ({
               onClose();
               onOpenAdminPanel();
             }}
-            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1C1C28] hover:bg-[#242434] rounded-[14px] transition-colors text-left cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-3 bg-[#1B1B2E]/90 hover:bg-[#24243B] border border-white/5 rounded-[15px] transition-colors text-left cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-[10px] bg-[#15151F] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-[11px] bg-[#121220] flex items-center justify-center shrink-0">
               <PlusCircle className="w-5 h-5 text-[#F97316]" />
             </div>
             <span className="flex-1 text-[14px] font-medium text-white">

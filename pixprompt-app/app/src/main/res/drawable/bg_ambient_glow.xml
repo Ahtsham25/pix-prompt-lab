@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Deep obsidian midnight base -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#07070E" />
+        </shape>
+    </item>
+
+    <!-- Soft top-left magenta/violet ambient glow -->
+    <item
+        android:top="-140dp"
+        android:left="-120dp"
+        android:right="80dp"
+        android:bottom="320dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="340dp"
+                android:centerX="0.35"
+                android:centerY="0.3"
+                android:startColor="#42D946EF"
+                android:centerColor="#1C7C3AED"
+                android:endColor="#0007070E" />
+        </shape>
+    </item>
+
+    <!-- Soft center-right cyan/indigo ambient glow -->
+    <item
+        android:top="160dp"
+        android:left="100dp"
+        android:right="-140dp"
+        android:bottom="120dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="320dp"
+                android:centerX="0.65"
+                android:centerY="0.5"
+                android:startColor="#3306B6D4"
+                android:centerColor="#186366F1"
+                android:endColor="#0007070E" />
+        </shape>
+    </item>
+
+    <!-- Soft bottom warm rose/purple glow -->
+    <item
+        android:top="420dp"
+        android:left="-80dp"
+        android:right="-80dp"
+        android:bottom="-160dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="360dp"
+                android:centerX="0.5"
+                android:centerY="0.75"
+                android:startColor="#30EC4899"
+                android:centerColor="#14A855F7"
+                android:endColor="#0007070E" />
+        </shape>
+    </item>
+</layer-list>

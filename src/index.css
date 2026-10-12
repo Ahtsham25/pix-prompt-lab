@@ -2,9 +2,9 @@
 
 @layer base {
   :root {
-    --bg: #0A0A12;
-    --surface: #15151F;
-    --surface-light: #1C1C28;
+    --bg: #07070E;
+    --surface: #131320;
+    --surface-light: #1B1B2C;
     --accent: #A855F7;
     --accent2: #EC4899;
     --grad-start: #6366F1;
@@ -15,32 +15,71 @@
   }
 
   body {
-    background-color: #0A0A12;
+    background-color: #07070E;
     color: #FFFFFF;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     margin: 0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: "Outfit", "Plus Jakarta Sans", sans-serif;
   }
 }
 
+/* Signature Faded Glowing Ambient Background (matches @drawable/bg_ambient_glow) */
+.pix-ambient-bg {
+  background-color: #07070E;
+  background-image:
+    radial-gradient(540px circle at 12% 8%, rgba(217, 70, 239, 0.24), rgba(124, 58, 237, 0.09) 45%, transparent 75%),
+    radial-gradient(500px circle at 88% 44%, rgba(6, 182, 212, 0.19), rgba(99, 102, 241, 0.08) 48%, transparent 76%),
+    radial-gradient(580px circle at 50% 94%, rgba(236, 72, 153, 0.20), rgba(168, 85, 247, 0.07) 50%, transparent 78%);
+}
+
+/* Subtle architectural micro-grid for Splash & Studio Header */
+.pix-studio-grid {
+  background-size: 28px 28px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
 .pix-gradient-border {
-  background: linear-gradient(45deg, #6366F1, #D946EF, #F97316);
-  padding: 2px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.85), rgba(217, 70, 239, 0.85), rgba(249, 115, 22, 0.85));
+  padding: 1.5px;
+}
+
+.pix-flow-border {
+  background: linear-gradient(135deg, #06B6D4, #A855F7, #EC4899);
+  padding: 1.5px;
 }
 
 .pix-button-gradient {
-  background: linear-gradient(90deg, #D946EF, #EC4899);
+  background: linear-gradient(95deg, #C026D3 0%, #EC4899 55%, #F43F5E 100%);
 }
 
 .pix-flow-gradient {
-  background: linear-gradient(90deg, #06B6D4, #A855F7, #EC4899);
+  background: linear-gradient(95deg, #06B6D4 0%, #8B5CF6 50%, #EC4899 100%);
 }
 
 .pix-badge-gradient {
-  background: linear-gradient(135deg, #06B6D4, #A855F7, #EC4899);
+  background: linear-gradient(135deg, #38BDF8 0%, #A855F7 52%, #F43F5E 100%);
 }
 
 .pix-avatar-gradient {
-  background: linear-gradient(135deg, #6366F1, #EC4899);
+  background: linear-gradient(135deg, #38BDF8 0%, #8B5CF6 50%, #EC4899 100%);
+}
+
+.pix-text-gradient {
+  background: linear-gradient(95deg, #38BDF8 0%, #DF7FFE 48%, #F472B6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pix-glass-panel {
+  background: rgba(19, 19, 32, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -54,7 +93,7 @@
 @keyframes pixFadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(14px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -65,22 +104,50 @@
 @keyframes pixSplashPop {
   0% {
     opacity: 0;
-    transform: scale(0.68);
+    transform: scale(0.68) translateY(8px);
   }
   70% {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.04) translateY(0);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pixHaloPulse {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pixShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
   }
 }
 
 .animate-pix-card {
-  animation: pixFadeUp 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: pixFadeUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-pix-splash {
-  animation: pixSplashPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: pixSplashPop 0.58s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-pix-halo {
+  animation: pixHaloPulse 3.2s ease-in-out infinite;
+}
+
+.animate-pix-shimmer {
+  animation: pixShimmer 1.35s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

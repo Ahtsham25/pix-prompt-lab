@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:type="linear"
-        android:angle="45"
-        android:startColor="#06B6D4"
-        android:centerColor="#A855F7"
-        android:endColor="#EC4899" />
-    <corners android:radius="14dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer luminous aurora border -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="#38BDF8"
+                android:centerColor="#C084FC"
+                android:endColor="#F43F5E" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <!-- Inner deep jewel studio core -->
+    <item
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="315"
+                android:startColor="#1E1B4B"
+                android:centerColor="#3B0764"
+                android:endColor="#831843" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</layer-list>

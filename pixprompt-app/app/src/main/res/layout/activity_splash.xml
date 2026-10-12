@@ -3,39 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_dark">
+    android:background="@drawable/bg_ambient_glow">
+
+    <!-- Soft radial halo glow behind the logo -->
+    <View
+        android:id="@+id/splashHalo"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/splash_halo_glow"
+        app:layout_constraintBottom_toBottomOf="@id/splashLogo"
+        app:layout_constraintEnd_toEndOf="@id/splashLogo"
+        app:layout_constraintStart_toStartOf="@id/splashLogo"
+        app:layout_constraintTop_toTopOf="@id/splashLogo" />
 
     <ImageView
         android:id="@+id/splashLogo"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:src="@drawable/logo_badge"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <TextView
         android:id="@+id/splashTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:text="@string/app_name"
         android:textColor="@color/text_primary"
-        android:textSize="26sp"
+        android:textSize="28sp"
         android:textStyle="bold"
+        android:letterSpacing="0.02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splashLogo" />
 
     <TextView
+        android:id="@+id/splashTagline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="@string/splash_tagline"
         android:textColor="@color/text_secondary"
-        android:textSize="14sp"
+        android:textSize="13.5sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/splashTitle" />
@@ -43,8 +57,8 @@
     <ProgressBar
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="48dp"
-        android:indeterminateTint="@color/accent"
+        android:layout_marginBottom="52dp"
+        android:indeterminateTint="@color/accent_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

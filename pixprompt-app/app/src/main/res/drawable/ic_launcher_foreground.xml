@@ -3,16 +3,29 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Glowing inner badge -->
+    <!-- Outer hexagonal studio lens ring -->
     <path
-        android:fillColor="#7C3AED"
-        android:pathData="M34,26h40c4.4,0 8,3.6 8,8v40c0,4.4 -3.6,8 -8,8H34c-4.4,0 -8,-3.6 -8,-8V34c0,-4.4 3.6,-8 8,-8z" />
-    <!-- Play triangle representing Video -->
+        android:fillColor="#2638BDF8"
+        android:strokeColor="#99C084FC"
+        android:strokeWidth="2.5"
+        android:pathData="M54,22 L82,38 L82,70 L54,86 L26,70 L26,38 Z" />
+    <!-- Inner glowing prism shadow -->
+    <path
+        android:fillColor="#55EC4899"
+        android:pathData="M41,37 L74,54 L41,71 Z" />
+    <!-- Main crystalline play prism -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M45,39v30c0,1.8 2,2.9 3.5,1.9l23,-15c1.4,-0.9 1.4,-2.9 0,-3.8l-23,-15C47,36.1 45,37.2 45,39z" />
-    <!-- AI Sparkle star in top-right corner -->
+        android:pathData="M44,38.5 C44,36.5 46.2,35.3 47.9,36.3 L72.5,51.0 C74.2,52.0 74.2,54.5 72.5,55.5 L47.9,70.2 C46.2,71.2 44,70.0 44,68.0 Z" />
+    <!-- Upper prism facet -->
     <path
-        android:fillColor="#F472B6"
-        android:pathData="M75,20 C76,27 78,29 85,30 C78,31 76,33 75,40 C74,33 72,31 65,30 C72,29 74,27 75,20 Z" />
+        android:fillColor="#E0E7FF"
+        android:pathData="M44,38.5 L72.5,53.25 L44,54.5 Z" />
+    <!-- Top-right AI sparkle star -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M77,21 C78.1,27.5 80.5,29.9 87,31 C80.5,32.1 78.1,34.5 77,41 C75.9,34.5 73.5,32.1 67,31 C73.5,29.9 75.9,27.5 77,21 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M77,25.5 C77.6,28.8 78.8,30.0 82.1,30.6 C78.8,31.2 77.6,32.4 77,35.7 C76.4,32.4 75.2,31.2 71.9,30.6 C75.2,30.0 76.4,28.8 77,25.5 Z" />
 </vector>

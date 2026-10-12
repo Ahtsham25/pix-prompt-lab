@@ -10,19 +10,21 @@ interface PrivacyPolicyViewProps {
 export const PrivacyPolicyView: React.FC<PrivacyPolicyViewProps> = ({ onBack }) => {
   return (
     <div className="flex flex-col flex-1 min-h-0 animate-pix-card">
-      {/* Header */}
-      <div className="mx-4 mt-3.5 pix-gradient-border rounded-[16px]">
-        <div className="h-[52px] bg-[#15151F] rounded-[14px] flex items-center justify-between px-3">
-          <div className="flex items-center gap-2.5">
+      {/* Frosted Studio Header */}
+      <div className="mx-4 mt-3.5 pix-gradient-border rounded-[18px] shadow-lg shadow-black/25">
+        <div className="h-[56px] pix-glass-panel rounded-[16.5px] flex items-center justify-between px-3.5">
+          <div className="flex items-center gap-3">
             <PixvidLogo size="md" />
             <div>
-              <h1 className="text-[16px] font-bold text-white leading-tight">Privacy Policy</h1>
-              <p className="text-[11px] text-[#9CA3AF]">Pixvid Lab — October 2026</p>
+              <h1 className="text-[16px] font-bold text-white leading-tight font-display">
+                Privacy Policy
+              </h1>
+              <p className="text-[11px] text-[#A1A1B5]">Pixvid Lab — October 2026</p>
             </div>
           </div>
           <button
             onClick={onBack}
-            className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 transition-colors cursor-pointer"
             aria-label="Back"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
@@ -39,8 +41,10 @@ export const PrivacyPolicyView: React.FC<PrivacyPolicyViewProps> = ({ onBack }) 
         </p>
 
         <div>
-          <h2 className="text-[17px] font-bold text-[#EC4899] mb-2">Information We Collect</h2>
-          <div className="bg-[#15151F] rounded-[14px] p-4 space-y-2.5">
+          <h2 className="text-[17px] font-bold text-[#EC4899] mb-2 font-display">
+            Information We Collect
+          </h2>
+          <div className="pix-glass-panel border border-white/10 rounded-[16px] p-4 space-y-2.5">
             <p className="font-semibold text-white">Information stored only on your device:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>

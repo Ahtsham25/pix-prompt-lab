@@ -225,23 +225,23 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
 
   return (
     <div className="flex flex-col flex-1 min-h-0 animate-pix-card">
-      {/* Header */}
-      <div className="mx-4 mt-3.5 pix-gradient-border rounded-[16px]">
-        <div className="h-[52px] bg-[#15151F] rounded-[14px] flex items-center justify-between px-3">
-          <div className="flex items-center gap-2.5">
+      {/* Frosted Studio Header */}
+      <div className="mx-4 mt-3.5 pix-gradient-border rounded-[18px] shadow-lg shadow-black/25">
+        <div className="h-[56px] pix-glass-panel rounded-[16.5px] flex items-center justify-between px-3.5">
+          <div className="flex items-center gap-3">
             <PixvidLogo size="md" />
             <div>
-              <h1 className="text-[16px] font-bold text-white leading-tight">
+              <h1 className="text-[16px] font-bold text-white leading-tight font-display">
                 Pixvid Lab — Admin
               </h1>
-              <p className="text-[11px] text-[#9CA3AF]">
+              <p className="text-[11px] text-[#A1A1B5]">
                 Add new Image or Video prompts to your library
               </p>
             </div>
           </div>
           <button
             onClick={onBack}
-            className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 transition-colors cursor-pointer"
             aria-label="Back"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
@@ -251,8 +251,8 @@ export const AdminPanelView: React.FC<AdminPanelViewProps> = ({
 
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
         {/* New Prompt Form */}
-        <div className="bg-[#15151F] rounded-[16px] p-[18px]">
-          <h2 className="text-[14px] font-bold text-[#EC4899] mb-3">New Prompt</h2>
+        <div className="pix-glass-panel border border-white/10 rounded-[18px] p-[18px] shadow-xl shadow-black/25">
+          <h2 className="text-[14px] font-bold text-[#EC4899] mb-3 font-display">New Prompt</h2>
 
           <label className="block text-[12px] font-bold text-[#9CA3AF] mb-1.5">Prompt Type</label>
           <div className="grid grid-cols-2 gap-2.5 mb-3.5">
