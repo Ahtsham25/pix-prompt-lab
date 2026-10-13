@@ -9,6 +9,24 @@
   ],
   "prompts": [
     {
+      "id": "prompt_neon-red-gaze_1791880155631",
+      "type": "image",
+      "category": "Portrait",
+      "title": "Neon Red Gaze",
+      "prompt_text": "A hyper-realistic, cinematic portrait of a young man with a sharp, modern pompadour hairstyle and a neatly groomed dark beard. He is captured in a medium close-up shot, looking directly into the camera with a steady, confident gaze. He wears a dark, minimalist black collared shirt. The lighting is dramatic and moody, featuring strong red rim lighting that contours the side of his face and hair against an obsidian-black background. Stylized, vibrant red anamorphic lens flares streak across the foreground, creating a high-contrast, edgy aesthetic. The image is rendered with professional photography quality, featuring crisp details on his skin texture, stubble, and eyes, with a shallow depth of field that keeps the focus entirely on his face while softly blurring the light elements.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791880155631.jpg",
+      "tags": [
+        "portrait",
+        "cinematic",
+        "dramatic lighting",
+        "red rim light",
+        "modern aesthetic",
+        "high contrast"
+      ],
+      "created_at": "2026-10-13T08:29:15.631Z",
+      "timestamp": 1791880155631
+    },
+    {
       "id": "prompt_aesthetic-music_43107",
       "type": "image",
       "category": "Product",
