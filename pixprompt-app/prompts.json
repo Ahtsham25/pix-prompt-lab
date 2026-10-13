@@ -322,5 +322,24 @@
       "created_at": "2023-11-14T23:13:20.000Z"
     }
   ],
-  "video_prompts": []
+  "video_prompts": [
+    {
+      "id": "vid_heartbreak-in-the-rain_1791880637541",
+      "type": "video",
+      "category": "Cinematic",
+      "title": "Heartbreak in the Rain",
+      "prompt_text": "Title: A Silent Reunion by the River — Cinematic Original Video Prompt\n\nVIDEO STYLE & ENVIRONMENT\n\nCreate an original, ultra-realistic cinematic 4K video in a 16:9 widescreen format. The setting is a peaceful sandy riverbank with gently flowing shallow water, lush green trees, soft natural daylight, and a subtle emotional atmosphere. Use realistic human movement, natural body proportions, detailed fabric physics, cinematic depth of field, and smooth professional camera motion.\n\nCHARACTER DESIGN & CONTINUITY\n\nMaintain consistent facial features and character appearance throughout all scenes using the user's authorized reference images, if provided.\n\n- Male character: An open white casual shirt layered over a plain white T-shirt, blue denim jeans, natural hairstyle, and a deeply emotional expression.\n- Female character: An elegant deep-maroon saree with a delicate golden border, long flowing open hair, and graceful natural movements.\n\nKeep both characters visually consistent across every shot. Use original character styling and avoid intentionally reproducing any recognizable movie scene, celebrity likeness, or copyrighted film composition.\n\nSCENE 1 — DISTANT EMOTIONAL ENCOUNTER\n\nBegin with a very wide establishing shot of a completely empty sandy riverbank. Calm water flows gently beside the shore, with green trees stretching into the distant background.\n\nThe man enters alone, walking slowly away from the camera with his back facing the viewer. He gradually stops, lowers himself onto both knees in the sand, pauses briefly, and slowly opens both arms wide in a gesture of longing and emotional surrender.\n\nOnce his arms are fully extended, hold the composition for approximately 1–2 seconds. Then, from the far distance, the woman appears and begins walking slowly toward him through the shallow water. Her maroon saree moves gently with the breeze as soft ripples form around her feet.\n\nKeep the scene spacious, quiet, realistic, and emotionally powerful. Use a steady cinematic camera with a natural sense of distance.\n\nSCENE 2 — THE PAINFUL SEPARATION\n\nTransition to a low-angle long shot positioned slightly behind the kneeling man. He remains facing away from the camera, his shoulders lowered and arms gradually relaxing as he watches the woman.\n\nThe woman slowly turns away from him and walks along the sandy riverbank toward the distant green trees. Her saree border catches the soft daylight, and her long hair moves naturally in the breeze.\n\nThe man stays on his knees, motionless and visibly heartbroken. Emphasize the physical distance growing between them through wide framing, realistic footsteps, and subtle environmental movement.\n\nUse restrained cinematic drama rather than exaggerated expressions or artificial motion.\n\nSCENE 3 — SOLITUDE AND MOVEMENT\n\nCut to a frontal medium shot of the man walking slowly toward the camera. His face shows quiet sadness, emotional exhaustion, and reflection. His gaze remains natural, and his white shirt moves softly with each step.\n\nIn the background, the woman holds the two sides of her saree pallu outward with her arms extended. She begins a continuous, graceful spin in place, allowing the maroon fabric and golden border to flow in a circular motion.\n\nKeep the man in clear foreground focus while the woman remains recognizable in the background. Use realistic motion blur, natural cloth dynamics, balanced cinematic composition, and smooth camera movement.\n\nCINEMATOGRAPHY & TECHNICAL QUALITY\n\nPhotorealistic human appearance, authentic skin texture, realistic hands and fingers, natural walking and kneeling movements, accurate water reflections, physically believable fabric motion, soft cinematic lighting, detailed sand textures, balanced color grading, and seamless transitions.\n\nMaintain the same characters, outfits, environment, and visual continuity across all three scenes. The final result should feel like an original emotional short film rather than a recreation of an existing production.\n\nNEGATIVE PROMPT\n\nNo cartoon style, no animation, no distorted faces, no identity changes, no extra fingers, no malformed hands, no duplicated people, no sudden outfit changes, no unnatural body movements, no floating feet, no flickering, no warped saree fabric, no artificial water effects, no random scene changes, no text, no logos, no watermarks, no movie titles, and no unintended camera cuts.",
+      "image_url": "https://cdn.jsdelivr.net/gh/Ahtsham25/pix-prompt-lab@main/pixprompt-app/images/prompt_1791880637541.jpg",
+      "tags": [
+        "sadness",
+        "heartbreak",
+        "cinematic",
+        "emotional",
+        "moody",
+        "rain"
+      ],
+      "created_at": "2026-10-13T08:37:17.541Z",
+      "timestamp": 1791880637541
+    }
+  ]
 }
